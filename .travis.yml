@@ -1,0 +1,44 @@
+dist: trusty
+sudo: false
+language: php
+
+install:
+- phpenv config-rm xdebug.ini || return 0
+# todo-sg: need to install magento2 to run tests as it uses the bootstrap file in dev folder
+#- echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > auth.json
+#- if [[ "$MAGENTO_USERNAME" ]]; then composer install ; fi
+php:
+  - 5.6
+  - 7.0
+  - 7.1
+
+script:
+  - curl -L http://files.shopgate.com/travis-ci/php-cs-fixer.phar -o php-cs-fixer
+  - chmod a+x php-cs-fixer
+  - git checkout $TRAVIS_BRANCH
+  - ./php-cs-fixer fix --config=.php-cs.dist --cache-file=.php-cs.cache --diff --dry-run --verbose
+  - rm php-cs-fixer
+jobs:
+  include:
+  - stage: deploy
+    php: 7.0
+    before_script: skip
+    script:
+    - if [[ "$TRAVIS_TAG" ]]; then
+        chmod +x ./release/build_release_package.sh;
+        ./release/build_release_package.sh;
+      fi
+    deploy:
+      provider: releases
+      api_key: ${GITHUB_TOKEN}
+      file: shopgate_base-${TRAVIS_TAG}.zip
+      skip_cleanup: true
+      on:
+        tags: true
+
+notifications:
+  slack:
+    rooms:
+      secure: aTL2nw4Ec6bBYOicR7xXNwl4X4ty0AKMjcnTG++JYF0PXEw/fEOAfI6y7eVh3f21epSpmSpivpop6jn4iaJfF2SwJC6LCqOlSdYCt+CsR8oM41k7za2BzTPTBgNItH5maEPwPpLkwvvAkJKClyOL9fjWw0txuoV0ousAY9sleZvGvb42yoYVtcO0a7I4ypvC3x+znuEPUU4G7Wd+57DR8s5ikRtY/Mu0+Lw/h+lbWKZGVyEAulUCLbjf6Thqkj35GzVF6LsFeXyWr7BOyr5xcZWXGTSAN2LJWZLjys6Sm4zCBZ3CoeUwNQm6OVrY91mfRVOmjKC39bNjyj5wSWpYPZWNp2mqD3OtwhJBLszWAxaWep4LCisLpCPsd8Uk5aygLthPWa4o0iFQymwRBbr9VWrkW0qVV75gGIuSBpwam1w3Y+DpcU+p840Z6GgmLd/Ua2I0oTvmatqmpJecOFZEN2PWjtxfNl88PHWA1l+4HRkAPMXxIPHl1OKyXTceIyUYevFjvuccPPkAOH5IZ7sqTsCG9X+V55CBfvaHcus4aNOA36eol/i2dTdlnqEVVfA+xYZeEZASvUjqiopZVOEO7bzdE/9d3MDjVD+jRBKOsYRhOXBsRQKTuvq5hhvoum57mexi6ub0FlZ2ZkitXa/a0jl0jcoT8olae16kUB0edH4=
+    on_success: change
+    on_failure: always

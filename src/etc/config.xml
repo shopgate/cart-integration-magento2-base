@@ -1,0 +1,38 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <shopgate_base>
+            <general>
+                <active>0</active>
+            </general>
+        </shopgate_base>
+        <carriers>
+            <shopgate>
+                <active>1</active>
+                <sallowspecific>0</sallowspecific>
+                <model>Shopgate\Base\Model\Carrier\Fix</model>
+                <name>Fixed</name>
+                <price>0</price>
+                <specificerrmsg>Default shipping method used by orders placed with shopgate.</specificerrmsg>
+            </shopgate>
+        </carriers>
+        <payment>
+            <shopgate>
+                <title>Shopgate</title>
+                <active>0</active>
+                <model>Shopgate\Base\Model\Payment\Shopgate</model>
+                <order_status>pending</order_status>
+                <!--<payment_action>authorize</payment_action>-->
+                <allowspecific>0</allowspecific>
+                <display_on_shopping_cart>0</display_on_shopping_cart>
+                <is_gateway>0</is_gateway>
+                <can_use_checkout>0</can_use_checkout>
+                <can_cancel>1</can_cancel>
+            </shopgate>
+        </payment>
+        <shopgate_advanced>
+            <staging>
+                <server>live</server>
+            </staging>
+        </shopgate_advanced>
+    </default>
+</config>

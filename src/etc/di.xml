@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="Shopgate\Base\Api\SettingsInterface" type="Shopgate\Base\Model\Service\Settings" />
+    <preference for="Shopgate\Base\Api\ExportInterface" type="Shopgate\Base\Model\Service\Export" />
+    <preference for="Shopgate\Base\Api\ImportInterface" type="Shopgate\Base\Model\Service\Import"/>
+    <preference for="Shopgate\Base\Api\Config\SgCoreInterface" type="Shopgate\Base\Model\Service\Config\SgCore" />
+    <preference for="Shopgate\Base\Api\Config\CoreInterface" type="Shopgate\Base\Model\Service\Config\Core" />
+    <preference for="Shopgate\Base\Api\OrderRepositoryInterface" type="Shopgate\Base\Model\Shopgate\OrderRepository"/>
+    <preference for="Shopgate\Base\Model\Utility\SgLoggerInterface" type="Shopgate\Base\Model\Utility\SgLogger" />
+    <type name="Shopgate\Base\Helper\Initializer\Forwarder">
+        <arguments>
+            <argument name="mainConfig" xsi:type="object" shared="true">Shopgate\Base\Model\Config</argument>
+        </arguments>
+    </type>
+    <type name="Shopgate\Base\Model\Redirect\Route\Utility">
+        <arguments>
+            <argument name="map" xsi:type="array">
+                <item name="index" xsi:type="object" shared="false">Shopgate\Base\Model\Redirect\Route\Type\Home</item>
+                <item name="category" xsi:type="object" shared="false">Shopgate\Base\Model\Redirect\Route\Type\Category</item>
+                <item name="product" xsi:type="object" shared="false">Shopgate\Base\Model\Redirect\Route\Type\Product</item>
+                <item name="page" xsi:type="object" shared="false">Shopgate\Base\Model\Redirect\Route\Type\Page</item>
+                <item name="result" xsi:type="object" shared="false">Shopgate\Base\Model\Redirect\Route\Type\Search</item>
+                <item name="default" xsi:type="object" shared="false">Shopgate\Base\Model\Redirect\Route\Type\Generic</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Shopgate\Base\Helper\Settings\Retriever">
+        <arguments>
+            <argument name="exportParams" xsi:type="array">
+                <item name="1" xsi:type="const">Shopgate\Base\Api\SettingsInterface::CUSTOMER_GROUPS</item>
+                <item name="2" xsi:type="const">Shopgate\Base\Api\SettingsInterface::ALLOWED_ADDRESS_COUNTRIES</item>
+                <item name="3" xsi:type="const">Shopgate\Base\Api\SettingsInterface::ALLOWED_SHIPPING_COUNTRIES</item>
+                <item name="4" xsi:type="const">Shopgate\Base\Api\SettingsInterface::PAYMENT_METHODS</item>
+                <item name="tax" xsi:type="array">
+                    <item name="1" xsi:type="const">Shopgate\Base\Api\SettingsInterface::PRODUCT_TAX_CLASSES</item>
+                    <item name="2" xsi:type="const">Shopgate\Base\Api\SettingsInterface::CUSTOMER_TAX_CLASSES</item>
+                    <item name="3" xsi:type="const">Shopgate\Base\Api\SettingsInterface::TAX_RATES</item>
+                    <item name="4" xsi:type="const">Shopgate\Base\Api\SettingsInterface::TAX_RULES</item>
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Shopgate\Base\Helper\Initializer\Config">
+        <arguments>
+            <argument name="configMethods" xsi:type="array">
+                <item name="blacklist_config" xsi:type="array">
+                    <item name="0" xsi:type="string">is_active</item>
+                </item>
+                <item name="enable_get_settings" xsi:type="boolean">true</item>
+                <!--<item name="sma_auth_service_class_name" xsi:type="string">ShopgateAuthenticationServiceOAuth</item>-->
+                <item name="enable_ping" xsi:type="boolean">true</item>
+                <item name="supported_fields_get_settings" xsi:type="array">
+                    <item name="0" xsi:type="string">customer_groups</item>
+                    <item name="1" xsi:type="string">allowed_shipping_countries</item>
+                    <item name="2" xsi:type="string">allowed_address_countries</item>
+                    <item name="3" xsi:type="string">tax</item>
+                </item>
+                <item name="enable_get_categories" xsi:type="boolean">true</item>
+                <item name="enable_get_items" xsi:type="boolean">true</item>
+                <item name="enable_get_customer" xsi:type="boolean">true</item>
+                <item name="enable_check_cart" xsi:type="boolean">true</item>
+                <item name="supported_fields_check_cart" xsi:type="array">
+                    <!--<item name="0" xsi:type="string">internal_cart_info</item>-->
+                    <item name="1" xsi:type="string">currency</item>
+                    <!--<item name="2" xsi:type="string">customer</item>-->
+                    <item name="3" xsi:type="string">shipping_methods</item>
+                    <!--<item name="4" xsi:type="string">payment_methods</item>-->
+                    <item name="5" xsi:type="string">items</item>
+                    <item name="6" xsi:type="string">external_coupons</item>
+                </item>
+                <item name="enable_register_customer" xsi:type="boolean">true</item>
+                <item name="enable_add_order" xsi:type="boolean">true</item>
+                <item name="enable_update_order" xsi:type="boolean">true</item>
+                <item name="enable_check_stock" xsi:type="boolean">true</item>
+                <item name="enable_get_reviews" xsi:type="boolean">true</item>
+                <!--<item name="enable_clear_log_file" xsi:type="boolean">true</item>
+                <item name="enable_clear_cache" xsi:type="boolean">true</item>
+                <item name="enable_cron" xsi:type="boolean">true</item>
+                <item name="enable_get_categories_csv" xsi:type="boolean">true</item>
+                <item name="enable_get_debug_info" xsi:type="boolean">true</item>
+                <item name="enable_get_items_csv" xsi:type="boolean">true</item>
+                <item name="enable_get_log_file" xsi:type="boolean">true</item>
+                <item name="enable_get_orders" xsi:type="boolean">true</item>
+                <item name="enable_get_reviews_csv" xsi:type="boolean">true</item>
+                <item name="enable_receive_authorization" xsi:type="boolean">true</item>
+                <item name="enable_redeem_coupons" xsi:type="boolean">true</item>
+                <item name="enable_redirect_keyword_update" xsi:type="boolean">true</item>
+                -->
+            </argument>
+            <argument name="configMapping" xsi:type="array">
+                <item name="shop_is_active" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_ACTIVE</item>
+                <item name="apikey" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_API_KEY</item>
+                <item name="shop_number" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_SHOP_NUMBER</item>
+                <item name="customer_number" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_CUSTOMER_NUMBER</item>
+                <item name="alias" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_ALIAS</item>
+                <item name="server" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_SERVER_TYPE</item>
+                <item name="api_url" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_API_URL</item>
+                <item name="cname" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_CNAME</item>
+            </argument>
+        </arguments>
+    </type>
+</config>

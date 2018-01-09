@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Cache/etc/cache.xsd">
+    <type name="shopgate" translate="label,description" instance="Shopgate\Base\Model\Storage\Cache">
+        <label>Shopgate Cache</label>
+        <description>Shopgate specific caching of performance intense operation results</description>
+    </type>
+</config>
