@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
  - Added support when installing module for Magento 2.2.2
 ### Changed
  - Uses Shopgate Cart Integration SDK 2.9.66
+ - Changed the GitHub composer naming so that it does not clash with Marketplace repo
 
 ## Version 2.9.6
  - Uses Shopgate Cart Integration SDK 2.9.64

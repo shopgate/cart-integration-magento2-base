@@ -1,5 +1,5 @@
 {
-  "name": "shopgate/base",
+  "name": "shopgate/cart-integration-magento2-base",
   "description": "Shopgate base module for Magento 2, handles communication with merchant API and routing calls",
   "license": "Apache-2.0",
   "type": "magento2-module",
