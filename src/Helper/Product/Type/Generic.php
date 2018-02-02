@@ -23,6 +23,7 @@
 namespace Shopgate\Base\Helper\Product\Type;
 
 use Magento\Bundle\Api\Data\OptionInterface;
+use Magento\Catalog\Api\Data\ProductCustomOptionInterface;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product as MageProduct;
 use Magento\Catalog\Model\Product\Option;
@@ -86,13 +87,16 @@ class Generic
             throw new \Exception('The item provided is supposed to be of type OrderItem in class: ' . get_class($this));
         }
 
+        $parentSku = $this->getItem()->getInternalOrderInfo()->getParentSku();
+        $sku       = (empty($parentSku)) ? $product->getSku() : $parentSku;
+
         $data = [];
         foreach ($this->getItem()->getOptions() as $orderOption) {
             /* @var $orderOption \ShopgateOrderItemOption */
             $optionId = $orderOption->getOptionNumber();
             $value    = $orderOption->getValueNumber();
 
-            $productOption = $this->getProductOptionById($product->getSku(), $optionId);
+            $productOption = $this->getProductOptionById($sku, $optionId);
             if ($this->isHierarchyType($productOption)) {
                 if ($value == 0) {
                     continue;
@@ -118,11 +122,11 @@ class Generic
     }
 
     /**
-     * @param OptionInterface $option
+     * @param OptionInterface|ProductCustomOptionInterface $option
      *
      * @return bool
      */
-    protected function isHierarchyType(OptionInterface $option)
+    protected function isHierarchyType($option)
     {
         $type = $option->getType();
 
