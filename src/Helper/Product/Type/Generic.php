@@ -88,7 +88,7 @@ class Generic
         }
 
         $parentSku = $this->getItem()->getInternalOrderInfo()->getParentSku();
-        $sku       = (empty($parentSku)) ? $product->getSku() : $parentSku;
+        $sku       = empty($parentSku) ? $product->getSku() : $parentSku;
 
         $data = [];
         foreach ($this->getItem()->getOptions() as $orderOption) {
