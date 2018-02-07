@@ -34,6 +34,8 @@ use Magento\Framework\DataObject;
  * @method ItemInfo setItemType(string $type)
  * @method string getStoreViewId()
  * @method ItemInfo setStoreViewId(string $id)
+ * @method string getParentSku()
+ * @method ItemInfo setParentSku(string $sku)
  */
 class ItemInfo extends DataObject
 {
