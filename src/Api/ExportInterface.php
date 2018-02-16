@@ -45,7 +45,7 @@ interface ExportInterface
      * @param string $traceId    - Unique request trace ID, handshake related
      * @param string $limit      - limit number of categories to pull
      * @param string $offset     - the offset number to pull from, e.g. 10 means next $limit from 10th item
-     * @param array  $uids       - array of category ID's to pull
+     * @param int[]  $uids       - array of category ID's to pull
      *
      * @return string
      */
@@ -58,7 +58,7 @@ interface ExportInterface
      *
      * @param null  $limit  - limit number of categories to pull
      * @param null  $offset - the offset number to pull from, e.g. 10 means next $limit from 10th item
-     * @param array $uids   - array of category ID's to pull
+     * @param int[] $uids   - array of category ID's to pull
      *
      * @return \Shopgate\Export\Model\Export\Category[]
      */
@@ -74,7 +74,7 @@ interface ExportInterface
      * @param string $traceId    - Unique request trace ID, handshake related
      * @param string $limit      - limit number of categories to pull
      * @param string $offset     - the offset number to pull from, e.g. 10 means next $limit from 10th item
-     * @param array  $uids       - array of category ID's to pull
+     * @param int[]  $uids       - array of item ID's to pull
      *
      * @return string
      */
@@ -87,7 +87,7 @@ interface ExportInterface
      *
      * @param null  $limit  - limit number of categories to pull
      * @param null  $offset - the offset number to pull from, e.g. 10 means next $limit from 10th item
-     * @param array $uids   - array of category ID's to pull
+     * @param int[] $uids   - array of item ID's to pull
      *
      * @return \Shopgate\Export\Model\Export\Product[]
      */
@@ -100,7 +100,7 @@ interface ExportInterface
      *
      * @param null  $limit  - limit number of reviews to pull
      * @param null  $offset - the offset number to pull from, e.g. 10 means next $limit from 10th item
-     * @param array $uids   - array of review ID's to pull
+     * @param int[] $uids   - array of review ID's to pull
      *
      * @return \Shopgate\Export\Model\Export\Review[]
      */
@@ -116,7 +116,7 @@ interface ExportInterface
      * @param string $traceId    - Unique request trace ID, handshake related
      * @param string $limit      - limit number of reviews to pull
      * @param string $offset     - the offset number to pull from, e.g. 10 means next $limit from 10th item
-     * @param array  $uids       - array of review ID's to pull
+     * @param int[]  $uids       - array of review ID's to pull
      *
      * @return string
      */

@@ -32,12 +32,14 @@ interface ImportInterface
      *
      * @link http://developer.shopgate.com/plugin_api/customers/register_customer
      *
-     * @param string $action     - requested method, "register_customer" in this case
-     * @param string $shopNumber - your shop number as configured in the merchant API
-     * @param string $user       - email address a customer used to register a new account
-     * @param string $pass       - the password a customer used to register a new account
-     * @param string $traceId    - unique request trace ID, handshake related
-     * @param array  $userData   - user specific data, like address, etc
+     * @param string  $action     - requested method, "register_customer" in this case
+     * @param string  $shopNumber - your shop number as configured in the merchant API
+     * @param string  $user       - email address a customer used to register a new account
+     * @param string  $pass       - the password a customer used to register a new account
+     * @param string  $traceId    - unique request trace ID, handshake related
+     * @param mixed[] $userData   - user specific data, like address, etc
+     *
+     * @return void
      */
     public function registerCustomer($action, $shopNumber, $user, $pass, $traceId, $userData);
 
