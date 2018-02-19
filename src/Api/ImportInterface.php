@@ -30,14 +30,14 @@ interface ImportInterface
     /**
      * Registers a customer using magento API
      *
-     * @link http://developer.shopgate.com/plugin_api/customers/register_customer
-     *
      * @param string  $action     - requested method, "register_customer" in this case
      * @param string  $shopNumber - your shop number as configured in the merchant API
      * @param string  $user       - email address a customer used to register a new account
      * @param string  $pass       - the password a customer used to register a new account
      * @param string  $traceId    - unique request trace ID, handshake related
      * @param mixed[] $userData   - user specific data, like address, etc
+     *
+     * @link http://developer.shopgate.com/plugin_api/customers/register_customer
      *
      * @return void
      */
@@ -46,45 +46,49 @@ interface ImportInterface
     /**
      * Registers a customer using the Shopgate Merchant API call
      *
-     * @link http://developer.shopgate.com/plugin_api/customers/register_customer
-     *
      * @param string           $user     - email address a customer used to register a new account
      * @param string           $pass     - the password a customer used to register a new account
      * @param ShopgateCustomer $customer - customer object
+     *
+     * @link http://developer.shopgate.com/plugin_api/customers/register_customer
+     *
+     * @return void
      */
     public function registerCustomerRaw($user, $pass, ShopgateCustomer $customer);
 
     /**
      * Performs the necessary queries to add an order to the shop system's database.
      *
-     * @see http://developer.shopgate.com/merchant_api/orders/get_orders
-     * @see http://developer.shopgate.com/plugin_api/orders/add_order
+     * @param Base | \ShopgateOrder $order - The ShopgateOrder object to be added to the shop system's database.
      *
-     * @param Base | \ShopgateOrder $order The ShopgateOrder object to be added to the shop system's database.
-     *
-     * @return array(
+     * @return string[] - (
      *          <ul>
      *            <li>'external_order_id' => <i>string</i>, # the actual order ID as in database</li>
      *              <li>'external_order_number' => <i>string</i> # the increment ID of the order</li>
      *          </ul>)
-     * @throws \ShopgateLibraryException if an error occurs.
+     *
+     * @see http://developer.shopgate.com/merchant_api/orders/get_orders
+     * @see http://developer.shopgate.com/plugin_api/orders/add_order
+     *
+     * @throws \ShopgateLibraryException
      */
     public function addOrder($order);
 
     /**
      * Performs the necessary queries to update an order in the shop system's database.
      *
-     * @see http://developer.shopgate.com/merchant_api/orders/get_orders
-     * @see http://developer.shopgate.com/plugin_api/orders/update_order
-     *
      * @param \ShopgateOrder $order The ShopgateOrder object to be updated in the shop system's database.
      *
-     * @return array(
+     * @return string[] - (
      *          <ul>
      *              <li>'external_order_id' => <i>string</i>, # the ID of the order in your shop system's database</li>
      *              <li>'external_order_number' => <i>string</i> # the number of the order in your shop system</li>
      *          </ul>)
-     * @throws \ShopgateLibraryException if an error occurs.
+     *
+     * @see http://developer.shopgate.com/merchant_api/orders/get_orders
+     * @see http://developer.shopgate.com/plugin_api/orders/update_order
+     *
+     * @throws \ShopgateLibraryException
      */
     public function updateOrder($order);
 }
