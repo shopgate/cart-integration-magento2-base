@@ -49,7 +49,7 @@ interface ExportInterface
      *
      * @return string
      */
-    public function getCategories($action, $shopNumber, $traceId, $limit = null, $offset = null, array $uids = []);
+    public function getCategories($action, $shopNumber, $traceId, $limit = null, $offset = null, $uids = []);
 
     /**
      * Raw data retriever for regular Merchant API requests

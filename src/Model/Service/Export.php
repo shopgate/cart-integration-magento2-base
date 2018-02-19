@@ -38,7 +38,7 @@ class Export implements ExportInterface
      *
      * @throws Exception
      */
-    public function getCategories($action, $shopNumber, $traceId, $limit = null, $offset = null, array $uids = [])
+    public function getCategories($action, $shopNumber, $traceId, $limit = null, $offset = null, $uids = [])
     {
         throw new Exception(new Phrase(self::NOT_ENABLED_ERROR));
     }
