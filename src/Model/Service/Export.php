@@ -88,7 +88,7 @@ class Export implements ExportInterface
      *
      * @throws Exception
      */
-    public function getItemsRaw($limit = null, $offset = null, array $uids = [])
+    public function getItemsRaw($limit = null, $offset = null, array $uids = [], array $skipItemIds = [])
     {
         throw new Exception(new Phrase(self::NOT_ENABLED_ERROR));
     }
