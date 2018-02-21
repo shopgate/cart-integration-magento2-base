@@ -8,6 +8,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
  - Incompatibility with Magento 2 SOAP API
  - Option validation for child products
+### Added
+ - Possibility to exclude specific items from the export
 
 ## Version 2.9.7
 ### Fixed
