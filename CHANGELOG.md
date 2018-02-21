@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 ### Fixed
+ - Incompatibility with Magento 2 SOAP API
  - Option validation for child products
 
 ## Version 2.9.7
