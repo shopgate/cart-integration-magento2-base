@@ -84,15 +84,16 @@ interface ExportInterface
     /**
      * Raw data retriever for regular Merchant API requests
      *
-     * @param null  $limit  - limit number of categories to pull
-     * @param null  $offset - the offset number to pull from, e.g. 10 means next $limit from 10th item
-     * @param int[] $uids   - array of item ID's to pull
+     * @param null  $limit       - limit number of categories to pull
+     * @param null  $offset      - the offset number to pull from, e.g. 10 means next $limit from 10th item
+     * @param int[] $uids        - array of item ID's to pull
+     * @param int[] $skipItemIds - array of category ID's to skip
      *
      * @link http://developer.shopgate.com/plugin_api/export/get_items
      *
      * @return \Shopgate\Export\Model\Export\Product[]
      */
-    public function getItemsRaw($limit = null, $offset = null, array $uids = []);
+    public function getItemsRaw($limit = null, $offset = null, array $uids = [], array $skipItemIds = []);
 
     /**
      * Raw data retriever for regular Merchant API requests
