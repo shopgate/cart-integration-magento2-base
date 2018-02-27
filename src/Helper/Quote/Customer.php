@@ -123,16 +123,22 @@ class Customer
     {
         $billing = $this->sgBase->getInvoiceAddress();
         if (!empty($billing)) {
-            //$quote->getBillingAddress()->setData('should_ignore_validation', true); //todo-sg: cannot find check
-            $data = $this->sgCustomer->createAddressData($this->sgBase, $quote, $billing);
-            $quote->getBillingAddress()->addData($data)->setCustomerAddressId($billing->getId());
+            $quote->getBillingAddress()->setData('should_ignore_validation', true);
+            $data = $this->sgCustomer->createAddressData($this->sgBase, $billing, true);
+            $quote->getBillingAddress()
+                ->addData($data)
+                ->setCustomerAddressId($billing->getId())
+                ->setCustomerId($this->sgBase->getExternalCustomerId());
         }
 
         $shipping = $this->sgBase->getDeliveryAddress();
         if (!empty($shipping)) {
-            //$quote->getShippingAddress()->setData('should_ignore_validation', true);
-            $data = $this->sgCustomer->createAddressData($this->sgBase, $quote, $shipping);
-            $quote->getShippingAddress()->addData($data)->setCustomerAddressId($shipping->getId());
+            $quote->getShippingAddress()->setData('should_ignore_validation', true);
+            $data = $this->sgCustomer->createAddressData($this->sgBase, $shipping);
+            $quote->getShippingAddress()
+                ->addData($data)
+                ->setCustomerAddressId($shipping->getId())
+                ->setCustomerId($this->sgBase->getExternalCustomerId());
         }
 
         if (!$quote->getShippingAddress()->getCountryId()) {
