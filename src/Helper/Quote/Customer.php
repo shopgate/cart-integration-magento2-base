@@ -123,22 +123,22 @@ class Customer
     {
         $billing = $this->sgBase->getInvoiceAddress();
         if (!empty($billing)) {
-            $quote->getBillingAddress()->setData('should_ignore_validation', true);
             $data = $this->sgCustomer->createAddressData($this->sgBase, $billing, true);
             $quote->getBillingAddress()
                 ->addData($data)
                 ->setCustomerAddressId($billing->getId())
-                ->setCustomerId($this->sgBase->getExternalCustomerId());
+                ->setCustomerId($this->sgBase->getExternalCustomerId())
+                ->setData('should_ignore_validation', true);
         }
 
         $shipping = $this->sgBase->getDeliveryAddress();
         if (!empty($shipping)) {
-            $quote->getShippingAddress()->setData('should_ignore_validation', true);
             $data = $this->sgCustomer->createAddressData($this->sgBase, $shipping);
             $quote->getShippingAddress()
                 ->addData($data)
                 ->setCustomerAddressId($shipping->getId())
-                ->setCustomerId($this->sgBase->getExternalCustomerId());
+                ->setCustomerId($this->sgBase->getExternalCustomerId())
+                ->setData('should_ignore_validation', true);
         }
 
         if (!$quote->getShippingAddress()->getCountryId()) {
