@@ -58,6 +58,11 @@ class Address
             ->getCollection()
             ->addFieldToFilter('parent_id', $customerId);
 
+        if (empty($addressToCheck['company'])) {
+            // company would be casted to an empty string, which does not match NULL in the database
+            unset($addressToCheck['company']);
+        }
+
         foreach ($addressToCheck as $addressField => $fieldValue) {
             $addressCollection->addFieldToFilter(
                 $addressField,
