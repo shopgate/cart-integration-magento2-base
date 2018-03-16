@@ -54,14 +54,14 @@ class Address
     public function exists($customerId, array $addressToCheck)
     {
         unset($addressToCheck['email']);
+        if (empty($addressToCheck['company'])) {
+            // company would be cast to an empty string, which does not match NULL in the database
+            unset($addressToCheck['company']);
+        }
         $addressCollection = $this->addressFactory->create()
             ->getCollection()
             ->addFieldToFilter('parent_id', $customerId);
 
-        if (empty($addressToCheck['company'])) {
-            // company would be casted to an empty string, which does not match NULL in the database
-            unset($addressToCheck['company']);
-        }
 
         foreach ($addressToCheck as $addressField => $fieldValue) {
             $addressCollection->addFieldToFilter(

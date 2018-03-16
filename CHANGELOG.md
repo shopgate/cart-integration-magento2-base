@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
  - Incompatibility with Magento 2 SOAP API
  - Option validation for child products
  - Corrected order addresses to pass validation
- - saving of addresses in order import
+ - Saving of addresses in order import
 ### Added
  - Possibility to exclude specific items from the export
 
