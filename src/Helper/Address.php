@@ -59,9 +59,8 @@ class Address
             unset($addressToCheck['company']);
         }
         $addressCollection = $this->addressFactory->create()
-            ->getCollection()
-            ->addFieldToFilter('parent_id', $customerId);
-
+                                                  ->getCollection()
+                                                  ->addFieldToFilter('parent_id', $customerId);
 
         foreach ($addressToCheck as $addressField => $fieldValue) {
             $addressCollection->addFieldToFilter(
