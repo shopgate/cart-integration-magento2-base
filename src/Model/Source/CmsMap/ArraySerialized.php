@@ -30,11 +30,14 @@ use Magento\Framework\Message\ManagerInterface;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
+use Magento\Framework\Serialize\Serializer\Serialize;
 use Shopgate\Base\Model\Source\CmsMap;
 use Shopgate\Base\Model\Storage\Cache;
 
 class ArraySerialized extends MageArraySerialized
 {
+    /** @var Serialize */
+    private $serialize;
     /** @var array */
     private $list;
     /** @var ManagerInterface */
@@ -56,12 +59,30 @@ class ArraySerialized extends MageArraySerialized
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         Cache $sgCache,
+        Serialize $serialize,
         array $data = []
     ) {
         $this->messageManager = $messageManager;
         $this->sgCache        = $sgCache;
+        $this->serialize      = $serialize;
 
-        return parent::__construct($context, $registry, $config, $cacheTypeList, $resource, $resourceCollection, $data);
+        parent::__construct($context, $registry, $config, $cacheTypeList, $resource, $resourceCollection, $data);
+    }
+
+    /**
+     * Converts pre v2.2.0 serialized database data to display properly
+     *
+     * @inheritdoc
+     */
+    public function _afterLoad()
+    {
+        $value        = $this->getValue();
+        $isSerialized = $this->isSerialized($value);
+        if ($isSerialized) {
+            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+            $this->setValue(empty($value) ? false : $this->serialize->unserialize($value));
+        }
+        parent::_afterLoad();
     }
 
     /**
@@ -164,5 +185,17 @@ class ArraySerialized extends MageArraySerialized
     private function setListValue($value)
     {
         $this->list[$value] = 1;
+    }
+
+    /**
+     * Check if value is serialized string
+     *
+     * @param string $value
+     *
+     * @return boolean
+     */
+    private function isSerialized($value)
+    {
+        return (boolean) preg_match('/^((s|i|d|b|a|O|C):|N;)/', $value);
     }
 }
