@@ -10,6 +10,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
  - Option validation for child products
  - Corrected order addresses to pass validation
  - Saving of addresses in order import
+ - Issues with displaying configuration menu on Magento v2.2.0+
 ### Added
  - Possibility to exclude specific items from the export
 
