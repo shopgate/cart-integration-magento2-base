@@ -22,7 +22,7 @@
 
 namespace Shopgate\Base\Helper;
 
-class Serializer
+class Encoder
 {
     /**
      * Serialize data into string

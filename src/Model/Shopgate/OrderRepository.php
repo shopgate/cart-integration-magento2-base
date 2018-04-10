@@ -23,7 +23,7 @@
 namespace Shopgate\Base\Model\Shopgate;
 
 use Shopgate\Base\Api\OrderRepositoryInterface;
-use Shopgate\Base\Helper\Serializer;
+use Shopgate\Base\Helper\Encoder;
 use Shopgate\Base\Model\Config;
 use Shopgate\Base\Model\Shopgate\Extended\Base;
 use Shopgate\Base\Model\Utility\SgLoggerInterface;
@@ -36,8 +36,8 @@ class OrderRepository implements OrderRepositoryInterface
     private $sgOrder;
     /** @var Config */
     private $config;
-    /** @var Serializer */
-    private $serializer;
+    /** @var Encoder */
+    private $encoder;
     /** @var SgLoggerInterface */
     private $sgLogger;
 
@@ -45,20 +45,20 @@ class OrderRepository implements OrderRepositoryInterface
      * @param OrderFactory      $orderFactory
      * @param Base              $sgOrder
      * @param Config            $config
-     * @param Serializer        $serializer
+     * @param Encoder           $encoder
      * @param SgLoggerInterface $sgLogger
      */
     public function __construct(
         OrderFactory $orderFactory,
         Base $sgOrder,
         Config $config,
-        Serializer $serializer,
+        Encoder $encoder,
         SgLoggerInterface $sgLogger
     ) {
         $this->orderFactory = $orderFactory;
         $this->sgOrder      = $sgOrder;
         $this->config       = $config;
-        $this->serializer   = $serializer;
+        $this->encoder      = $encoder;
         $this->sgLogger     = $sgLogger;
     }
 
@@ -85,7 +85,7 @@ class OrderRepository implements OrderRepositoryInterface
                                     ->setIsCustomerInvoiceBlocked($this->sgOrder->getIsCustomerInvoiceBlocked());
 
         try {
-            $order->setReceivedData($this->serializer->encode($this->sgOrder->toArray()));
+            $order->setReceivedData($this->encoder->encode($this->sgOrder->toArray()));
         } catch (\InvalidArgumentException $exception) {
             $this->sgLogger->error($exception->getMessage());
         }

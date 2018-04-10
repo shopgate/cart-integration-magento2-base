@@ -30,7 +30,7 @@ use Magento\Framework\Message\ManagerInterface;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
-use Shopgate\Base\Helper\Serializer;
+use Shopgate\Base\Helper\Encoder;
 use Shopgate\Base\Model\Source\CmsMap;
 use Shopgate\Base\Model\Storage\Cache;
 
@@ -42,7 +42,7 @@ class ArraySerialized extends MageArraySerialized
     private $messageManager;
     /** @var Cache */
     private $sgCache;
-    /** @var Serializer */
+    /** @var Encoder */
     private $encoder;
 
     /**
@@ -59,7 +59,7 @@ class ArraySerialized extends MageArraySerialized
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         Cache $sgCache,
-        Serializer $encoder,
+        Encoder $encoder,
         array $data = []
     ) {
         $this->messageManager = $messageManager;

@@ -25,7 +25,7 @@ namespace Shopgate\Base\Model\Source;
 use Magento\Eav\Model\Entity\Attribute\Set;
 use Magento\Eav\Model\Entity\AttributeFactory;
 use Magento\Framework\Option\ArrayInterface;
-use Shopgate\Base\Helper\Serializer;
+use Shopgate\Base\Helper\Encoder;
 use Shopgate\Base\Model\Storage\Session;
 use Shopgate\Base\Model\Utility\SgLoggerInterface;
 
@@ -38,26 +38,26 @@ class AttributeList implements ArrayInterface
     private $attributeFactory;
     /** @var Session */
     private $session;
-    /** @var Serializer */
-    private $serializer;
+    /** @var Encoder */
+    private $encoder;
     /** @var SgLoggerInterface */
     private $sgLogger;
 
     /**
      * @param AttributeFactory  $attributeFactory
      * @param Session           $session
-     * @param Serializer        $serializer
+     * @param Encoder           $encoder
      * @param SgLoggerInterface $sgLogger
      */
     public function __construct(
         AttributeFactory $attributeFactory,
         Session $session,
-        Serializer $serializer,
+        Encoder $encoder,
         SgLoggerInterface $sgLogger
     ) {
         $this->attributeFactory = $attributeFactory;
         $this->session          = $session;
-        $this->serializer       = $serializer;
+        $this->encoder          = $encoder;
         $this->sgLogger         = $sgLogger;
     }
 
@@ -69,7 +69,7 @@ class AttributeList implements ArrayInterface
         $attributes = $this->session->getData(self::CACHE_KEY);
         if ($attributes) {
             try {
-                $result = $this->serializer->decode($attributes);
+                $result = $this->encoder->decode($attributes);
             } catch (\InvalidArgumentException $exception) {
                 $this->sgLogger->error($exception->getMessage());
                 $result[] = ['value' => 0, 'label' => 'ERROR: please flush cache storage'];
@@ -79,7 +79,7 @@ class AttributeList implements ArrayInterface
         }
 
         $list = $this->getAttributeList();
-        $this->session->setData(self::CACHE_KEY, $this->serializer->encode($list));
+        $this->session->setData(self::CACHE_KEY, $this->encoder->encode($list));
 
         return $list;
     }

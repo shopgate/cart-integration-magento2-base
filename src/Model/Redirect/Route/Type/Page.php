@@ -26,7 +26,7 @@ use Magento\Cms\Model\PageFactory;
 use Magento\Store\Model\StoreManagerInterface;
 use Shopgate\Base\Api\Config\CoreInterface;
 use Shopgate\Base\Api\Config\SgCoreInterface;
-use Shopgate\Base\Helper\Serializer;
+use Shopgate\Base\Helper\Encoder;
 use Shopgate\Base\Model\Redirect\Route\Tags\Generic as GenericTags;
 use Shopgate\Base\Model\Source\CmsMap;
 use Shopgate\Base\Model\Utility\SgLoggerInterface;
@@ -39,8 +39,8 @@ class Page extends Generic
     private $pageFactory;
     /** @var CoreInterface */
     private $config;
-    /** @var Serializer */
-    private $serializer;
+    /** @var Encoder */
+    private $encoder;
     /** @var SgLoggerInterface */
     private $sgLogger;
 
@@ -56,13 +56,13 @@ class Page extends Generic
         PageFactory $pageFactory,
         GenericTags $tags,
         CoreInterface $config,
-        Serializer $serializer,
+        Encoder $encoder,
         SgLoggerInterface $sgLogger
     ) {
         parent::__construct($context, $storeManager, $tags);
         $this->pageFactory = $pageFactory;
         $this->config      = $config;
-        $this->serializer  = $serializer;
+        $this->encoder     = $encoder;
         $this->sgLogger    = $sgLogger;
     }
 
@@ -91,7 +91,7 @@ class Page extends Generic
         $cmsMapConfig = $this->config->getConfigByPath(SgCoreInterface::PATH_CMS_MAP)->getValue();
 
         if (!empty($cmsMapConfig)) {
-            $cmsMap = (array) $this->serializer->decode($cmsMapConfig);
+            $cmsMap = (array) $this->encoder->decode($cmsMapConfig);
 
             foreach ($cmsMap as $map) {
                 if ($map[CmsMap::INPUT_ID_CMS_PAGE] === $pageId) {
