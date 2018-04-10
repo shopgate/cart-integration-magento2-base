@@ -26,9 +26,10 @@ use Magento\Cms\Model\PageFactory;
 use Magento\Store\Model\StoreManagerInterface;
 use Shopgate\Base\Api\Config\CoreInterface;
 use Shopgate\Base\Api\Config\SgCoreInterface;
+use Shopgate\Base\Helper\Serializer;
 use Shopgate\Base\Model\Redirect\Route\Tags\Generic as GenericTags;
 use Shopgate\Base\Model\Source\CmsMap;
-use Zend_Serializer;
+use Shopgate\Base\Model\Utility\SgLoggerInterface;
 
 class Page extends Generic
 {
@@ -38,6 +39,10 @@ class Page extends Generic
     private $pageFactory;
     /** @var CoreInterface */
     private $config;
+    /** @var Serializer */
+    private $serializer;
+    /** @var SgLoggerInterface */
+    private $sgLogger;
 
     /**
      * @inheritdoc
@@ -50,11 +55,15 @@ class Page extends Generic
         StoreManagerInterface $storeManager,
         PageFactory $pageFactory,
         GenericTags $tags,
-        CoreInterface $config
+        CoreInterface $config,
+        Serializer $serializer,
+        SgLoggerInterface $sgLogger
     ) {
         parent::__construct($context, $storeManager, $tags);
         $this->pageFactory = $pageFactory;
         $this->config      = $config;
+        $this->serializer  = $serializer;
+        $this->sgLogger    = $sgLogger;
     }
 
     /**
@@ -62,12 +71,19 @@ class Page extends Generic
      */
     public function callScriptBuilder(\Shopgate_Helper_Redirect_Type_TypeInterface $redirect)
     {
-        return $redirect->loadCms($this->getUrlKey());
+        try {
+            $key = $this->getUrlKey();
+        } catch (\Exception $exception) {
+            $this->sgLogger->error($exception->getMessage());
+            $key = $this->getCurrentPage()->getIdentifier();
+        }
+
+        return $redirect->loadCms($key);
     }
 
     /**
      * @return string
-     * @throws \Zend_Serializer_Exception
+     * @throws \InvalidArgumentException
      */
     private function getUrlKey()
     {
@@ -75,7 +91,7 @@ class Page extends Generic
         $cmsMapConfig = $this->config->getConfigByPath(SgCoreInterface::PATH_CMS_MAP)->getValue();
 
         if (!empty($cmsMapConfig)) {
-            $cmsMap = (array) Zend_Serializer::unserialize($cmsMapConfig);
+            $cmsMap = (array) $this->serializer->decode($cmsMapConfig);
 
             foreach ($cmsMap as $map) {
                 if ($map[CmsMap::INPUT_ID_CMS_PAGE] === $pageId) {
