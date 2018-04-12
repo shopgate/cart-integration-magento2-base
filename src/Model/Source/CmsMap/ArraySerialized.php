@@ -49,6 +49,10 @@ class ArraySerialized extends MageArraySerialized
      * Sets our Shopgate config validator
      *
      * @inheritdoc
+     *
+     * @param ManagerInterface $messageManager - manages errors/warnings displayed to the user
+     * @param Cache            $sgCache        - shopgate specific cache
+     * @param Encoder          $encoder        - allows for encoding/decoding strings
      */
     public function __construct(
         Context $context,

@@ -47,8 +47,10 @@ class Page extends Generic
     /**
      * @inheritdoc
      *
-     * @param PageFactory   $pageFactory
-     * @param CoreInterface $config
+     * @param PageFactory       $pageFactory
+     * @param CoreInterface     $config
+     * @param Encoder           $encoder  - allows for encoding/decoding strings
+     * @param SgLoggerInterface $sgLogger - logs shopgate errors and warnings to file
      */
     public function __construct(
         Context $context,
