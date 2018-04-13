@@ -25,8 +25,9 @@ namespace Shopgate\Base\Model\Source;
 use Magento\Eav\Model\Entity\Attribute\Set;
 use Magento\Eav\Model\Entity\AttributeFactory;
 use Magento\Framework\Option\ArrayInterface;
+use Shopgate\Base\Helper\Encoder;
 use Shopgate\Base\Model\Storage\Session;
-use Zend_Serializer;
+use Shopgate\Base\Model\Utility\SgLoggerInterface;
 
 class AttributeList implements ArrayInterface
 {
@@ -37,15 +38,27 @@ class AttributeList implements ArrayInterface
     private $attributeFactory;
     /** @var Session */
     private $session;
+    /** @var Encoder */
+    private $encoder;
+    /** @var SgLoggerInterface */
+    private $sgLogger;
 
     /**
-     * @param AttributeFactory $attributeFactory
-     * @param Session          $session
+     * @param AttributeFactory  $attributeFactory
+     * @param Session           $session
+     * @param Encoder           $encoder
+     * @param SgLoggerInterface $sgLogger
      */
-    public function __construct(AttributeFactory $attributeFactory, Session $session)
-    {
+    public function __construct(
+        AttributeFactory $attributeFactory,
+        Session $session,
+        Encoder $encoder,
+        SgLoggerInterface $sgLogger
+    ) {
         $this->attributeFactory = $attributeFactory;
         $this->session          = $session;
+        $this->encoder          = $encoder;
+        $this->sgLogger         = $sgLogger;
     }
 
     /**
@@ -55,11 +68,18 @@ class AttributeList implements ArrayInterface
     {
         $attributes = $this->session->getData(self::CACHE_KEY);
         if ($attributes) {
-            return Zend_Serializer::unserialize($attributes);
+            try {
+                $result = $this->encoder->decode($attributes);
+            } catch (\InvalidArgumentException $exception) {
+                $this->sgLogger->error($exception->getMessage());
+                $result[] = ['value' => 0, 'label' => 'ERROR: please flush cache storage'];
+            }
+
+            return $result;
         }
 
         $list = $this->getAttributeList();
-        $this->session->setData(self::CACHE_KEY, Zend_Serializer::serialize($list));
+        $this->session->setData(self::CACHE_KEY, $this->encoder->encode($list));
 
         return $list;
     }

@@ -30,6 +30,7 @@ use Magento\Framework\Message\ManagerInterface;
 use Magento\Framework\Model\Context;
 use Magento\Framework\Model\ResourceModel\AbstractResource;
 use Magento\Framework\Registry;
+use Shopgate\Base\Helper\Encoder;
 use Shopgate\Base\Model\Source\CmsMap;
 use Shopgate\Base\Model\Storage\Cache;
 
@@ -41,11 +42,17 @@ class ArraySerialized extends MageArraySerialized
     private $messageManager;
     /** @var Cache */
     private $sgCache;
+    /** @var Encoder */
+    private $encoder;
 
     /**
      * Sets our Shopgate config validator
      *
      * @inheritdoc
+     *
+     * @param ManagerInterface $messageManager - manages errors/warnings displayed to the user
+     * @param Cache            $sgCache        - shopgate specific cache
+     * @param Encoder          $encoder        - allows for encoding/decoding strings
      */
     public function __construct(
         Context $context,
@@ -56,10 +63,12 @@ class ArraySerialized extends MageArraySerialized
         AbstractResource $resource = null,
         AbstractDb $resourceCollection = null,
         Cache $sgCache,
+        Encoder $encoder,
         array $data = []
     ) {
         $this->messageManager = $messageManager;
         $this->sgCache        = $sgCache;
+        $this->encoder        = $encoder;
 
         parent::__construct($context, $registry, $config, $cacheTypeList, $resource, $resourceCollection, $data);
     }
@@ -71,12 +80,10 @@ class ArraySerialized extends MageArraySerialized
      */
     public function _afterLoad()
     {
-        $value        = $this->getValue();
-        $isSerialized = $this->isSerialized($value);
-        if ($isSerialized) {
-            /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
-            $this->setValue(empty($value) ? false : unserialize($value));
-        }
+        $value = $this->getValue();
+        /** @noinspection ExceptionsAnnotatingAndHandlingInspection */
+        /** @noinspection PhpParamsInspection */
+        $this->setValue(empty($value) ? false : $this->encoder->decode($value));
         parent::_afterLoad();
     }
 
@@ -180,17 +187,5 @@ class ArraySerialized extends MageArraySerialized
     private function setListValue($value)
     {
         $this->list[$value] = 1;
-    }
-
-    /**
-     * Check if value is serialized string
-     *
-     * @param string $value
-     *
-     * @return boolean
-     */
-    private function isSerialized($value)
-    {
-        return (boolean) preg_match('/^((s|i|d|b|a|O|C):|N;)/', $value);
     }
 }
