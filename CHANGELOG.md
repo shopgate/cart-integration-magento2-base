@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.9.8] - 2018-04-19
 ### Fixed
  - Incompatibility with Magento 2 SOAP API
  - Option validation for child products
@@ -14,7 +16,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
  - Possibility to exclude specific items from the export
 
-## Version 2.9.7
+## [2.9.7]
 ### Fixed
  - Addresses being saved more than once
  - Added support when installing module for Magento 2.2.2
@@ -71,4 +73,5 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Version 2.9.0
  - Created Initial Plugin
 
-[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.7...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.8...HEAD
+[2.9.8]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.7...2.9.8
