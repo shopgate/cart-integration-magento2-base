@@ -23,8 +23,10 @@
 namespace Shopgate\Base\Model\Shopgate;
 
 use Shopgate\Base\Api\OrderRepositoryInterface;
+use Shopgate\Base\Helper\Encoder;
 use Shopgate\Base\Model\Config;
 use Shopgate\Base\Model\Shopgate\Extended\Base;
+use Shopgate\Base\Model\Utility\SgLoggerInterface;
 
 class OrderRepository implements OrderRepositoryInterface
 {
@@ -34,17 +36,30 @@ class OrderRepository implements OrderRepositoryInterface
     private $sgOrder;
     /** @var Config */
     private $config;
+    /** @var Encoder */
+    private $encoder;
+    /** @var SgLoggerInterface */
+    private $sgLogger;
 
     /**
-     * @param OrderFactory $orderFactory
-     * @param Base         $sgOrder
-     * @param Config       $config
+     * @param OrderFactory      $orderFactory
+     * @param Base              $sgOrder
+     * @param Config            $config
+     * @param Encoder           $encoder
+     * @param SgLoggerInterface $sgLogger
      */
-    public function __construct(OrderFactory $orderFactory, Base $sgOrder, Config $config)
-    {
+    public function __construct(
+        OrderFactory $orderFactory,
+        Base $sgOrder,
+        Config $config,
+        Encoder $encoder,
+        SgLoggerInterface $sgLogger
+    ) {
         $this->orderFactory = $orderFactory;
         $this->sgOrder      = $sgOrder;
         $this->config       = $config;
+        $this->encoder      = $encoder;
+        $this->sgLogger     = $sgLogger;
     }
 
     /**
@@ -69,7 +84,11 @@ class OrderRepository implements OrderRepositoryInterface
                                     ->setIsTest($this->sgOrder->getIsTest())
                                     ->setIsCustomerInvoiceBlocked($this->sgOrder->getIsCustomerInvoiceBlocked());
 
-        $order->setReceivedData(\Zend_Serializer::serialize($this->sgOrder->toArray()));
+        try {
+            $order->setReceivedData($this->encoder->encode($this->sgOrder->toArray()));
+        } catch (\InvalidArgumentException $exception) {
+            $this->sgLogger->error($exception->getMessage());
+        }
         $order->save();
     }
 

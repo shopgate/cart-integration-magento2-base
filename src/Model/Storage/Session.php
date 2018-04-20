@@ -27,7 +27,7 @@ use Magento\Framework\Session\SessionManager;
 /**
  * Our own session manager
  *
- * @method setData(string $key, string $value)
+ * @method setData(\string $key, \string $value)
  */
 class Session extends SessionManager
 {

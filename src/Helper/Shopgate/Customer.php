@@ -47,22 +47,19 @@ class Customer
     }
 
     /**
-     * @param \ShopgateCartBase | Base   $order
-     * @param \Magento\Quote\Model\Quote $quote
-     * @param \ShopgateAddress           $address
+     * @param \ShopgateCartBase | \ShopgateCustomer $order
+     * @param \ShopgateAddress                      $address
+     * @param int                                   $customerId
      *
      * @return array
      *
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function createAddressData($order, $quote, \ShopgateAddress $address)
+    public function createAddressData($order, \ShopgateAddress $address, $customerId)
     {
         $addressData                         = $this->buildMagentoAddressArray($order, $address);
-        $addressData['save_in_address_book'] = (int)!$order->isGuest()
-            && !$this->addressHelper->exists(
-                $quote->getCustomerId(),
-                $addressData
-            );
+        $addressData['save_in_address_book'] =
+            (int)($customerId && !$this->addressHelper->exists($customerId, $addressData));
 
         $addressData = array_merge($addressData, $this->getCustomFields($address));
 
