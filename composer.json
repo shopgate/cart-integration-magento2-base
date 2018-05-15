@@ -22,7 +22,7 @@
     }
   ],
   "require": {
-    "shopgate/cart-integration-sdk": "2.9.66",
+    "shopgate/cart-integration-sdk": "2.9.74",
     "magento/module-grouped-product": "^100.0",
     "magento/module-bundle": "^100.0",
     "magento/module-configurable-product": "^100.0"
