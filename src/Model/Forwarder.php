@@ -24,6 +24,7 @@ namespace Shopgate\Base\Model;
 
 use Magento\Framework\App\ObjectManager;
 use Magento\Store\Model\StoreManagerInterface;
+use Shopgate\Base\Api\CronInterface;
 use Shopgate\Base\Api\ExportInterface;
 use Shopgate\Base\Api\ImportInterface;
 use Shopgate\Base\Api\SettingsInterface;
@@ -46,6 +47,8 @@ class Forwarder extends \ShopgatePlugin
     private $settingsApi;
     /** @var ImportInterface */
     private $importApi;
+    /** @var CronInterface */
+    private $cronApi;
 
     /**
      * Gets called on initialization
@@ -61,6 +64,7 @@ class Forwarder extends \ShopgatePlugin
         $this->settingsApi    = $forwarderInitializer->getSettingsInterface();
         $this->exportApi      = $forwarderInitializer->getExportInterface();
         $this->importApi      = $forwarderInitializer->getImportInterface();
+        $this->cronApi        = $forwarderInitializer->getCronInterface();
 
         $configInitializer  = $forwarderInitializer->getConfigInitializer();
         $this->storeManager = $configInitializer->getStoreManager();
@@ -72,7 +76,7 @@ class Forwarder extends \ShopgatePlugin
      */
     public function cron($jobname, $params, &$message, &$errorcount)
     {
-        // TODO: Implement cron() method.
+        $this->cronApi->cron($jobname, $params, $message, $errorcount);
     }
 
     /**

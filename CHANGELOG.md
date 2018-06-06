@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+ - Empty implementation of the cron action
 ### Changed
  - Uses Shopgate Cart Integration SDK 2.9.74
 ### Removed
