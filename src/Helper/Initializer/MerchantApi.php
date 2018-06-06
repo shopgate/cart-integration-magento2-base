@@ -51,5 +51,4 @@ class MerchantApi
 
         return $builder->buildMerchantApi();
     }
-
 }
