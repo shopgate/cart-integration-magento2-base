@@ -47,8 +47,6 @@ use Shopgate\Base\Model\ResourceModel\Shopgate\Order as OrderResource;
  * @method Order setIsTest(int $flag)
  * @method int getIsCustomerInvoiceBlocked()
  * @method Order setIsCustomerInvoiceBlocked(\int $flag)
- * @method string getReportedShippingCollections()
- * @method Order setReportedShippingCollections(\string $text)
  * @method string getReceivedData() - a serialized or json encoded string
  * @method Order setReceivedData(\string $serializedData)
  * @method OrderResource _getResource()
@@ -108,5 +106,34 @@ class Order extends AbstractModel
     public function save()
     {
         $this->_getResource()->save($this);
+    }
+
+    /**
+     * Get all shipments for the order
+     *
+     * @return array
+     */
+    public function getReportedShippingCollections()
+    {
+        $data = $this->getData('reported_shipping_collections');
+        $data = unserialize($data);
+        if (!$data) {
+            $data = [];
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param array $collectionIds
+     *
+     * @return Order
+     */
+    public function setReportedShippingCollections(array $collectionIds)
+    {
+        $collectionIds = serialize($collectionIds);
+        $this->setData('reported_shipping_collections', $collectionIds);
+
+        return $this;
     }
 }
