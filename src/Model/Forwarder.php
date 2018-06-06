@@ -174,9 +174,8 @@ class Forwarder extends \ShopgatePlugin
             $limit  = is_null($limit) ? $this->exportLimit : $limit;
             $offset = is_null($offset) ? $this->exportOffset : $offset;
         }
-        $skipItemIds = $this->config->getExcludeItemIds();
 
-        $items = $this->exportApi->getItemsRaw($limit, $offset, $uids, $skipItemIds);
+        $items = $this->exportApi->getItemsRaw($limit, $offset, $uids);
 
         foreach ($items as $item) {
             $this->addItemModel($item);
