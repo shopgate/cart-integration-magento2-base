@@ -74,7 +74,7 @@ class Order extends AbstractDb
     /**
      * Filters for all orders that are not already synchronized to Shopgate
      *
-     * @return Collection
+     * @return Order
      */
     public function getUnsynchronizedOrders()
     {
@@ -86,7 +86,7 @@ class Order extends AbstractDb
     /**
      * Filters for all orders that are already cancelled
      *
-     * @return Collection
+     * @return Order
      */
     public function getCancelledOrders()
     {

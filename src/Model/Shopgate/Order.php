@@ -129,7 +129,7 @@ class Order extends AbstractModel
     /**
      * Get all shipments for the order
      *
-     * @return array
+     * @return string[]
      */
     public function getReportedShippingCollections()
     {
@@ -143,7 +143,7 @@ class Order extends AbstractModel
     }
 
     /**
-     * @param array $collectionIds
+     * @param int[] $collectionIds
      *
      * @return Order
      */
