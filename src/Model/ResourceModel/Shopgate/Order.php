@@ -79,6 +79,7 @@ class Order extends AbstractDb
     public function getUnsynchronizedOrders()
     {
         $this->getSelect()->where('is_sent_to_shopgate=?', '0');
+
         return $this;
     }
 

@@ -24,6 +24,7 @@ namespace Shopgate\Base\Model\Shopgate;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\AbstractModel;
+use Shopgate\Base\Helper\Encoder;
 use Shopgate\Base\Model\ResourceModel\Shopgate\Order as OrderResource;
 
 /**
@@ -53,6 +54,23 @@ use Shopgate\Base\Model\ResourceModel\Shopgate\Order as OrderResource;
  */
 class Order extends AbstractModel
 {
+    /** @var Encoder */
+    private $encoder;
+
+    /**
+     * Class constructor
+     *
+     * @param Encoder $encoder
+     */
+    public function __construct(
+        Encoder $encoder
+    ) {
+        $this->encoder = $encoder;
+
+        parent::__construct();
+        $this->_construct();
+    }
+
     /**
      * Define resource model
      *
@@ -116,7 +134,7 @@ class Order extends AbstractModel
     public function getReportedShippingCollections()
     {
         $data = $this->getData('reported_shipping_collections');
-        $data = unserialize($data);
+        $data = $this->encoder->decode($data);
         if (!$data) {
             $data = [];
         }
@@ -131,7 +149,7 @@ class Order extends AbstractModel
      */
     public function setReportedShippingCollections(array $collectionIds)
     {
-        $collectionIds = serialize($collectionIds);
+        $collectionIds = $this->encoder->encode($collectionIds);
         $this->setData('reported_shipping_collections', $collectionIds);
 
         return $this;
