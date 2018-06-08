@@ -33,9 +33,8 @@ class MerchantApi
     /**
      * @param MainConfig $config
      */
-    public function __construct(
-        MainConfig $config
-    ) {
+    public function __construct(MainConfig $config)
+    {
         $this->config = $config;
     }
 

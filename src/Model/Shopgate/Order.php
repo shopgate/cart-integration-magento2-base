@@ -54,12 +54,12 @@ use Shopgate\Base\Model\ResourceModel\Shopgate\Order as OrderResource;
  */
 class Order extends AbstractModel
 {
+    const FIELD_REPORTED_SHIPPING_COLLECTIONS = 'reported_shipping_collections';
+
     /** @var Encoder */
     private $encoder;
 
     /**
-     * Class constructor
-     *
      * @param Encoder $encoder
      */
     public function __construct(
@@ -68,7 +68,6 @@ class Order extends AbstractModel
         $this->encoder = $encoder;
 
         parent::__construct();
-        $this->_construct();
     }
 
     /**
@@ -133,13 +132,13 @@ class Order extends AbstractModel
      */
     public function getReportedShippingCollections()
     {
-        $data = $this->getData('reported_shipping_collections');
-        $data = $this->encoder->decode($data);
-        if (!$data) {
-            $data = [];
-        }
+        try {
+            return $this->encoder->decode($this->getData(self::FIELD_REPORTED_SHIPPING_COLLECTIONS)) ?: [];
+        } catch (\InvalidArgumentException $e) {
+            $this->_logger->error($e->getMessage());
 
-        return $data;
+            return [];
+        }
     }
 
     /**
@@ -149,8 +148,12 @@ class Order extends AbstractModel
      */
     public function setReportedShippingCollections(array $collectionIds)
     {
-        $collectionIds = $this->encoder->encode($collectionIds);
-        $this->setData('reported_shipping_collections', $collectionIds);
+        try {
+            $collectionIds = $this->encoder->encode($collectionIds);
+            $this->setData(self::FIELD_REPORTED_SHIPPING_COLLECTIONS, $collectionIds);
+        } catch (\InvalidArgumentException $e) {
+            $this->_logger->error($e->getMessage());
+        }
 
         return $this;
     }

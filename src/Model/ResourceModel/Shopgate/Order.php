@@ -76,7 +76,7 @@ class Order extends AbstractDb
      *
      * @return Order
      */
-    public function getUnsynchronizedOrders()
+    public function filterByUnsynchronizedOrders()
     {
         $this->getSelect()->where('is_sent_to_shopgate=?', '0');
 
@@ -88,7 +88,7 @@ class Order extends AbstractDb
      *
      * @return Order
      */
-    public function getCancelledOrders()
+    public function filterByCancelledOrders()
     {
         $this->getSelect()->where('is_cancellation_sent_to_shopgate=?', '0');
 

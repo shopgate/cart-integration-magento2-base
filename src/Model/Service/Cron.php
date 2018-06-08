@@ -28,13 +28,14 @@ use Shopgate\Base\Api\CronInterface;
 
 class Cron implements CronInterface
 {
-    const NOT_ENABLED_ERROR = 'Shopgate_Export module is not enabled or installed';
+    const NOT_ENABLED_ERROR = 'Shopgate_Export module is not enabled or installed.';
 
     /**
      * @inheritdoc
      */
     public function cron($jobname, $params, &$message, &$errorcount)
     {
-        throw new Exception(new Phrase(self::NOT_ENABLED_ERROR));
+        $message = self::NOT_ENABLED_ERROR;
+        $errorcount = 1;
     }
 }
