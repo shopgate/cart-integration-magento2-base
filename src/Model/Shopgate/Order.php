@@ -60,14 +60,19 @@ class Order extends AbstractModel
     private $encoder;
 
     /**
+     * @inheritdoc
      * @param Encoder $encoder
      */
     public function __construct(
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        OrderResource $resource = null,
+        OrderResource\Collection $resourceCollection = null,
         Encoder $encoder
     ) {
         $this->encoder = $encoder;
 
-        parent::__construct();
+        parent::__construct($context, $registry, $resource, $resourceCollection, []);
     }
 
     /**

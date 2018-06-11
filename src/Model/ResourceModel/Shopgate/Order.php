@@ -70,28 +70,4 @@ class Order extends AbstractDb
 
         return $connection->fetchRow($select, $bind);
     }
-
-    /**
-     * Filters for all orders that are not already synchronized to Shopgate
-     *
-     * @return Order
-     */
-    public function filterByUnsynchronizedOrders()
-    {
-        $this->getSelect()->where('is_sent_to_shopgate=?', '0');
-
-        return $this;
-    }
-
-    /**
-     * Filters for all orders that are already cancelled
-     *
-     * @return Order
-     */
-    public function filterByCancelledOrders()
-    {
-        $this->getSelect()->where('is_cancellation_sent_to_shopgate=?', '0');
-
-        return $this;
-    }
 }

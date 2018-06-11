@@ -35,4 +35,28 @@ class Collection extends AbstractCollection
             'Shopgate\Base\Model\ResourceModel\Shopgate\Order'
         );
     }
+
+    /**
+     * Filters for all orders that are not already synchronized to Shopgate
+     *
+     * @return Collection
+     */
+    public function filterByUnsynchronizedOrders()
+    {
+        $this->getSelect()->where('is_sent_to_shopgate=?', '0');
+
+        return $this;
+    }
+
+    /**
+     * Filters for all orders that are already cancelled
+     *
+     * @return Collection
+     */
+    public function filterByCancelledOrders()
+    {
+        $this->getSelect()->where('is_cancellation_sent_to_shopgate=?', '0');
+
+        return $this;
+    }
 }
