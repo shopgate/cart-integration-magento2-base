@@ -24,6 +24,7 @@ namespace Shopgate\Base\Model\Shopgate;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\AbstractModel;
+use Shopgate\Base\Helper\Encoder;
 use Shopgate\Base\Model\ResourceModel\Shopgate\Order as OrderResource;
 
 /**
@@ -47,14 +48,33 @@ use Shopgate\Base\Model\ResourceModel\Shopgate\Order as OrderResource;
  * @method Order setIsTest(int $flag)
  * @method int getIsCustomerInvoiceBlocked()
  * @method Order setIsCustomerInvoiceBlocked(\int $flag)
- * @method string getReportedShippingCollections()
- * @method Order setReportedShippingCollections(\string $text)
  * @method string getReceivedData() - a serialized or json encoded string
  * @method Order setReceivedData(\string $serializedData)
  * @method OrderResource _getResource()
  */
 class Order extends AbstractModel
 {
+    const FIELD_REPORTED_SHIPPING_COLLECTIONS = 'reported_shipping_collections';
+
+    /** @var Encoder */
+    private $encoder;
+
+    /**
+     * @inheritdoc
+     * @param Encoder $encoder
+     */
+    public function __construct(
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        OrderResource $resource = null,
+        OrderResource\Collection $resourceCollection = null,
+        Encoder $encoder
+    ) {
+        $this->encoder = $encoder;
+
+        parent::__construct($context, $registry, $resource, $resourceCollection, []);
+    }
+
     /**
      * Define resource model
      *
@@ -108,5 +128,38 @@ class Order extends AbstractModel
     public function save()
     {
         $this->_getResource()->save($this);
+    }
+
+    /**
+     * Get all shipments for the order
+     *
+     * @return string[]
+     */
+    public function getReportedShippingCollections()
+    {
+        try {
+            return $this->encoder->decode($this->getData(self::FIELD_REPORTED_SHIPPING_COLLECTIONS)) ?: [];
+        } catch (\InvalidArgumentException $e) {
+            $this->_logger->error($e->getMessage());
+
+            return [];
+        }
+    }
+
+    /**
+     * @param int[] $collectionIds
+     *
+     * @return Order
+     */
+    public function setReportedShippingCollections(array $collectionIds)
+    {
+        try {
+            $collectionIds = $this->encoder->encode($collectionIds);
+            $this->setData(self::FIELD_REPORTED_SHIPPING_COLLECTIONS, $collectionIds);
+        } catch (\InvalidArgumentException $e) {
+            $this->_logger->error($e->getMessage());
+        }
+
+        return $this;
     }
 }

@@ -22,6 +22,7 @@
 
 namespace Shopgate\Base\Helper\Initializer;
 
+use Shopgate\Base\Api\CronInterface;
 use Shopgate\Base\Api\ExportInterface;
 use Shopgate\Base\Api\ImportInterface;
 use Shopgate\Base\Api\SettingsInterface;
@@ -43,6 +44,8 @@ class Forwarder
     private $exportInterface;
     /** @var ImportInterface */
     private $importInterface;
+    /** @var CronInterface */
+    private $cronInterface;
 
     /**
      * @param Config            $configInitializer
@@ -50,6 +53,7 @@ class Forwarder
      * @param SettingsInterface $settingsInterface
      * @param ExportInterface   $exportInterface
      * @param ImportInterface   $importInterface
+     * @param CronInterface     $cronInterface
      *
      * @@codeCoverageIgnore
      */
@@ -58,13 +62,15 @@ class Forwarder
         MainConfig $mainConfig,
         SettingsInterface $settingsInterface,
         ExportInterface $exportInterface,
-        ImportInterface $importInterface
+        ImportInterface $importInterface,
+        CronInterface $cronInterface
     ) {
         $this->mainConfig        = $mainConfig;
         $this->configInitializer = $configInitializer;
         $this->settingsInterface = $settingsInterface;
         $this->exportInterface   = $exportInterface;
         $this->importInterface   = $importInterface;
+        $this->cronInterface     = $cronInterface;
     }
 
     /**
@@ -105,5 +111,13 @@ class Forwarder
     public function getImportInterface()
     {
         return $this->importInterface;
+    }
+
+    /**
+     * @return CronInterface
+     */
+    public function getCronInterface()
+    {
+        return $this->cronInterface;
     }
 }
