@@ -65,18 +65,22 @@ class OrderRepository implements OrderRepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * Requires magento object & Base order to be loaded globally
+     *
+     * @param string $mageOrderId
+     *
+     * @throws \Exception
      */
     public function createAndSave($mageOrderId)
     {
         $order = $this->orderFactory->create()
-                                    ->setOrderId($mageOrderId)
-                                    ->setStoreId($this->config->getStoreViewId())
-                                    ->setShopgateOrderNumber($this->sgOrder->getOrderNumber())
-                                    ->setIsShippingBlocked($this->sgOrder->getIsShippingBlocked())
-                                    ->setIsPaid($this->sgOrder->getIsPaid())
-                                    ->setIsTest($this->sgOrder->getIsTest())
-                                    ->setIsCustomerInvoiceBlocked($this->sgOrder->getIsCustomerInvoiceBlocked());
+            ->setOrderId($mageOrderId)
+            ->setStoreId($this->config->getStoreViewId())
+            ->setShopgateOrderNumber($this->sgOrder->getOrderNumber())
+            ->setIsShippingBlocked($this->sgOrder->getIsShippingBlocked())
+            ->setIsPaid($this->sgOrder->getIsPaid())
+            ->setIsTest($this->sgOrder->getIsTest())
+            ->setIsCustomerInvoiceBlocked($this->sgOrder->getIsCustomerInvoiceBlocked());
 
         try {
             $order->setReceivedData(\Zend_Json_Encoder::encode($this->sgOrder->toArray()));
@@ -87,7 +91,10 @@ class OrderRepository implements OrderRepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * Updates isPaid and isShippingBlocked settings
+     * using the loaded SG Base class
+     *
+     * @param Order $order
      */
     public function update(Order $order)
     {
@@ -101,7 +108,12 @@ class OrderRepository implements OrderRepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * @param string $orderNumber
+     * @param bool   $throwExceptionOnDuplicate
+     *
+     * @return \Shopgate\Base\Api\Data\OrderInterface
+     * @throws \ShopgateLibraryException
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function checkOrderExists($orderNumber, $throwExceptionOnDuplicate = false)
     {

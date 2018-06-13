@@ -22,48 +22,21 @@
 
 namespace Shopgate\Base\Api;
 
-use Shopgate\Base\Model\Shopgate\Order;
-
 interface OrderRepositoryInterface
 {
     /**
-     * @param string $orderNumber - shopgate order number
+     * @param string $id - shopgate order number
      *
-     * @return Order
+     * @return \Shopgate\Base\Api\Data\OrderInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
-    public function get($orderNumber);
+    public function get($id);
 
     /**
      * @param string $id - magento order increment id
      *
-     * @return Order
+     * @return \Shopgate\Base\Api\Data\OrderInterface
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function getByMageOrder($id);
-
-    /**
-     * Requires magento object & Base order to be loaded globally
-     *
-     * @param string $mageOrderId
-     *
-     * @throws \Exception
-     * @throws \Zend_Serializer_Exception
-     */
-    public function createAndSave($mageOrderId);
-
-    /**
-     * @param string $orderNumber
-     * @param bool   $throwExceptionOnDuplicate
-     *
-     * @return Order
-     * @throws \ShopgateLibraryException
-     */
-    public function checkOrderExists($orderNumber, $throwExceptionOnDuplicate = false);
-
-    /**
-     * Updates isPaid and isShippingBlocked settings
-     * using the loaded SG Base class
-     *
-     * @param Order $order
-     */
-    public function update(Order $order);
 }

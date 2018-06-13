@@ -52,9 +52,10 @@ use Shopgate\Base\Model\ResourceModel\Shopgate\Order as OrderResource;
  * @method Order setReceivedData(\string $serializedData)
  * @method OrderResource _getResource()
  */
-class Order extends AbstractModel
+class Order extends AbstractModel implements \Magento\Framework\DataObject\IdentityInterface
 {
     const FIELD_REPORTED_SHIPPING_COLLECTIONS = 'reported_shipping_collections';
+    const CACHE_TAG = 'shopgate_base_order';
 
     /** @var Encoder */
     private $encoder;
@@ -82,7 +83,17 @@ class Order extends AbstractModel
      */
     protected function _construct()
     {
-        $this->_init('Shopgate\Base\Model\ResourceModel\Shopgate\Order');
+        $this->_init(OrderResource::class);
+    }
+
+    /**
+     * Return unique ID(s) for each object in system
+     *
+     * @return string[]
+     */
+    public function getIdentities()
+    {
+        return [self::CACHE_TAG . '_' . $this->getId()];
     }
 
     /**
