@@ -22,7 +22,6 @@
 
 namespace Shopgate\Base\Api\Data;
 
-
 interface OrderInterface
 {
     /**
