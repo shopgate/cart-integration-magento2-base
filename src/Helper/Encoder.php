@@ -29,7 +29,7 @@ class Encoder
      *
      * @param string|int|float|bool|array|null $data
      *
-     * @return string|bool
+     * @return string
      * @throws \InvalidArgumentException
      */
     public function encode($data)
