@@ -62,6 +62,7 @@ class Index extends Action
 
     public function execute()
     {
+        define('_SHOPGATE_API', true);
         define('SHOPGATE_PLUGIN_VERSION', $this->versionInfo->getDbVersion('Shopgate_Base'));
         $this->registry->flagApi();
         $this->registry->setAction($this->getRequest()->getParam('action'));

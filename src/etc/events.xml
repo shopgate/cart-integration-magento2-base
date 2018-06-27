@@ -7,4 +7,7 @@
     <event name="catalog_product_type_prepare_full_options">
         <observer name="sg_bundled_option_cache_clear" instance="Shopgate\Base\Model\Observer\CachedOptionClear"/>
     </event>
+    <event name="salesrule_rule_condition_combine">
+        <observer name="sg_salesrule_condition" instance="Shopgate\Base\Model\Observer\ShopgateConditionObserver" />
+    </event>
 </config>
