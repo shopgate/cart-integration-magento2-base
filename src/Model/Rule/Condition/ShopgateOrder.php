@@ -23,8 +23,17 @@
 namespace Shopgate\Base\Model\Rule\Condition;
 
 use Magento\Rule\Model\Condition\AbstractCondition;
+use ShopgateClient;
 
 class ShopgateOrder extends AbstractCondition {
+    const CLIENT_ATTRIBUTE = 'shopgate_client';
+    const APP_CLIENTS      = [
+        ShopgateClient::TYPE_IPHONEAPP,
+        ShopgateClient::TYPE_IPADAPP,
+        ShopgateClient::TYPE_ANDROIDPHONEAPP,
+        ShopgateClient::TYPE_ANDROIDTABLETAPP,
+    ];
+
     /**
      * @var \Magento\Config\Model\Config\Source\Yesno
      */
@@ -110,9 +119,10 @@ class ShopgateOrder extends AbstractCondition {
      */
     public function validate(\Magento\Framework\Model\AbstractModel $model) {
         $isShopgateOrder = 0;
-        if (defined('_SHOPGATE_API') && _SHOPGATE_API === true) {
+        if (in_array($model->getData(self::CLIENT_ATTRIBUTE), self::APP_CLIENTS)) {
             $isShopgateOrder = 1;
         }
+        // TODO add validation for web checkout
         $model->setData('is_shopgate_order', $isShopgateOrder);
 
         return parent::validate($model);
