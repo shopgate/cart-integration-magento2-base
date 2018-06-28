@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 ### Added
  - Empty implementation of the cron action
+ - App-only cart rules
 ### Changed
  - Uses Shopgate Cart Integration SDK 2.9.74
 ### Removed
