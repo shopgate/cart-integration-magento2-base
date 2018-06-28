@@ -31,7 +31,7 @@ jobs:
     deploy:
       provider: releases
       api_key: ${GITHUB_TOKEN}
-      file: shopgate_base-${TRAVIS_TAG}.zip
+      file: shopgate-base-${TRAVIS_TAG}.zip
       skip_cleanup: true
       on:
         tags: true
