@@ -7,8 +7,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 ### Added
  - Empty implementation of the cron action
+ - Shopgate config variables to DI to support app:config:dump call
 ### Changed
  - Uses Shopgate Cart Integration SDK 2.9.74
+### Fixed
+ - Travis release zipping logic
 ### Removed
  - Import of prefixes in customer addresses
 
