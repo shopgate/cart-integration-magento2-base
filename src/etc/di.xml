@@ -102,19 +102,6 @@
     </type>
     <type name="Magento\Config\Model\Config\TypePool">
         <arguments>
-            <argument name="environment" xsi:type="array">
-                <item name="shopgate_base/general/active" xsi:type="string">1</item>
-                <item name="shopgate_base/general/customer_number" xsi:type="string">1</item>
-                <item name="shopgate_base/general/shop_number" xsi:type="string">1</item>
-                <item name="shopgate_base/redirect/alias" xsi:type="string">1</item>
-                <item name="shopgate_base/redirect/cname" xsi:type="string">1</item>
-                <item name="shopgate_base/redirect/type" xsi:type="string">1</item>
-                <item name="shopgate_base/redirect/cms_map" xsi:type="string">1</item>
-                <item name="shopgate_advanced/staging/server" xsi:type="string">1</item>
-                <item name="shopgate_advanced/staging/api_url" xsi:type="string">1</item>
-                <item name="shopgate_export/products/ean_code" xsi:type="string">1</item>
-                <item name="shopgate_export/products/force_property_export" xsi:type="string">1</item>
-            </argument>
             <argument name="sensitive" xsi:type="array">
                 <item name="shopgate_base/general/api_key" xsi:type="string">1</item>
                 <item name="shopgate_advanced/staging/htuser" xsi:type="string">1</item>
