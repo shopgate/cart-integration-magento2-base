@@ -25,7 +25,8 @@ namespace Shopgate\Base\Model\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Shopgate\Base\Model\Rule\Condition\ShopgateOrder;
 
-class ShopgateConditionObserver implements ObserverInterface {
+class ShopgateConditionObserver implements ObserverInterface
+{
     /**
      * Execute observer.
      *
@@ -33,13 +34,15 @@ class ShopgateConditionObserver implements ObserverInterface {
      *
      * @return $this
      */
-    public function execute(\Magento\Framework\Event\Observer $observer) {
+    public function execute(\Magento\Framework\Event\Observer $observer)
+    {
         $additional = $observer->getAdditional();
         $conditions = (array)$additional->getConditions();
 
         $conditions = array_merge_recursive($conditions, [
-            $this->getShopgateCondition()
-        ]);
+            $this->getShopgateCondition(),
+        ]
+        );
 
         $additional->setConditions($conditions);
 
@@ -51,10 +54,11 @@ class ShopgateConditionObserver implements ObserverInterface {
      *
      * @return array
      */
-    private function getShopgateCondition() {
+    private function getShopgateCondition()
+    {
         return [
             'label' => __('is mobile app'),
-            'value' => ShopgateOrder::class
+            'value' => ShopgateOrder::class,
         ];
     }
 }

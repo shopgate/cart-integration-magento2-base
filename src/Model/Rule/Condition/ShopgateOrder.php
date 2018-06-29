@@ -25,7 +25,8 @@ namespace Shopgate\Base\Model\Rule\Condition;
 use Magento\Rule\Model\Condition\AbstractCondition;
 use ShopgateClient;
 
-class ShopgateOrder extends AbstractCondition {
+class ShopgateOrder extends AbstractCondition
+{
     const CLIENT_ATTRIBUTE = 'shopgate_client';
     const APP_CLIENTS      = [
         ShopgateClient::TYPE_IPHONEAPP,
@@ -68,10 +69,12 @@ class ShopgateOrder extends AbstractCondition {
      *
      * @return $this
      */
-    public function loadAttributeOptions() {
+    public function loadAttributeOptions()
+    {
         $this->setAttributeOption([
-            'is_shopgate_order' => __('is mobile app')
-        ]);
+            'is_shopgate_order' => __('is mobile app'),
+        ]
+        );
 
         return $this;
     }
@@ -81,7 +84,8 @@ class ShopgateOrder extends AbstractCondition {
      *
      * @return string
      */
-    public function getInputType() {
+    public function getInputType()
+    {
         return 'select';
     }
 
@@ -90,7 +94,8 @@ class ShopgateOrder extends AbstractCondition {
      *
      * @return string
      */
-    public function getValueElementType() {
+    public function getValueElementType()
+    {
         return 'select';
     }
 
@@ -99,7 +104,8 @@ class ShopgateOrder extends AbstractCondition {
      *
      * @return array|mixed
      */
-    public function getValueSelectOptions() {
+    public function getValueSelectOptions()
+    {
         if (!$this->hasData('value_select_options')) {
             $this->setData(
                 'value_select_options',
@@ -117,7 +123,8 @@ class ShopgateOrder extends AbstractCondition {
      *
      * @return bool
      */
-    public function validate(\Magento\Framework\Model\AbstractModel $model) {
+    public function validate(\Magento\Framework\Model\AbstractModel $model)
+    {
         $isShopgateOrder = 0;
         if (in_array($model->getData(self::CLIENT_ATTRIBUTE), self::APP_CLIENTS)) {
             $isShopgateOrder = 1;
