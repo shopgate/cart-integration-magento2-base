@@ -92,16 +92,16 @@ class ArraySerialized extends MageArraySerialized
      */
     public function beforeSave()
     {
-        /** @var array $oldValues */
         $oldValues = $this->getValue();
-        $newValues = $this->removeDuplicates($oldValues);
-
-        if (count($oldValues) !== count($newValues)) {
-            /** @noinspection PhpParamsInspection */
-            $this->setValue($newValues);
-            $this->messageManager->addWarningMessage(
-                __('Same page was assigned a URL Key multiple times! Duplicate entries were removed.')
-            );
+        if (is_array($oldValues)) {
+            $newValues = $this->removeDuplicates($oldValues);
+            if (count($oldValues) !== count($newValues)) {
+                /** @noinspection PhpParamsInspection */
+                $this->setValue($newValues);
+                $this->messageManager->addWarningMessage(
+                    __('Same page was assigned a URL Key multiple times! Duplicate entries were removed.')
+                );
+            }
         }
 
         return parent::beforeSave();
