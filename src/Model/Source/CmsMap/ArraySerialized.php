@@ -60,10 +60,10 @@ class ArraySerialized extends MageArraySerialized
         ScopeConfigInterface $config,
         TypeListInterface $cacheTypeList,
         ManagerInterface $messageManager,
-        AbstractResource $resource = null,
-        AbstractDb $resourceCollection = null,
         Cache $sgCache,
         Encoder $encoder,
+        AbstractResource $resource = null,
+        AbstractDb $resourceCollection = null,
         array $data = []
     ) {
         $this->messageManager = $messageManager;
