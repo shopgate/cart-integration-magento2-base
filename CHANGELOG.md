@@ -10,6 +10,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - App-only cart rules
 ### Changed
 - Uses Shopgate Cart Integration SDK 2.9.74
+### Fixed
+- Issue importing config.php when CMS Map config is empty
 ### Removed
 - Import of prefixes in customer addresses
 
