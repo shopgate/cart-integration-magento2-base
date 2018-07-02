@@ -117,7 +117,7 @@ class ShopgateOrder extends AbstractCondition
     }
 
     /**
-     * Validate Shopgate Order Rule Condition
+     * Validate App Rule Condition
      *
      * @param \Magento\Framework\Model\AbstractModel $model
      *
