@@ -100,6 +100,15 @@
             </argument>
         </arguments>
     </type>
+    <type name="Magento\Config\Model\Config\TypePool">
+        <arguments>
+            <argument name="sensitive" xsi:type="array">
+                <item name="shopgate_base/general/api_key" xsi:type="string">1</item>
+                <item name="shopgate_advanced/staging/htuser" xsi:type="string">1</item>
+                <item name="shopgate_advanced/staging/htpass" xsi:type="string">1</item>
+            </argument>
+        </arguments>
+    </type>
     <type name="Shopgate\Base\Model\Rule\Condition\ShopgateOrder">
         <arguments>
             <argument name="data" xsi:type="array">
