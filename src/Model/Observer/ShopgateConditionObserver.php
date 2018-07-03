@@ -25,7 +25,7 @@ namespace Shopgate\Base\Model\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Shopgate\Base\Model\Rule\Condition\ShopgateOrder;
 
-class ShopgateConditionObserver implements ObserverInterface
+class AddAppOnlySalesRuleCondition implements ObserverInterface
 {
     /**
      * Execute observer.
@@ -39,10 +39,7 @@ class ShopgateConditionObserver implements ObserverInterface
         $additional = $observer->getAdditional();
         $conditions = (array)$additional->getConditions();
 
-        $conditions = array_merge_recursive($conditions, [
-            $this->getShopgateCondition(),
-        ]
-        );
+        $conditions = array_merge_recursive($conditions, [$this->getShopgateCondition()]);
 
         $additional->setConditions($conditions);
 

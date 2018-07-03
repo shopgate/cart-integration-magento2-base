@@ -8,6 +8,6 @@
         <observer name="sg_bundled_option_cache_clear" instance="Shopgate\Base\Model\Observer\CachedOptionClear"/>
     </event>
     <event name="salesrule_rule_condition_combine">
-        <observer name="sg_salesrule_condition" instance="Shopgate\Base\Model\Observer\ShopgateConditionObserver" />
+        <observer name="sg_salesrule_condition" instance="Shopgate\Base\Model\Observer\AddAppOnlySalesRuleCondition" />
     </event>
 </config>
