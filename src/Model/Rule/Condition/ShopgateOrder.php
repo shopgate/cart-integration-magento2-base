@@ -27,8 +27,9 @@ use ShopgateClient;
 
 class ShopgateOrder extends AbstractCondition
 {
-    const CLIENT_ATTRIBUTE = 'shopgate_client';
-    const APP_CLIENTS      = [
+    const CLIENT_ATTRIBUTE  = 'shopgate_client';
+    const IS_SHOPGATE_ORDER = 'is_shopgate_order';
+    const APP_CLIENTS       = [
         ShopgateClient::TYPE_IPHONEAPP,
         ShopgateClient::TYPE_IPADAPP,
         ShopgateClient::TYPE_ANDROIDPHONEAPP,
@@ -72,8 +73,8 @@ class ShopgateOrder extends AbstractCondition
     public function loadAttributeOptions()
     {
         $this->setAttributeOption([
-            'is_shopgate_order' => __('is mobile app'),
-        ]
+                self::IS_SHOPGATE_ORDER => __('is mobile app'),
+            ]
         );
 
         return $this;
@@ -125,12 +126,9 @@ class ShopgateOrder extends AbstractCondition
      */
     public function validate(\Magento\Framework\Model\AbstractModel $model)
     {
-        $isShopgateOrder = 0;
-        if (in_array($model->getData(self::CLIENT_ATTRIBUTE), self::APP_CLIENTS)) {
-            $isShopgateOrder = 1;
-        }
+        $isShopgateOrder = (int) in_array($model->getData(self::CLIENT_ATTRIBUTE), self::APP_CLIENTS);
         // TODO add validation for web checkout
-        $model->setData('is_shopgate_order', $isShopgateOrder);
+        $model->setData(self::IS_SHOPGATE_ORDER, $isShopgateOrder);
 
         return parent::validate($model);
     }

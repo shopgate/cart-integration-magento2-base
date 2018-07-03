@@ -37,7 +37,7 @@ class AddAppOnlySalesRuleCondition implements ObserverInterface
     public function execute(\Magento\Framework\Event\Observer $observer)
     {
         $additional = $observer->getAdditional();
-        $conditions = (array)$additional->getConditions();
+        $conditions = (array) $additional->getConditions();
 
         $conditions = array_merge_recursive($conditions, [$this->getShopgateCondition()]);
 
