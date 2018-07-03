@@ -47,8 +47,6 @@ class ShopgateOrder extends AbstractCondition
     protected $orderFactory;
 
     /**
-     * Constructor
-     *
      * @param \Magento\Rule\Model\Condition\Context                      $context
      * @param \Magento\Config\Model\Config\Source\Yesno                  $sourceYesno
      * @param \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderFactory

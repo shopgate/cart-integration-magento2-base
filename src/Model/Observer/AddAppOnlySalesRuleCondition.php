@@ -38,9 +38,7 @@ class AddAppOnlySalesRuleCondition implements ObserverInterface
     {
         $additional = $observer->getAdditional();
         $conditions = (array) $additional->getConditions();
-
         $conditions = array_merge_recursive($conditions, [$this->getShopgateCondition()]);
-
         $additional->setConditions($conditions);
 
         return $this;

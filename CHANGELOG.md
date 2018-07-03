@@ -8,7 +8,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Added
 - Empty implementation of the cron action
 - Shopgate config variables to DI to support app:config:dump call
-- App-only cart rules
+- App-only cart rules, not compatible with CustomerSegment
 ### Changed
 - Uses Shopgate Cart Integration SDK 2.9.74
 ### Fixed
