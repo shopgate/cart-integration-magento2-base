@@ -54,7 +54,7 @@ class AddAppOnlySalesRuleCondition implements ObserverInterface
     private function getShopgateCondition()
     {
         return [
-            'label' => __('is mobile app'),
+            'label' => __('Shopgate Mobile App'),
             'value' => ShopgateOrder::class,
         ];
     }
