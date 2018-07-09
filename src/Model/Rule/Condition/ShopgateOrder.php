@@ -70,7 +70,8 @@ class ShopgateOrder extends AbstractCondition
      */
     public function loadAttributeOptions()
     {
-        $this->setAttributeOption([
+        $this->setAttributeOption(
+            [
                 self::IS_SHOPGATE_ORDER => __('Shopgate Mobile App'),
             ]
         );
