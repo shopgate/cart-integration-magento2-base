@@ -99,7 +99,7 @@ class Customer
             ->setRemoteIp($this->sgBase->getCustomerIp());
         if ($this->sgBase->isGuest()) {
             $quote->setCustomerIsGuest(true);
-        } elseif (!$this->sgBase->isGuest() && $customer->getId()) {
+        } elseif ($customer->getId()) {
             $this->session->setCustomerId($customer->getId())->setCustomerGroupId($customer->getGroupId());
 
             $quote->setCustomer($customer)
