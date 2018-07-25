@@ -34,7 +34,7 @@ use Shopgate\Base\Model\Shopgate\Extended\Base;
 /**
  * @coversDefaultClass \Shopgate\Base\Helper\Quote\Customer
  */
-class CustomerTest extends \PHPUnit_Framework_TestCase
+class CustomerTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var ObjectManager
