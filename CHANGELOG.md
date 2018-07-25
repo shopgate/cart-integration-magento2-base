@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 - Issue importing config.php when CMS Map config is empty
 - Travis release zipping logic
+- Missing IP address for guest orders
 ### Removed
 - Import of prefixes in customer addresses
 
