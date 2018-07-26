@@ -95,15 +95,15 @@ class Customer
             $customer = new DataObject();
             $this->log->debug('Could not load customer by id or mail.');
         }
-        $quote->setCustomerEmail($email);
+        $quote->setCustomerEmail($email)
+            ->setRemoteIp($this->sgBase->getCustomerIp());
         if ($this->sgBase->isGuest()) {
             $quote->setCustomerIsGuest(true);
-        } elseif (!$this->sgBase->isGuest() && $customer->getId()) {
+        } elseif ($customer->getId()) {
             $this->session->setCustomerId($customer->getId())->setCustomerGroupId($customer->getGroupId());
 
             $quote->setCustomer($customer)
-                        ->setRemoteIp($this->sgBase->getCustomerIp())
-                        ->setCustomerIsGuest(false);
+                ->setCustomerIsGuest(false);
         } else {
             throw new \ShopgateLibraryException(
                 \ShopgateLibraryException::UNKNOWN_ERROR_CODE,
