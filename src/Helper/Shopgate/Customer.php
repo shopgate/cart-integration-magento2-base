@@ -79,7 +79,6 @@ class Customer
         $street2     = $address->getStreet2() ? "\n" . $address->getStreet2() : '';
 
         return [
-            'prefix'     => __($address->getGender() === 'f' ? 'Mrs.' : 'Mr.')->render(),
             'company'    => $address->getCompany(),
             'firstname'  => $address->getFirstName(),
             'lastname'   => $address->getLastName(),

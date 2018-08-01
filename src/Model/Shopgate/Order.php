@@ -24,6 +24,7 @@ namespace Shopgate\Base\Model\Shopgate;
 
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Model\AbstractModel;
+use Shopgate\Base\Helper\Encoder;
 use Shopgate\Base\Model\ResourceModel\Shopgate\Order as OrderResource;
 
 /**
@@ -47,14 +48,34 @@ use Shopgate\Base\Model\ResourceModel\Shopgate\Order as OrderResource;
  * @method Order setIsTest(int $flag)
  * @method int getIsCustomerInvoiceBlocked()
  * @method Order setIsCustomerInvoiceBlocked(\int $flag)
- * @method string getReportedShippingCollections()
- * @method Order setReportedShippingCollections(\string $text)
  * @method string getReceivedData() - a serialized or json encoded string
  * @method Order setReceivedData(\string $serializedData)
  * @method OrderResource _getResource()
  */
-class Order extends AbstractModel
+class Order extends AbstractModel implements \Magento\Framework\DataObject\IdentityInterface
 {
+    const FIELD_REPORTED_SHIPPING_COLLECTIONS = 'reported_shipping_collections';
+    const CACHE_TAG = 'shopgate_base_order';
+
+    /** @var Encoder */
+    private $encoder;
+
+    /**
+     * @inheritdoc
+     * @param Encoder $encoder
+     */
+    public function __construct(
+        \Magento\Framework\Model\Context $context,
+        \Magento\Framework\Registry $registry,
+        OrderResource $resource = null,
+        OrderResource\Collection $resourceCollection = null,
+        Encoder $encoder
+    ) {
+        $this->encoder = $encoder;
+
+        parent::__construct($context, $registry, $resource, $resourceCollection, []);
+    }
+
     /**
      * Define resource model
      *
@@ -62,7 +83,17 @@ class Order extends AbstractModel
      */
     protected function _construct()
     {
-        $this->_init('Shopgate\Base\Model\ResourceModel\Shopgate\Order');
+        $this->_init(OrderResource::class);
+    }
+
+    /**
+     * Return unique ID(s) for each object in system
+     *
+     * @return string[]
+     */
+    public function getIdentities()
+    {
+        return [self::CACHE_TAG . '_' . $this->getId()];
     }
 
     /**
@@ -108,5 +139,38 @@ class Order extends AbstractModel
     public function save()
     {
         $this->_getResource()->save($this);
+    }
+
+    /**
+     * Get all shipments for the order
+     *
+     * @return string[]
+     */
+    public function getReportedShippingCollections()
+    {
+        try {
+            return $this->encoder->decode($this->getData(self::FIELD_REPORTED_SHIPPING_COLLECTIONS)) ?: [];
+        } catch (\InvalidArgumentException $e) {
+            $this->_logger->error($e->getMessage());
+
+            return [];
+        }
+    }
+
+    /**
+     * @param int[] $collectionIds
+     *
+     * @return Order
+     */
+    public function setReportedShippingCollections(array $collectionIds)
+    {
+        try {
+            $collectionIds = $this->encoder->encode($collectionIds);
+            $this->setData(self::FIELD_REPORTED_SHIPPING_COLLECTIONS, $collectionIds);
+        } catch (\InvalidArgumentException $e) {
+            $this->_logger->error($e->getMessage());
+        }
+
+        return $this;
     }
 }

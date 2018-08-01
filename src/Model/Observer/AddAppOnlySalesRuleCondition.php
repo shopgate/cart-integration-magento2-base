@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright Shopgate Inc.
  *
@@ -19,44 +20,40 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
-namespace Shopgate\Base\Model\ResourceModel\Shopgate\Order;
+namespace Shopgate\Base\Model\Observer;
 
-use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+use Magento\Framework\Event\ObserverInterface;
+use Shopgate\Base\Model\Rule\Condition\ShopgateOrder;
 
-class Collection extends AbstractCollection
+class AddAppOnlySalesRuleCondition implements ObserverInterface
 {
     /**
-     * Define model & resource model
-     */
-    protected function _construct()
-    {
-        $this->_init(
-            'Shopgate\Base\Model\Shopgate\Order',
-            'Shopgate\Base\Model\ResourceModel\Shopgate\Order'
-        );
-    }
-
-    /**
-     * Filters for all orders that are not already synchronized to Shopgate
+     * Execute observer.
      *
-     * @return Collection
+     * @param \Magento\Framework\Event\Observer $observer
+     *
+     * @return $this
      */
-    public function filterByUnsynchronizedOrders()
+    public function execute(\Magento\Framework\Event\Observer $observer)
     {
-        $this->getSelect()->where('is_sent_to_shopgate=?', '0');
+        $additional = $observer->getAdditional();
+        $conditions = (array) $additional->getConditions();
+        $conditions = array_merge_recursive($conditions, [$this->getShopgateCondition()]);
+        $additional->setConditions($conditions);
 
         return $this;
     }
 
     /**
-     * Filters for all orders that are already cancelled
+     * Get condition for Shopgate carts.
      *
-     * @return Collection
+     * @return array
      */
-    public function filterByCancelledOrders()
+    private function getShopgateCondition()
     {
-        $this->getSelect()->where('is_cancellation_sent_to_shopgate=?', '0');
-
-        return $this;
+        return [
+            'label' => __('Shopgate Mobile App'),
+            'value' => ShopgateOrder::class,
+        ];
     }
 }

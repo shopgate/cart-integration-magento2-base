@@ -20,23 +20,22 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
-namespace Shopgate\Base\Api;
+namespace Shopgate\Base\Model\Service;
 
-interface OrderRepositoryInterface
+use Magento\Framework\Phrase;
+use Magento\Framework\Webapi\Exception;
+use Shopgate\Base\Api\CronInterface;
+
+class Cron implements CronInterface
 {
-    /**
-     * @param string $id - shopgate order number
-     *
-     * @return \Shopgate\Base\Api\Data\OrderInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function get($id);
+    const NOT_ENABLED_ERROR = 'Shopgate_Export module is not enabled or installed.';
 
     /**
-     * @param string $id - magento order increment id
-     *
-     * @return \Shopgate\Base\Api\Data\OrderInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @inheritdoc
      */
-    public function getByMageOrder($id);
+    public function cron($jobname, $params, &$message, &$errorcount)
+    {
+        $message = self::NOT_ENABLED_ERROR;
+        $errorcount = 1;
+    }
 }

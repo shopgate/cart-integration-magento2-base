@@ -23,7 +23,6 @@
 namespace Shopgate\Base\Model\Shopgate;
 
 use Shopgate\Base\Api\OrderRepositoryInterface;
-use Shopgate\Base\Helper\Encoder;
 use Shopgate\Base\Model\Config;
 use Shopgate\Base\Model\Shopgate\Extended\Base;
 use Shopgate\Base\Model\Utility\SgLoggerInterface;
@@ -36,8 +35,6 @@ class OrderRepository implements OrderRepositoryInterface
     private $sgOrder;
     /** @var Config */
     private $config;
-    /** @var Encoder */
-    private $encoder;
     /** @var SgLoggerInterface */
     private $sgLogger;
 
@@ -45,20 +42,17 @@ class OrderRepository implements OrderRepositoryInterface
      * @param OrderFactory      $orderFactory
      * @param Base              $sgOrder
      * @param Config            $config
-     * @param Encoder           $encoder
      * @param SgLoggerInterface $sgLogger
      */
     public function __construct(
         OrderFactory $orderFactory,
         Base $sgOrder,
         Config $config,
-        Encoder $encoder,
         SgLoggerInterface $sgLogger
     ) {
         $this->orderFactory = $orderFactory;
         $this->sgOrder      = $sgOrder;
         $this->config       = $config;
-        $this->encoder      = $encoder;
         $this->sgLogger     = $sgLogger;
     }
 
@@ -71,21 +65,25 @@ class OrderRepository implements OrderRepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * Requires magento object & Base order to be loaded globally
+     *
+     * @param string $mageOrderId
+     *
+     * @throws \Exception
      */
     public function createAndSave($mageOrderId)
     {
         $order = $this->orderFactory->create()
-                                    ->setOrderId($mageOrderId)
-                                    ->setStoreId($this->config->getStoreViewId())
-                                    ->setShopgateOrderNumber($this->sgOrder->getOrderNumber())
-                                    ->setIsShippingBlocked($this->sgOrder->getIsShippingBlocked())
-                                    ->setIsPaid($this->sgOrder->getIsPaid())
-                                    ->setIsTest($this->sgOrder->getIsTest())
-                                    ->setIsCustomerInvoiceBlocked($this->sgOrder->getIsCustomerInvoiceBlocked());
+            ->setOrderId($mageOrderId)
+            ->setStoreId($this->config->getStoreViewId())
+            ->setShopgateOrderNumber($this->sgOrder->getOrderNumber())
+            ->setIsShippingBlocked($this->sgOrder->getIsShippingBlocked())
+            ->setIsPaid($this->sgOrder->getIsPaid())
+            ->setIsTest($this->sgOrder->getIsTest())
+            ->setIsCustomerInvoiceBlocked($this->sgOrder->getIsCustomerInvoiceBlocked());
 
         try {
-            $order->setReceivedData($this->encoder->encode($this->sgOrder->toArray()));
+            $order->setReceivedData(\Zend_Json_Encoder::encode($this->sgOrder->toArray()));
         } catch (\InvalidArgumentException $exception) {
             $this->sgLogger->error($exception->getMessage());
         }
@@ -93,7 +91,10 @@ class OrderRepository implements OrderRepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * Updates isPaid and isShippingBlocked settings
+     * using the loaded SG Base class
+     *
+     * @param Order $order
      */
     public function update(Order $order)
     {
@@ -107,7 +108,12 @@ class OrderRepository implements OrderRepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * @param string $orderNumber
+     * @param bool   $throwExceptionOnDuplicate
+     *
+     * @return \Shopgate\Base\Api\Data\OrderInterface
+     * @throws \ShopgateLibraryException
+     * @throws \Magento\Framework\Exception\LocalizedException
      */
     public function checkOrderExists($orderNumber, $throwExceptionOnDuplicate = false)
     {

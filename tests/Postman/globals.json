@@ -1,0 +1,87 @@
+{
+  "id": "7f78eb7a-54ca-4077-81a2-cd7d96ca677a",
+  "values": [
+    {
+      "key": "framework_action_ping",
+      "value": "ping",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "framework_action_get_items",
+      "value": "get_items",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "framework_action_get_categories",
+      "value": "get_categories",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "framework_action_get_reviews",
+      "value": "get_reviews",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "framework_action_get_settings",
+      "value": "get_settings",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "framework_action_set_settings",
+      "value": "set_settings",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "framework_action_cron",
+      "value": "cron",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "framework_action_add_order",
+      "value": "add_order",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "framework_action_check_cart",
+      "value": "check_cart",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "m2_store",
+      "value": "default",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "m2_rest",
+      "value": "{{mage_domain}}/rest/{{m2_store}}",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "m2_endpoint_admin_token",
+      "value": "{{m2_rest}}/V1/integration/admin/token",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "m2_endpoint_customer",
+      "value": "{{m2_rest}}/V1/customers/2",
+      "enabled": true,
+      "type": "text"
+    }
+  ],
+  "name": "Shopgate Interface Plugins Globals",
+  "_postman_variable_scope": "globals",
+  "_postman_exported_at": "2018-07-09T15:16:24.482Z",
+  "_postman_exported_using": "Postman/6.1.4"
+}

@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Shopgate\Base\Api\SettingsInterface" type="Shopgate\Base\Model\Service\Settings" />
+    <preference for="Shopgate\Base\Api\CronInterface" type="Shopgate\Base\Model\Service\Cron" />
     <preference for="Shopgate\Base\Api\ExportInterface" type="Shopgate\Base\Model\Service\Export" />
     <preference for="Shopgate\Base\Api\ImportInterface" type="Shopgate\Base\Model\Service\Import"/>
     <preference for="Shopgate\Base\Api\Config\SgCoreInterface" type="Shopgate\Base\Model\Service\Config\SgCore" />
@@ -73,9 +74,9 @@
                 <item name="enable_update_order" xsi:type="boolean">true</item>
                 <item name="enable_check_stock" xsi:type="boolean">true</item>
                 <item name="enable_get_reviews" xsi:type="boolean">true</item>
+                <item name="enable_cron" xsi:type="boolean">true</item>
                 <!--<item name="enable_clear_log_file" xsi:type="boolean">true</item>
                 <item name="enable_clear_cache" xsi:type="boolean">true</item>
-                <item name="enable_cron" xsi:type="boolean">true</item>
                 <item name="enable_get_categories_csv" xsi:type="boolean">true</item>
                 <item name="enable_get_debug_info" xsi:type="boolean">true</item>
                 <item name="enable_get_items_csv" xsi:type="boolean">true</item>
@@ -96,6 +97,22 @@
                 <item name="server" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_SERVER_TYPE</item>
                 <item name="api_url" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_API_URL</item>
                 <item name="cname" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_CNAME</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Magento\Config\Model\Config\TypePool">
+        <arguments>
+            <argument name="sensitive" xsi:type="array">
+                <item name="shopgate_base/general/api_key" xsi:type="string">1</item>
+                <item name="shopgate_advanced/staging/htuser" xsi:type="string">1</item>
+                <item name="shopgate_advanced/staging/htpass" xsi:type="string">1</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="Shopgate\Base\Model\Rule\Condition\ShopgateOrder">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="form_name" xsi:type="string">sales_rule_form</item>
             </argument>
         </arguments>
     </type>

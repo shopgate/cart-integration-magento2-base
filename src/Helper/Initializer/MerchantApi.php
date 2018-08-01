@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Copyright Shopgate Inc.
  *
@@ -20,23 +19,35 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
-namespace Shopgate\Base\Api;
+namespace Shopgate\Base\Helper\Initializer;
 
-interface OrderRepositoryInterface
+use Shopgate\Base\Model\Config as MainConfig;
+use ShopgateBuilder;
+use ShopgateMerchantApi;
+
+class MerchantApi
 {
-    /**
-     * @param string $id - shopgate order number
-     *
-     * @return \Shopgate\Base\Api\Data\OrderInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
-     */
-    public function get($id);
+    /** @var MainConfig */
+    private $config;
 
     /**
-     * @param string $id - magento order increment id
-     *
-     * @return \Shopgate\Base\Api\Data\OrderInterface
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @param MainConfig $config
      */
-    public function getByMageOrder($id);
+    public function __construct(MainConfig $config)
+    {
+        $this->config = $config;
+    }
+
+    /**
+     * @return ShopgateMerchantApi
+     */
+    public function buildMerchantApi()
+    {
+        $configs = $this->config->toArray();
+        $this->config->loadArray($configs);
+        $this->config->loadConfig();
+        $builder = new ShopgateBuilder($this->config);
+
+        return $builder->buildMerchantApi();
+    }
 }

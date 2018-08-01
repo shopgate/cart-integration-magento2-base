@@ -1,0 +1,57 @@
+{
+  "id": "2ba2d950-3d74-bfb0-1fb6-d1f8a22286f3",
+  "name": "Mage 2 env",
+  "values": [
+    {
+      "key": "mage_domain",
+      "value": "http://example.shopgate.com",
+      "enabled": false,
+      "type": "text"
+    },
+    {
+      "key": "domain",
+      "value": "{{mage_domain}}/shopgate/plugin",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "shop_number",
+      "value": "***",
+      "enabled": false,
+      "type": "text"
+    },
+    {
+      "key": "customer_number",
+      "value": "***",
+      "enabled": false,
+      "type": "text"
+    },
+    {
+      "key": "api_key",
+      "value": "***",
+      "enabled": false,
+      "type": "text"
+    },
+    {
+      "key": "mock_url",
+      "value": "https://01d4122a-d4f3-43d9-8390-132ad00f7d8b.mock.pstmn.io",
+      "enabled": true,
+      "type": "text"
+    },
+    {
+      "key": "admin_user",
+      "value": "admin",
+      "enabled": false,
+      "type": "text"
+    },
+    {
+      "key": "admin_pass",
+      "value": "***",
+      "enabled": false,
+      "type": "text"
+    }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2018-07-09T15:16:46.769Z",
+  "_postman_exported_using": "Postman/6.1.4"
+}
