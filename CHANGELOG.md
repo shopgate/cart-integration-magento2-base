@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## [2.9.9] - 2018-08-01
 ### Added
 - Empty implementation of the cron action
 - Shopgate config variables to DI to support app:config:dump call
@@ -85,5 +86,6 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Version 2.9.0
 - Created Initial Plugin
 
-[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.8...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.9...HEAD
+[2.9.9]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.8...2.9.9
 [2.9.8]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.7...2.9.8
