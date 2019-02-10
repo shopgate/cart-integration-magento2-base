@@ -20,18 +20,32 @@
  * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
 
-namespace Shopgate\Base\Controller\Plugin;
+namespace Shopgate\Base\Controller\Plugin\Extendable;
+
+use Magento\Framework\App\CsrfAwareActionInterface;
+use Magento\Framework\App\Request\InvalidRequestException;
+use Magento\Framework\App\RequestInterface;
 
 /**
- * Conditional controller for backwards compatibility with PHP 7.1<
- * logic. Necessary because Magento 2.3 removed PHP 5.6 & 7.0 support.
+ * This class is the a forwarder for php 7.1+ calls
+ * in Magento 2.3+. Please @see Main class for logic
+ * of the actual controller
  */
-if (PHP_VERSION_ID < 70100) {
-    class Index extends Extendable\Main
+class CsrfCompatible extends Main implements CsrfAwareActionInterface
+{
+    /**
+     * @inheritDoc
+     */
+    public function createCsrfValidationException(RequestInterface $request): ?InvalidRequestException
     {
+        return null;
     }
-} else {
-    class Index extends Extendable\CsrfCompatible
+
+    /**
+     * @inheritDoc
+     */
+    public function validateForCsrf(RequestInterface $request): ?bool
     {
+        return true;
     }
 }

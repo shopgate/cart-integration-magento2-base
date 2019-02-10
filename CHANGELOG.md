@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Support for Mage 2.3 controller CsrfValidation with backwards compatibility for older versions
+
 ## [2.9.10] - 2018-10-27
 ### Changed
 - Uses Shopgate Cart Integration SDK 2.9.78
