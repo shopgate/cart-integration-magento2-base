@@ -17,14 +17,20 @@ $fixers = array(
     'blank_line_after_opening_tag' => true,
     'method_argument_space' => false,
 );
+$finder = Finder::create()
+                ->exclude('vendor')
+                ->exclude('vendors')
+                ->in(__DIR__);
+
+/**
+ * For PHP7.1< ignore this specific file
+ */
+if (PHP_VERSION_ID < 70100) {
+    $finder->exclude('src/Controller/Plugin/Extendable/CsrfCompatible.php');
+}
 
 return Config::create()
-    ->setRiskyAllowed(true)
-    ->setUsingCache(true)
-    ->setRules($fixers)
-    ->setFinder(
-        Finder::create()
-           ->exclude('vendor')
-           ->exclude('vendors')
-            ->in(__DIR__)
-    );
+             ->setRiskyAllowed(true)
+             ->setUsingCache(true)
+             ->setRules($fixers)
+             ->setFinder($finder);
