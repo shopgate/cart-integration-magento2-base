@@ -26,7 +26,7 @@ $finder = Finder::create()
  * For PHP7.1< ignore this specific file
  */
 if (PHP_VERSION_ID < 70100) {
-    $finder->exclude('src/Controller/Plugin/Extendable/CsrfCompatible.php');
+    $finder->notPath('src/Controller/Plugin/Extendable/CsrfCompatible.php');
 }
 
 return Config::create()
