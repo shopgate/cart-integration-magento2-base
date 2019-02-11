@@ -23,15 +23,15 @@
 namespace Shopgate\Base\Controller\Plugin;
 
 /**
- * Conditional controller for backwards compatibility with PHP 7.1<
- * logic. Necessary because Magento 2.3 removed PHP 5.6 & 7.0 support.
+ * Conditional controller for backwards compatibility with Mage 2.3<
+ * logic.
  */
-if (PHP_VERSION_ID < 70100) {
-    class Index extends Extendable\Main
+if (interface_exists('\Magento\Framework\App\CsrfAwareActionInterface')) {
+    class Index extends Extendable\CsrfCompatible
     {
     }
 } else {
-    class Index extends Extendable\CsrfCompatible
+    class Index extends Extendable\Main
     {
     }
 }
