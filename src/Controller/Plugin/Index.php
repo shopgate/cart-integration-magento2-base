@@ -24,14 +24,13 @@ namespace Shopgate\Base\Controller\Plugin;
 
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
+use Magento\Framework\App\Request\Http;
 use Magento\Framework\Module\ResourceInterface;
 use Shopgate\Base\Model\Forwarder;
 use Shopgate\Base\Model\Utility\Registry;
 
 /**
  * Merchant API to Magento2 call router
- *
- * @package Shopgate\Base\Controller\Plugin
  */
 class Index extends Action
 {
@@ -57,9 +56,20 @@ class Index extends Action
         $this->forwarder   = $forwarder;
         $this->versionInfo = $versionInfo;
         $this->registry    = $registry;
+
+        // CsrfAwareAction Magento2.3 compatibility
+        if (interface_exists('\Magento\Framework\App\CsrfAwareActionInterface')) {
+            $request = $context->getRequest();
+            if ($request instanceof Http && $request->isPost()) {
+                $request->setParam('isAjax', true);
+            }
+        }
         parent::__construct($context);
     }
 
+    /**
+     * @throws \Exception
+     */
     public function execute()
     {
         define('SHOPGATE_PLUGIN_VERSION', $this->versionInfo->getDbVersion('Shopgate_Base'));
@@ -75,8 +85,6 @@ class Index extends Action
             $response->markError($e->getCode(), $e->getMessage());
             $response->setData([]);
             $response->send();
-        } catch (\Exception $e) {
-            throw new \Exception($e);
         }
     }
 }

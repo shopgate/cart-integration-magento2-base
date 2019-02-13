@@ -17,14 +17,13 @@ $fixers = array(
     'blank_line_after_opening_tag' => true,
     'method_argument_space' => false,
 );
+$finder = Finder::create()
+                ->exclude('vendor')
+                ->exclude('vendors')
+                ->in(__DIR__);
 
 return Config::create()
-    ->setRiskyAllowed(true)
-    ->setUsingCache(true)
-    ->setRules($fixers)
-    ->setFinder(
-        Finder::create()
-           ->exclude('vendor')
-           ->exclude('vendors')
-            ->in(__DIR__)
-    );
+             ->setRiskyAllowed(true)
+             ->setUsingCache(true)
+             ->setRules($fixers)
+             ->setFinder($finder);
