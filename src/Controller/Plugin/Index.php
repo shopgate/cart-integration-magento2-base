@@ -85,8 +85,6 @@ class Index extends Action
             $response->markError($e->getCode(), $e->getMessage());
             $response->setData([]);
             $response->send();
-        } catch (\Exception $e) {
-            throw new \Exception($e->getMessage());
         }
     }
 }
