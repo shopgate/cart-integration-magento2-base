@@ -90,4 +90,3 @@ class Index extends Action
         }
     }
 }
-
