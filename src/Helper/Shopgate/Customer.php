@@ -79,6 +79,7 @@ class Customer
         $street2     = $address->getStreet2() ? "\n" . $address->getStreet2() : '';
 
         return [
+            'prefix'     => ' ',
             'company'    => $address->getCompany(),
             'firstname'  => $address->getFirstName(),
             'lastname'   => $address->getLastName(),
