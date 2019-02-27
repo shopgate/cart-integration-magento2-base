@@ -22,6 +22,8 @@
 
 namespace Shopgate\Base\Helper\Settings\Country;
 
+use Magento\OfflineShipping\Model\Carrier\Tablerate;
+use Magento\Shipping\Model\Carrier\AbstractCarrier;
 use Shopgate\Base\Helper\Shipping;
 
 class Retriever
@@ -57,13 +59,15 @@ class Retriever
     {
         $allowedShippingCountries    = $this->getAllowedShippingCountries();
         $allowedShippingCountriesMap = array_map(
-            create_function('$country', 'return $country["country"];'),
+            function ($country) {
+                return $country['country'];
+            },
             $allowedShippingCountries
         );
 
         $allowedAddressCountries = [];
         foreach ($this->mainShipHelper->getMageShippingCountries() as $addressCountry) {
-            $state  = array_search($addressCountry, $allowedShippingCountriesMap);
+            $state  = array_search($addressCountry, $allowedShippingCountriesMap, true);
             $states = $state !== false ? $allowedShippingCountries[$state]['state'] : ['All'];
 
             $allowedAddressCountries[] =
@@ -88,20 +92,21 @@ class Retriever
         $allowedShippingCountries    = [];
 
         foreach ($allowedShippingCountriesRaw as $countryCode => $states) {
-            $states = count($states) < 1 ? ['All' => true] : $states;
+            $states = empty($states) ? ['All' => true] : $states;
             $states = array_filter(
                 array_keys($states),
-                create_function('$st', 'return is_string($st) ? $st : "All";')
+                function ($st) {
+                    return is_string($st) ? $st : 'All';
+                }
             );
 
-            $states = in_array('All', $states) ? ['All'] : $states;
+            $states = in_array('All', $states, true) ? ['All'] : $states;
 
             array_walk(
                 $states,
-                create_function(
-                    '&$state, $key, $country',
-                    '$state = $state == "All" ? $state : $country . "-" . $state;'
-                ),
+                function (&$state, $key, $country) {
+                    $state = $state === 'All' ? $state : $country . '-' . $state;
+                },
                 $countryCode
             );
 
@@ -125,7 +130,7 @@ class Retriever
         $countries        = [];
 
         /**
-         * @var \Magento\Shipping\Model\Carrier\AbstractCarrier $carrier
+         * @var AbstractCarrier $carrier
          */
         foreach ($carriers as $carrier) {
             /* skip shopgate cause its a container carrier */
@@ -144,7 +149,7 @@ class Retriever
                 $collection    = $this->tableRate->getTableRateCollection();
                 $countryHolder = [];
 
-                /** @var \Magento\OfflineShipping\Model\Carrier\Tablerate $rate */
+                /** @var Tablerate $rate */
                 foreach ($collection as $rate) {
                     $countryHolder[$rate->getData('dest_country_id')][$rate->getData('dest_region') ? : 'All'] = true;
                 }
