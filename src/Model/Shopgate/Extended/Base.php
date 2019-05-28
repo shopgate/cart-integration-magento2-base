@@ -105,7 +105,7 @@ class Base extends \ShopgateOrder
 
             $item = $this->itemFactory->create();
             $item->loadArray($element);
-            $items[$item->getItemNumber()] = $item;
+            $items[$item->getOrderItemId()] = $item;
         }
 
         $this->items = $items;
