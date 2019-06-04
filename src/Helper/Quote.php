@@ -27,6 +27,7 @@ use Magento\Catalog\Model\Product\Attribute\Source\Status as MageStatus;
 use Magento\Catalog\Model\Product\Type\AbstractType;
 use Magento\Framework\Api\SimpleDataObjectConverter;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\DataObject;
 use Magento\Framework\Phrase;
 use Magento\Framework\Webapi\Exception;
 use Magento\Quote\Model\Quote as MageQuote;
@@ -40,6 +41,7 @@ use Shopgate\Base\Model\Shopgate\Extended;
 use Shopgate\Base\Model\Utility\Registry;
 use Shopgate\Base\Model\Utility\SgLoggerInterface;
 use ShopgateLibraryException;
+use \Zend\Serializer\Serializer;
 
 /**
  * This class must not return anything except itself as it only
@@ -185,6 +187,10 @@ class Quote
                     }
                 }
                 $quoteItem->setTaxPercent($item->getTaxPercent());
+
+                $additionalDataObject = new DataObject();
+                $additionalDataObject->setShopgateItemNumber($item->getItemNumber());
+                $quoteItem->setAdditionalData(Serializer::serialize($additionalDataObject));
 
                 if (!$item->isSimple()) {
                     $productWeight = $product->getTypeInstance()->getWeight($product);

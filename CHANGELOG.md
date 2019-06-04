@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 ### Fixed
+- check_cart return the correct item_number
 - Order import when ordering a product more than once with different custom option values
 
 ## [2.9.11] - 2019-02-13
