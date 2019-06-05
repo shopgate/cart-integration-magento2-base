@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.9.13] - 2019-06-05
 ### Fixed
 - cart validation for products with the same item id
 
@@ -102,7 +104,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Version 2.9.0
 - Created Initial Plugin
 
-[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.12...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.13...HEAD
+[2.9.13]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.12...2.9.13
 [2.9.12]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.11...2.9.12
 [2.9.11]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.10...2.9.11
 [2.9.10]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.9...2.9.10
