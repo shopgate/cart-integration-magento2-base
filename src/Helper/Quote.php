@@ -189,7 +189,7 @@ class Quote
                 $quoteItem->setTaxPercent($item->getTaxPercent());
 
                 $additionalDataObject = new DataObject();
-                $additionalDataObject->setShopgateItemNumber($item->getItemNumber());
+                $additionalDataObject->setShopgateItemNumber($item->getOrderItemId());
                 $quoteItem->setAdditionalData(Serializer::serialize($additionalDataObject));
 
                 if (!$item->isSimple()) {
