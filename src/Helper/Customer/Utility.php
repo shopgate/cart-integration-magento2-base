@@ -36,9 +36,9 @@ use ShopgateCustomerGroup;
 
 class Utility
 {
-    public const MAGENTO_GENDER_MALE         = '1';
-    public const MAGENTO_GENDER_FEMALE       = '2';
-    public const MAGENTO_GENDER_NO_SPECIFIED = '3';
+    const MAGENTO_GENDER_MALE         = '1';
+    const MAGENTO_GENDER_FEMALE       = '2';
+    const MAGENTO_GENDER_NO_SPECIFIED = '3';
 
     /** @var GroupCollection */
     private $customerGroupCollection;
@@ -86,7 +86,7 @@ class Utility
      * @param ShopgateCustomer  $shopgateCustomer
      * @param CustomerInterface $magentoCustomer
      */
-    protected function setBaseData($shopgateCustomer, $magentoCustomer): void
+    protected function setBaseData($shopgateCustomer, $magentoCustomer)
     {
         $shopgateCustomer->setCustomerId($magentoCustomer->getId());
         $shopgateCustomer->setFirstName($magentoCustomer->getFirstname());
@@ -119,7 +119,7 @@ class Utility
      *
      * @return string
      */
-    public function getMagentoGender($shopgateGender): ?string
+    public function getMagentoGender($shopgateGender)
     {
         switch ($shopgateGender) {
             case ShopgateCustomer::MALE:
@@ -135,7 +135,7 @@ class Utility
      * @param ShopgateCustomer  $shopgateCustomer
      * @param CustomerInterface $magentoCustomer
      */
-    public function setGroupData($shopgateCustomer, $magentoCustomer): void
+    public function setGroupData($shopgateCustomer, $magentoCustomer)
     {
         /** @var Group $magentoCustomerGroup */
         $magentoCustomerGroup =
@@ -159,7 +159,7 @@ class Utility
      * @param ShopgateCustomer  $shopgateCustomer
      * @param CustomerInterface $magentoCustomer
      */
-    protected function setAddresses($shopgateCustomer, $magentoCustomer): void
+    protected function setAddresses($shopgateCustomer, $magentoCustomer)
     {
         $addresses = [];
         foreach ($magentoCustomer->getAddresses() as $mageAddress) {

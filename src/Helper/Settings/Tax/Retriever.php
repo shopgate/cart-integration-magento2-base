@@ -40,11 +40,11 @@ class Retriever
 {
 
     /** Type used by non specific zip codes */
-    public const ZIP_CODE_TYPE_ALL = 'all';
+    const ZIP_CODE_TYPE_ALL = 'all';
     /** Type used by range based zip codes */
-    public const ZIP_CODE_TYPE_RANGE = 'range';
+    const ZIP_CODE_TYPE_RANGE = 'range';
     /** Type used by pattern based zip codes */
-    public const ZIP_CODE_TYPE_PATTERN = 'pattern';
+    const ZIP_CODE_TYPE_PATTERN = 'pattern';
 
     /** @var ClassModel - main interface for tax collection retrieval */
     private $taxClass;

@@ -54,7 +54,7 @@ class Regions
      *
      * @return null|string
      */
-    public function getIsoStateByMagentoRegion(AddressInterface $address): ?string
+    public function getIsoStateByMagentoRegion(AddressInterface $address)
     {
         $map      = $this->getIsoToMagentoMapping();
         $sIsoCode = null;
