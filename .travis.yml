@@ -7,11 +7,13 @@ install:
 # todo-sg: need to install magento2 to run tests as it uses the bootstrap file in dev folder
 #- echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > auth.json
 #- if [[ "$MAGENTO_USERNAME" ]]; then composer install ; fi
+script: false
 
 jobs:
   include:
     - stage: Code Style
       php: '7.2'
+      before_script: skip
       script:
         - curl -L https://cs.symfony.com/download/php-cs-fixer-v2.phar -o php-cs-fixer
         - chmod a+x php-cs-fixer
