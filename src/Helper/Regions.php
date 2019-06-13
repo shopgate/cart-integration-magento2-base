@@ -22,9 +22,12 @@
 
 namespace Shopgate\Base\Helper;
 
+use Magento\Customer\Api\Data\AddressInterface;
+use Magento\Directory\Model\Region;
 use Magento\Directory\Model\RegionFactory;
-use Magento\Framework\DataObject;
+use Magento\Directory\Model\ResourceModel\Region\Collection;
 use Shopgate\Base\Model\Utility\SgLogger;
+use ShopgateAddress;
 
 class Regions
 {
@@ -41,29 +44,29 @@ class Regions
     public function __construct(RegionFactory $region, SgLogger $logger)
     {
         $this->regionFactory = $region;
-        $this->logger = $logger;
+        $this->logger        = $logger;
     }
 
     /**
      * Return ISO-Code for Magento address
      *
-     * @param DataObject $address
+     * @param AddressInterface $address
      *
      * @return null|string
      */
-    public function getIsoStateByMagentoRegion(DataObject $address)
+    public function getIsoStateByMagentoRegion(AddressInterface $address): ?string
     {
         $map      = $this->getIsoToMagentoMapping();
         $sIsoCode = null;
 
-        if ($address->getData('country_id') && $address->getData('region_code')) {
-            $sIsoCode = $address->getData('country_id') . "-" . $address->getData('region_code');
+        if ($address->getCountryId() && $address->getRegion() && $address->getRegion()->getRegionCode()) {
+            $sIsoCode = $address->getCountryId() . '-' . $address->getRegion()->getRegionCode();
         }
 
-        if (isset($map[$address->getData('country_id')])) {
-            foreach ($map[$address->getData('country_id')] as $isoCode => $mageCode) {
-                if ($mageCode === $address->getData('region_code')) {
-                    $sIsoCode = $address->getData('country_id') . "-" . $isoCode;
+        if (isset($map[$address->getCountryId()])) {
+            foreach ($map[$address->getCountryId()] as $isoCode => $mageCode) {
+                if ($address->getRegion() && $mageCode === $address->getRegion()->getRegionCode()) {
+                    $sIsoCode = $address->getCountryId() . '-' . $isoCode;
                     break;
                 }
             }
@@ -88,7 +91,7 @@ class Regions
      *
      * @return array
      */
-    protected function getIsoToMagentoMapping()
+    protected function getIsoToMagentoMapping(): array
     {
         $map = [
             'DE' => [
@@ -192,152 +195,152 @@ class Regions
             ],
             'FI' => [
                 /* @see http://de.wikipedia.org/wiki/ISO_3166-2:FI */
-                "01" => "Ahvenanmaa",
-                "02" => "Etelä-Karjala",
-                "03" => "Etelä-Pohjanmaa",
-                "04" => "Etelä-Savo",
-                "05" => "Kainuu",
-                "06" => "Kanta-Häme",
-                "07" => "Keski-Pohjanmaa",
-                "08" => "Keski-Suomi",
-                "09" => "Kymenlaakso",
-                "10" => "Lappi",
-                "11" => "Pirkanmaa",
-                "12" => "Pohjanmaa",
-                "13" => "Pohjois-Karjala",
-                "14" => "Pohjois-Pohjanmaa",
-                "15" => "Pohjois-Savo",
-                "16" => "Päijät-Häme",
-                "17" => "Satakunta",
-                "18" => "Uusimaa",
-                "19" => "Varsinais-Suomi",
-                "00" => "Itä-Uusimaa", // !!not listet in wiki
+                '01' => 'Ahvenanmaa',
+                '02' => 'Etelä-Karjala',
+                '03' => 'Etelä-Pohjanmaa',
+                '04' => 'Etelä-Savo',
+                '05' => 'Kainuu',
+                '06' => 'Kanta-Häme',
+                '07' => 'Keski-Pohjanmaa',
+                '08' => 'Keski-Suomi',
+                '09' => 'Kymenlaakso',
+                '10' => 'Lappi',
+                '11' => 'Pirkanmaa',
+                '12' => 'Pohjanmaa',
+                '13' => 'Pohjois-Karjala',
+                '14' => 'Pohjois-Pohjanmaa',
+                '15' => 'Pohjois-Savo',
+                '16' => 'Päijät-Häme',
+                '17' => 'Satakunta',
+                '18' => 'Uusimaa',
+                '19' => 'Varsinais-Suomi',
+                '00' => 'Itä-Uusimaa', // !!not listed in wiki
             ],
             'LV' => [
                 /* @see http://de.wikipedia.org/wiki/ISO_3166-2:LV */
                 /* NOTE: 045 and 063 does not exist in magento */
-                "001" => "Aglonas novads",
-                "002" => "AI",
-                "003" => "Aizputes novads",
-                "004" => "Aknīstes novads",
-                "005" => "Alojas novads",
-                "006" => "Alsungas novads",
-                "007" => "AL",
-                "008" => "Amatas novads",
-                "009" => "Apes novads",
-                "010" => "Auces novads",
-                "011" => "Ādažu novads",
-                "012" => "Babītes novads",
-                "013" => "Baldones novads",
-                "014" => "Baltinavas novads",
-                "015" => "BL",
-                "016" => "BU",
-                "017" => "Beverīnas novads",
-                "018" => "Brocēnu novads",
-                "019" => "Burtnieku novads",
-                "020" => "Carnikavas novads",
-                "021" => "Cesvaines novads",
-                "022" => "CE",
-                "023" => "Ciblas novads",
-                "024" => "Dagdas novads",
-                "025" => "DA",
-                "026" => "DO",
-                "027" => "Dundagas novads",
-                "028" => "Durbes novads",
-                "029" => "Engures novads",
-                "030" => "Ērgļu novads",
-                "031" => "Garkalnes novads",
-                "032" => "Grobiņas novads",
-                "033" => "GU",
-                "034" => "Iecavas novads",
-                "035" => "Ikšķiles novads",
-                "036" => "Ilūkstes novads",
-                "037" => "Inčukalna novads",
-                "038" => "Jaunjelgavas novads",
-                "039" => "Jaunpiebalgas novads",
-                "040" => "Jaunpils novads",
-                "041" => "JL",
-                "042" => "JK",
-                "043" => "Kandavas novads",
-                "044" => "Kārsavas novads",
-                /*"045" => "",*/
-                "046" => "Kokneses novads",
-                "047" => "KR",
-                "048" => "Krimuldas novads",
-                "049" => "Krustpils novads",
-                "050" => "KU",
-                "051" => "Ķeguma novads",
-                "052" => "Ķekavas novads",
-                "053" => "Lielvārdes novads",
-                "054" => "LM",
-                "055" => "Līgatnes novads",
-                "056" => "Līvānu novads",
-                "057" => "Lubānas novads",
-                "058" => "LU",
-                "059" => "MA",
-                "060" => "Mazsalacas novads",
-                "061" => "Mālpils novads",
-                "062" => "Mārupes novads",
-                /*"063" => "",*/
-                "064" => "Naukšēnu novads",
-                "065" => "Neretas novads",
-                "066" => "Nīcas novads",
-                "067" => "OG",
-                "068" => "Olaines novads",
-                "069" => "Ozolnieku novads",
-                "070" => "Pārgaujas novads",
-                "071" => "Pāvilostas novads",
-                "072" => "Pļaviņu novads",
-                "073" => "PR",
-                "074" => "Priekules novads",
-                "075" => "Priekuļu novads",
-                "076" => "Raunas novads",
-                "077" => "RE",
-                "078" => "Riebiņu novads",
-                "079" => "Rojas novads",
-                "080" => "Ropažu novads",
-                "081" => "Rucavas novads",
-                "082" => "Rugāju novads",
-                "083" => "Rundāles novads",
-                "084" => "Rūjienas novads",
-                "085" => "Salas novads",
-                "086" => "Salacgrīvas novads",
-                "087" => "Salaspils novads",
-                "088" => "SA",
-                "089" => "Saulkrastu novads",
-                "090" => "Sējas novads",
-                "091" => "Siguldas novads",
-                "092" => "Skrīveru novads",
-                "093" => "Skrundas novads",
-                "094" => "Smiltenes novads",
-                "095" => "Stopiņu novads",
-                "096" => "Strenču novads",
-                "097" => "TA",
-                "098" => "Tērvetes novads",
-                "099" => "TU",
-                "100" => "Vaiņodes novads",
-                "101" => "VK",
-                "102" => "Varakļānu novads",
-                "103" => "Vārkavas novads",
-                "104" => "Vecpiebalgas novads",
-                "105" => "Vecumnieku novads",
-                "106" => "VE",
-                "107" => "Viesītes novads",
-                "108" => "Viļakas novads",
-                "109" => "Viļānu novads",
-                "110" => "Zilupes novads",
+                '001' => 'Aglonas novads',
+                '002' => 'AI',
+                '003' => 'Aizputes novads',
+                '004' => 'Aknīstes novads',
+                '005' => 'Alojas novads',
+                '006' => 'Alsungas novads',
+                '007' => 'AL',
+                '008' => 'Amatas novads',
+                '009' => 'Apes novads',
+                '010' => 'Auces novads',
+                '011' => 'Ādažu novads',
+                '012' => 'Babītes novads',
+                '013' => 'Baldones novads',
+                '014' => 'Baltinavas novads',
+                '015' => 'BL',
+                '016' => 'BU',
+                '017' => 'Beverīnas novads',
+                '018' => 'Brocēnu novads',
+                '019' => 'Burtnieku novads',
+                '020' => 'Carnikavas novads',
+                '021' => 'Cesvaines novads',
+                '022' => 'CE',
+                '023' => 'Ciblas novads',
+                '024' => 'Dagdas novads',
+                '025' => 'DA',
+                '026' => 'DO',
+                '027' => 'Dundagas novads',
+                '028' => 'Durbes novads',
+                '029' => 'Engures novads',
+                '030' => 'Ērgļu novads',
+                '031' => 'Garkalnes novads',
+                '032' => 'Grobiņas novads',
+                '033' => 'GU',
+                '034' => 'Iecavas novads',
+                '035' => 'Ikšķiles novads',
+                '036' => 'Ilūkstes novads',
+                '037' => 'Inčukalna novads',
+                '038' => 'Jaunjelgavas novads',
+                '039' => 'Jaunpiebalgas novads',
+                '040' => 'Jaunpils novads',
+                '041' => 'JL',
+                '042' => 'JK',
+                '043' => 'Kandavas novads',
+                '044' => 'Kārsavas novads',
+                /*'045' => '',*/
+                '046' => 'Kokneses novads',
+                '047' => 'KR',
+                '048' => 'Krimuldas novads',
+                '049' => 'Krustpils novads',
+                '050' => 'KU',
+                '051' => 'Ķeguma novads',
+                '052' => 'Ķekavas novads',
+                '053' => 'Lielvārdes novads',
+                '054' => 'LM',
+                '055' => 'Līgatnes novads',
+                '056' => 'Līvānu novads',
+                '057' => 'Lubānas novads',
+                '058' => 'LU',
+                '059' => 'MA',
+                '060' => 'Mazsalacas novads',
+                '061' => 'Mālpils novads',
+                '062' => 'Mārupes novads',
+                /*'063' => '',*/
+                '064' => 'Naukšēnu novads',
+                '065' => 'Neretas novads',
+                '066' => 'Nīcas novads',
+                '067' => 'OG',
+                '068' => 'Olaines novads',
+                '069' => 'Ozolnieku novads',
+                '070' => 'Pārgaujas novads',
+                '071' => 'Pāvilostas novads',
+                '072' => 'Pļaviņu novads',
+                '073' => 'PR',
+                '074' => 'Priekules novads',
+                '075' => 'Priekuļu novads',
+                '076' => 'Raunas novads',
+                '077' => 'RE',
+                '078' => 'Riebiņu novads',
+                '079' => 'Rojas novads',
+                '080' => 'Ropažu novads',
+                '081' => 'Rucavas novads',
+                '082' => 'Rugāju novads',
+                '083' => 'Rundāles novads',
+                '084' => 'Rūjienas novads',
+                '085' => 'Salas novads',
+                '086' => 'Salacgrīvas novads',
+                '087' => 'Salaspils novads',
+                '088' => 'SA',
+                '089' => 'Saulkrastu novads',
+                '090' => 'Sējas novads',
+                '091' => 'Siguldas novads',
+                '092' => 'Skrīveru novads',
+                '093' => 'Skrundas novads',
+                '094' => 'Smiltenes novads',
+                '095' => 'Stopiņu novads',
+                '096' => 'Strenču novads',
+                '097' => 'TA',
+                '098' => 'Tērvetes novads',
+                '099' => 'TU',
+                '100' => 'Vaiņodes novads',
+                '101' => 'VK',
+                '102' => 'Varakļānu novads',
+                '103' => 'Vārkavas novads',
+                '104' => 'Vecpiebalgas novads',
+                '105' => 'Vecumnieku novads',
+                '106' => 'VE',
+                '107' => 'Viesītes novads',
+                '108' => 'Viļakas novads',
+                '109' => 'Viļānu novads',
+                '110' => 'Zilupes novads',
                 // cities
-                "DGV" => "LV-DGV",
-                "JKB" => "Jēkabpils",
-                "JEL" => "LV-JEL",
-                "JUR" => "LV-JUR",
-                "LPX" => "LV-LPX",
-                "REZ" => "LV-REZ",
-                "RIX" => "LV-RIX",
-                "VMR" => "Valmiera",
-                "VEN" => "LV-VEN",
+                'DGV' => 'LV-DGV',
+                'JKB' => 'Jēkabpils',
+                'JEL' => 'LV-JEL',
+                'JUR' => 'LV-JUR',
+                'LPX' => 'LV-LPX',
+                'REZ' => 'LV-REZ',
+                'RIX' => 'LV-RIX',
+                'VMR' => 'Valmiera',
+                'VEN' => 'LV-VEN',
                 // Unknown
-                // "" => "LV-LE", "" => "LV-RI", "" => "LV-VM",
+                // '' => 'LV-LE', '' => 'LV-RI', '' => 'LV-VM',
             ],
         ];
 
@@ -345,25 +348,25 @@ class Regions
     }
 
     /**
-     * @param \ShopgateAddress $address
+     * @param ShopgateAddress $address
      *
-     * @return \Magento\Directory\Model\Region
+     * @return Region
      */
-    public function getMageRegionByAddress($address)
+    public function getMageRegionByAddress($address): Region
     {
         $map = $this->getIsoToMagentoMapping();
 
-        $state = preg_replace("/{$address->getCountry()}\-/", "", $address->getState());
+        $state = preg_replace("/{$address->getCountry()}\-/", '', $address->getState());
 
-        /** @var \Magento\Directory\Model\ResourceModel\Region\Collection $set */
-        /** @var \Magento\Directory\Model\Region $region */
+        /** @var Collection $set */
+        /** @var Region $region */
         $set    = $this->regionFactory->create()->getCollection();
         $region = $set->addCountryFilter($address->getCountry())
                       ->addFieldToFilter('main_table.code', $state)
                       ->getFirstItem();
 
         // If no region was found
-        if (!$region->getId() && !empty($state) && isset($map[$address->getCountry()][$state])) {
+        if (!empty($state) && !$region->getId() && isset($map[$address->getCountry()][$state])) {
             $regionCode = $map[$address->getCountry()][$state];
 
             $set    = $this->regionFactory->create()->getCollection();

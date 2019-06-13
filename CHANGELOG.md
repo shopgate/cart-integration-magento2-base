@@ -5,14 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Region/state mapping for get_customer calls, e.g. returns US-TX instead of TX
 
 ## [2.9.13] - 2019-06-05
 ### Fixed
-- cart validation for products with the same item id
+- Cart validation for products with the same item id
 
 ## [2.9.12] - 2019-06-04
 ### Fixed
-- check_cart now returns the correct item_number
+- Check_cart now returns the correct item_number
 - Order import when ordering a product more than once with different custom option values
 
 ## [2.9.11] - 2019-02-13
