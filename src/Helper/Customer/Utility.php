@@ -124,10 +124,8 @@ class Utility
         switch ($shopgateGender) {
             case ShopgateCustomer::MALE:
                 return self::MAGENTO_GENDER_MALE;
-                break;
             case ShopgateCustomer::FEMALE:
                 return self::MAGENTO_GENDER_FEMALE;
-                break;
             default:
                 return self::MAGENTO_GENDER_NO_SPECIFIED;
         }
