@@ -22,6 +22,7 @@
 namespace Shopgate\Base\Model\ResourceModel\Shopgate\Order;
 
 use Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection;
+use Shopgate\Base\Model\ResourceModel\Shopgate\Order;
 
 class Collection extends AbstractCollection
 {
@@ -31,8 +32,8 @@ class Collection extends AbstractCollection
     protected function _construct()
     {
         $this->_init(
-            'Shopgate\Base\Model\Shopgate\Order',
-            'Shopgate\Base\Model\ResourceModel\Shopgate\Order'
+            \Shopgate\Base\Model\Shopgate\Order::class,
+            Order::class
         );
     }
 
@@ -41,7 +42,7 @@ class Collection extends AbstractCollection
      *
      * @return Collection
      */
-    public function filterByUnsynchronizedOrders()
+    public function filterByUnsynchronizedOrders(): Collection
     {
         $this->getSelect()->where('is_sent_to_shopgate=?', '0');
 
@@ -53,10 +54,24 @@ class Collection extends AbstractCollection
      *
      * @return Collection
      */
-    public function filterByCancelledOrders()
+    public function filterByCancelledOrders(): Collection
     {
         $this->getSelect()->where('is_cancellation_sent_to_shopgate=?', '0');
 
         return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMageOrderIds(): array
+    {
+        return array_map(
+            static function ($item) {
+                /** @var \Shopgate\Base\Model\Shopgate\Order $item */
+                return (int) $item->getOrderId();
+            },
+            $this->getItems()
+        );
     }
 }
