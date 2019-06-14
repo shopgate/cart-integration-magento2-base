@@ -1,13 +1,12 @@
 {
   "info": {
-    "_postman_id": "bb64f1cc-8f59-0b86-7406-ba1b33082169",
+    "_postman_id": "11cd6695-b691-4b9c-bca7-69ab498d4b00",
     "name": "Mage2",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
       "name": "set_settings",
-      "description": "",
       "item": [
         {
           "name": "5th item is not skipped",
@@ -58,13 +57,11 @@
                 {
                   "key": "shop_number",
                   "value": "{{shop_number}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "action",
                   "value": "{{framework_action_get_items}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
@@ -76,7 +73,6 @@
                 {
                   "key": "offset",
                   "value": "0",
-                  "description": "",
                   "type": "text"
                 }
               ]
@@ -125,25 +121,21 @@
                 {
                   "key": "shop_number",
                   "value": "{{shop_number}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "action",
                   "value": "{{framework_action_set_settings}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "shopgate_settings[0][name]",
                   "value": "exclude_item_ids",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "shopgate_settings[0][value]",
                   "value": "5",
-                  "description": "",
                   "type": "text"
                 }
               ]
@@ -206,13 +198,11 @@
                 {
                   "key": "shop_number",
                   "value": "{{shop_number}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "action",
                   "value": "{{framework_action_get_items}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
@@ -224,7 +214,6 @@
                 {
                   "key": "offset",
                   "value": "0",
-                  "description": "",
                   "type": "text"
                 }
               ]
@@ -274,25 +263,21 @@
                 {
                   "key": "shop_number",
                   "value": "{{shop_number}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "action",
                   "value": "{{framework_action_set_settings}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "shopgate_settings[0][name]",
                   "value": "exclude_item_ids",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "shopgate_settings[0][value]",
                   "value": "",
-                  "description": "",
                   "type": "text"
                 }
               ]
@@ -310,7 +295,6 @@
     },
     {
       "name": "get_items",
-      "description": "",
       "item": [
         {
           "name": "Configurable Item export",
@@ -354,13 +338,11 @@
                 {
                   "key": "shop_number",
                   "value": "{{shop_number}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "action",
                   "value": "{{framework_action_get_items}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
@@ -422,13 +404,11 @@
                 {
                   "key": "shop_number",
                   "value": "{{shop_number}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "action",
                   "value": "{{framework_action_get_items}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
@@ -490,13 +470,11 @@
                 {
                   "key": "shop_number",
                   "value": "{{shop_number}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "action",
                   "value": "{{framework_action_get_items}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
@@ -565,13 +543,11 @@
                 {
                   "key": "shop_number",
                   "value": "{{shop_number}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "action",
                   "value": "{{framework_action_get_items}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
@@ -583,7 +559,6 @@
                 {
                   "key": "offset",
                   "value": "0",
-                  "description": "",
                   "type": "text"
                 }
               ]
@@ -646,13 +621,11 @@
                 {
                   "key": "shop_number",
                   "value": "{{shop_number}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "action",
                   "value": "{{framework_action_get_items}}",
-                  "description": "",
                   "type": "text"
                 },
                 {
@@ -664,7 +637,6 @@
                 {
                   "key": "offset",
                   "value": "0",
-                  "description": "",
                   "type": "text"
                 }
               ]
@@ -682,11 +654,9 @@
     },
     {
       "name": "check_cart",
-      "description": "",
       "item": [
         {
           "name": "App coupon",
-          "description": "",
           "item": [
             {
               "name": "Check_cart iphone",
@@ -758,7 +728,6 @@
                     {
                       "key": "cart[external_coupons][0][code]",
                       "value": "APP10",
-                      "description": "",
                       "type": "text"
                     }
                   ]
@@ -842,7 +811,6 @@
                     {
                       "key": "cart[external_coupons][0][code]",
                       "value": "APP10",
-                      "description": "",
                       "type": "text"
                     }
                   ]
@@ -906,7 +874,6 @@
                     {
                       "key": "cart[items][0][item_number]",
                       "value": "16",
-                      "description": "",
                       "type": "text"
                     },
                     {
@@ -927,7 +894,6 @@
                     {
                       "key": "cart[external_coupons][0][code]",
                       "value": "APP10",
-                      "description": "",
                       "type": "text"
                     }
                   ]
@@ -984,559 +950,466 @@
                 {
                   "key": "action",
                   "value": "{{framework_action_check_cart}}",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "shop_number",
                   "value": "{{shop_number}}",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[customer_number]",
                   "value": "1",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[external_customer_id]",
                   "value": "1",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[external_customer_group]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[external_customer_group_id]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[mail]",
                   "value": "test@tester.com",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[payment_group]",
                   "value": "SHOPGATE",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[payment_method]",
                   "value": "SHOPGATE",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][item_id]",
                   "value": "24195039",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][item_number]",
                   "value": "15",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][item_number_public]",
                   "value": "null",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][parent_item_number]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][quantity]",
                   "value": "1",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][unit_amount_net]",
                   "value": "2.5",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][unit_amount_with_tax]",
                   "value": "3",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][unit_amount]",
                   "value": "2.5",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][name]",
                   "value": "Luma Bottle",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][tax_percent]",
                   "value": "20",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][tax_class]",
                   "value": "241269",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][currency]",
                   "value": "EUR",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][internal_order_info]",
                   "value": "{\"product_id\":\"15\",\"item_type\":\"simple\"}\n",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][additional_shipping_costs_per_unit]",
                   "value": "0",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][is_free_shipping]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][attributes]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][inputs]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][options]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][0][code]",
                   "value": "TEST_CODE",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][0][name]",
                   "value": "Coupon Name",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][0][description]",
                   "value": "Description",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][0][order_index]",
                   "value": "1",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][0][amount_net]",
                   "value": "10",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][0][currency]",
                   "value": "USD",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][0][internal_info]",
                   "value": "{\"coupon_id\":\"1\"}",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][0][is_free_shipping]",
                   "value": "0",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][1][code]",
                   "value": "TEST_CODE",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][1][name]",
                   "value": "Coupon Name 2",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][1][description]",
                   "value": "Description",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][1][order_index]",
                   "value": "1",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][1][amount_net]",
                   "value": "10",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][1][currency]",
                   "value": "USD",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][1][internal_info]",
                   "value": "{\"coupon_id\":\"2\"}",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][1][is_free_shipping]",
                   "value": "0",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][2][code]",
                   "value": "kittencoupon",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][2][name]",
                   "value": "Coupon Name 2",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][2][description]",
                   "value": "Description",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][2][order_index]",
                   "value": "1",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][2][amount_net]",
                   "value": "15",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][2][currency]",
                   "value": "USD",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][2][internal_info]",
                   "value": "{\"coupon_id\":\"3\"}",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shopgate_coupons][2][is_free_shipping]",
                   "value": "0",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[external_coupons][0][code]",
                   "value": "H20",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[external_coupons][0][name]",
                   "value": "Coupon Name",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[external_coupons][0][description]",
                   "value": "Description",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[external_coupons][0][order_index]",
                   "value": "1",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[external_coupons][0][amount_net]",
                   "value": "10",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[external_coupons][0][currency]",
                   "value": "USD",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[external_coupons][0][internal_info]",
                   "value": "{\"coupon_id\":\"15\"}",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[invoice_address][gender]",
                   "value": "f",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[invoice_address][first_name]",
                   "value": "Krystel",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[invoice_address][last_name]",
                   "value": "Mbarga",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[invoice_address][birthday]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[invoice_address][company]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[invoice_address][street_1]",
                   "value": "7 cours de larche guedon",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[invoice_address][street_2]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[invoice_address][city]",
                   "value": "Torcy",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[invoice_address][zipcode]",
                   "value": "77200",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[invoice_address][country]",
                   "value": "FR",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[invoice_address][state]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[delivery_address][gender]",
                   "value": "f",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[delivery_address][first_name]",
                   "value": "Krystel",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[delivery_address][last_name]",
                   "value": "Mbarga",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[delivery_address][birthday]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[delivery_address][company]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[delivery_address][street_1]",
                   "value": "7 cours de larche guedon",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[delivery_address][street_2]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[delivery_address][city]",
                   "value": "Torcy",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[delivery_address][zipcode]",
                   "value": "77200",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[delivery_address][country]",
                   "value": "FR",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[delivery_address][state]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[internal_cart_info]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[currency]",
                   "value": "EUR",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[amount_shipping]",
                   "value": "5",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shipping_group]",
                   "value": "OTHER",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shipping_type]",
                   "value": "PLUGINAPI",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shipping_infos][name]",
                   "value": "socolissimosimplicite_socolissimosimplicite",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shipping_infos][display_name]",
                   "value": "So Colissimo",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shipping_infos][description]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shipping_infos][amount]",
                   "value": "4.16",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shipping_infos][weight]",
                   "value": "0",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shipping_infos][internal_shipping_info]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[shipping_infos][api_response]",
                   "value": "",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[client][type]",
                   "value": "none",
-                  "description": "",
                   "type": "text"
                 }
               ]
@@ -1590,32 +1463,27 @@
                 {
                   "key": "action",
                   "value": "{{framework_action_check_cart}}",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "shop_number",
                   "value": "{{shop_number}}",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][item_number]",
                   "value": "1266",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][quantity]",
                   "value": "3",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][internal_order_info]",
                   "value": "{\"store_view_id\":\"1\", \"product_id\":\"1266\",\"item_type\":\"simple\", \"exchange_rate\":\"1\"}",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 }
               ]
             },
@@ -1669,32 +1537,27 @@
                 {
                   "key": "action",
                   "value": "{{framework_action_check_cart}}",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "shop_number",
                   "value": "{{shop_number}}",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[items][0][internal_order_info]",
                   "value": "{\"store_view_id\":\"1\", \"product_id\":\"15\",\"item_type\":\"simple\", \"exchange_rate\":\"1\"}",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[external_coupons][0][code]",
                   "value": "INACTIVE_CODE",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 },
                 {
                   "key": "cart[external_coupons][0][internal_info]",
                   "value": "{\"coupon_id\":\"999999\"}",
-                  "type": "text",
-                  "description": ""
+                  "type": "text"
                 }
               ]
             },
@@ -1711,7 +1574,6 @@
     },
     {
       "name": "getOrder",
-      "description": "",
       "item": [
         {
           "name": "Basic",
@@ -1724,13 +1586,11 @@
                 {
                   "key": "order_numbers[0]",
                   "value": "12345",
-                  "description": "",
                   "type": "text"
                 },
                 {
                   "key": "with_items",
                   "value": "1",
-                  "description": "",
                   "type": "text"
                 }
               ]
@@ -1747,7 +1607,6 @@
           },
           "response": [
             {
-              "id": "8d985073-0d10-4fc7-bd3c-0d4e1e80a4e4",
               "name": "Basic Qty1",
               "originalRequest": {
                 "method": "POST",
@@ -1758,13 +1617,11 @@
                     {
                       "key": "order_numbers[0]",
                       "value": "12345",
-                      "description": "",
                       "type": "text"
                     },
                     {
                       "key": "with_items",
                       "value": "1",
-                      "description": "",
                       "type": "text"
                     }
                   ]
@@ -1786,9 +1643,9 @@
                 {
                   "key": "Content-Type",
                   "value": "application/json",
+                  "name": "Content-Type",
                   "description": "",
-                  "type": "text",
-                  "name": "Content-Type"
+                  "type": "text"
                 }
               ],
               "cookie": [],
@@ -1800,11 +1657,9 @@
     },
     {
       "name": "cron",
-      "description": "",
       "item": [
         {
           "name": "Shipping",
-          "description": "Tests shipping cron. Ships 1 item at first, then checks that the is_sent is not set so that it can send the order to shopgate when it is fully shipped.",
           "item": [
             {
               "name": "addOrder",
@@ -1851,19 +1706,16 @@
                     {
                       "key": "shop_number",
                       "value": "{{shop_number}}",
-                      "type": "text",
-                      "description": ""
+                      "type": "text"
                     },
                     {
                       "key": "action",
                       "value": "{{framework_action_add_order}}",
-                      "type": "text",
-                      "description": ""
+                      "type": "text"
                     },
                     {
                       "key": "order_number",
                       "value": "12345",
-                      "description": "",
                       "type": "text"
                     }
                   ]
@@ -1950,10 +1802,6 @@
                     "value": "application/json"
                   }
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"items\": [\n    {\n      \"order_item_id\": 16,\n      \"qty\": 1\n    }\n  ],\n  \"tracks\": [\n    {\n      \"track_number\": \"1Y-9876543210\",\n      \"title\": \"United Parcel Service\",\n      \"carrier_code\": \"ups\"\n    }\n  ]\n}"
-                },
                 "url": {
                   "raw": "{{m2_rest}}/V1/orders/{{order_id}}",
                   "host": [
@@ -2097,25 +1945,21 @@
                     {
                       "key": "shop_number",
                       "value": "{{shop_number}}",
-                      "type": "text",
-                      "description": ""
+                      "type": "text"
                     },
                     {
                       "key": "action",
                       "value": "{{framework_action_cron}}",
-                      "type": "text",
-                      "description": ""
+                      "type": "text"
                     },
                     {
                       "key": "jobs[0][job_name]",
                       "value": "set_shipping_completed",
-                      "description": "",
                       "type": "text"
                     },
                     {
                       "key": "jobs[0][job_params]",
                       "value": "0",
-                      "description": "",
                       "type": "text"
                     }
                   ]
@@ -2210,10 +2054,6 @@
                     "value": "application/json"
                   }
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"items\": [\n    {\n      \"order_item_id\": 16,\n      \"qty\": 1\n    }\n  ],\n  \"tracks\": [\n    {\n      \"track_number\": \"1Y-9876543210\",\n      \"title\": \"United Parcel Service\",\n      \"carrier_code\": \"ups\"\n    }\n  ]\n}"
-                },
                 "url": {
                   "raw": "{{m2_rest}}/V1/shopgate/order/mage/{{order_id}}",
                   "host": [
@@ -2359,25 +2199,21 @@
                     {
                       "key": "shop_number",
                       "value": "{{shop_number}}",
-                      "type": "text",
-                      "description": ""
+                      "type": "text"
                     },
                     {
                       "key": "action",
                       "value": "{{framework_action_cron}}",
-                      "type": "text",
-                      "description": ""
+                      "type": "text"
                     },
                     {
                       "key": "jobs[0][job_name]",
                       "value": "set_shipping_completed",
-                      "description": "",
                       "type": "text"
                     },
                     {
                       "key": "jobs[0][job_params]",
                       "value": "0",
-                      "description": "",
                       "type": "text"
                     }
                   ]
@@ -2472,10 +2308,6 @@
                     "value": "application/json"
                   }
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"items\": [\n    {\n      \"order_item_id\": 16,\n      \"qty\": 1\n    }\n  ],\n  \"tracks\": [\n    {\n      \"track_number\": \"1Y-9876543210\",\n      \"title\": \"United Parcel Service\",\n      \"carrier_code\": \"ups\"\n    }\n  ]\n}"
-                },
                 "url": {
                   "raw": "{{m2_rest}}/V1/shopgate/order/mage/{{order_id}}",
                   "host": [
@@ -2493,11 +2325,11 @@
               "response": []
             }
           ],
+          "description": "Tests shipping cron. Ships 1 item at first, then checks that the is_sent is not set so that it can send the order to shopgate when it is fully shipped.",
           "_postman_isSubFolder": true
         },
         {
           "name": "Cancel Orders",
-          "description": "Tests shipping cron. Ships 1 item at first, then checks that the is_sent is not set so that it can send the order to shopgate when it is fully shipped.",
           "item": [
             {
               "name": "addOrder",
@@ -2544,19 +2376,16 @@
                     {
                       "key": "shop_number",
                       "value": "{{shop_number}}",
-                      "type": "text",
-                      "description": ""
+                      "type": "text"
                     },
                     {
                       "key": "action",
                       "value": "{{framework_action_add_order}}",
-                      "type": "text",
-                      "description": ""
+                      "type": "text"
                     },
                     {
                       "key": "order_number",
                       "value": "12345",
-                      "description": "",
                       "type": "text"
                     }
                   ]
@@ -2647,10 +2476,6 @@
                     "value": "application/json"
                   }
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"items\": [\n    {\n      \"order_item_id\": 16,\n      \"qty\": 1\n    }\n  ],\n  \"tracks\": [\n    {\n      \"track_number\": \"1Y-9876543210\",\n      \"title\": \"United Parcel Service\",\n      \"carrier_code\": \"ups\"\n    }\n  ]\n}"
-                },
                 "url": {
                   "raw": "{{m2_rest}}/V1/shopgate/order/mage/{{order_id}}",
                   "host": [
@@ -2792,25 +2617,21 @@
                     {
                       "key": "shop_number",
                       "value": "{{shop_number}}",
-                      "type": "text",
-                      "description": ""
+                      "type": "text"
                     },
                     {
                       "key": "action",
                       "value": "{{framework_action_cron}}",
-                      "type": "text",
-                      "description": ""
+                      "type": "text"
                     },
                     {
                       "key": "jobs[0][job_name]",
                       "value": "cancel_orders",
-                      "description": "",
                       "type": "text"
                     },
                     {
                       "key": "jobs[0][job_params]",
                       "value": "0",
-                      "description": "",
                       "type": "text"
                     }
                   ]
@@ -2909,10 +2730,6 @@
                     "value": "application/json"
                   }
                 ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n  \"items\": [\n    {\n      \"order_item_id\": 16,\n      \"qty\": 1\n    }\n  ],\n  \"tracks\": [\n    {\n      \"track_number\": \"1Y-9876543210\",\n      \"title\": \"United Parcel Service\",\n      \"carrier_code\": \"ups\"\n    }\n  ]\n}"
-                },
                 "url": {
                   "raw": "{{m2_rest}}/V1/shopgate/order/mage/{{order_id}}",
                   "host": [
@@ -2930,9 +2747,71 @@
               "response": []
             }
           ],
+          "description": "Tests shipping cron. Ships 1 item at first, then checks that the is_sent is not set so that it can send the order to shopgate when it is fully shipped.",
           "_postman_isSubFolder": true
         }
       ]
+    },
+    {
+      "name": "get_settings",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "dc877cf2-1493-431c-b5ae-651a8892a9eb",
+            "exec": [
+              "pm.test('Test payload with correct data returned', function() {",
+              "    const jsonData = pm.response.json();",
+              "    const taxRate = jsonData.tax.tax_rates.pop();",
+              "    pm.expect(taxRate.state).to.eq('US-MI');",
+              "    pm.expect(taxRate.tax_percent).to.eq(8.25);",
+              "    const customerGroup = jsonData.customer_groups.pop();",
+              "    pm.expect(customerGroup.name).to.eq('Retailer');",
+              "    pm.expect(customerGroup.customer_tax_class_key).to.eq('Retail Customer');",
+              "    pm.expect(jsonData.allowed_address_countries.length).to.be.gt(0);",
+              "    pm.expect(jsonData.allowed_shipping_countries.length).to.be.gt(0);",
+              "    pm.expect(jsonData.payment_methods.length).to.be.eq(3);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "X-Shopgate-Auth-User",
+            "value": "{{sgHeaderAuthUser}}"
+          },
+          {
+            "key": "X-Shopgate-Auth-Token",
+            "value": "{{sgHeaderAuthToken}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "shop_number",
+              "value": "{{shop_number}}",
+              "type": "text"
+            },
+            {
+              "key": "action",
+              "value": "{{framework_action_get_settings}}",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{domain}}",
+          "host": [
+            "{{domain}}"
+          ]
+        }
+      },
+      "response": []
     },
     {
       "name": "ping",
@@ -2973,14 +2852,12 @@
             {
               "key": "shop_number",
               "value": "{{shop_number}}",
-              "type": "text",
-              "description": ""
+              "type": "text"
             },
             {
               "key": "action",
               "value": "{{framework_action_ping}}",
-              "type": "text",
-              "description": ""
+              "type": "text"
             }
           ]
         },
@@ -3036,25 +2913,92 @@
             {
               "key": "shop_number",
               "value": "{{shop_number}}",
-              "type": "text",
-              "description": ""
+              "type": "text"
             },
             {
               "key": "action",
               "value": "{{framework_action_get_reviews}}",
-              "type": "text",
-              "description": ""
+              "type": "text"
             },
             {
               "key": "limit",
               "value": "1",
-              "description": "",
               "type": "text"
             },
             {
               "key": "offset",
               "value": "1",
-              "description": "",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{domain}}",
+          "host": [
+            "{{domain}}"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get_customer",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "471b0ed3-c085-43e9-87a7-b27b0834fb6f",
+            "exec": [
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Check customer data\", function () {",
+              "    pm.expect(jsonData.user_data.gender).to.eql('f');",
+              "    pm.expect(jsonData.user_data.birthday).to.eql('1973-12-15');",
+              "    const address = jsonData.addresses.pop();",
+              "    pm.expect(address.country).to.eql('US');",
+              "    pm.expect(address.state).to.eql('US-MI');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "*/*"
+          },
+          {
+            "key": "X-Shopgate-Auth-User",
+            "value": "{{sgHeaderAuthUser}}"
+          },
+          {
+            "key": "X-Shopgate-Auth-Token",
+            "value": "{{sgHeaderAuthToken}}"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "shop_number",
+              "value": "{{shop_number}}",
+              "type": "text"
+            },
+            {
+              "key": "action",
+              "value": "{{framework_action_get_customer}}",
+              "type": "text"
+            },
+            {
+              "key": "user",
+              "value": "roni_cost@example.com",
+              "type": "text"
+            },
+            {
+              "key": "pass",
+              "value": "roni_cost3@example.com",
               "type": "text"
             }
           ]
@@ -3111,25 +3055,21 @@
             {
               "key": "shop_number",
               "value": "{{shop_number}}",
-              "type": "text",
-              "description": ""
+              "type": "text"
             },
             {
               "key": "action",
               "value": "{{framework_action_get_categories}}",
-              "type": "text",
-              "description": ""
+              "type": "text"
             },
             {
               "key": "limit",
               "value": "1",
-              "description": "",
               "type": "text"
             },
             {
               "key": "offset",
               "value": "1",
-              "description": "",
               "type": "text"
             }
           ]
@@ -3220,10 +3160,6 @@
             "value": "application/json"
           }
         ],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"items\": [\n    {\n      \"order_item_id\": 16,\n      \"qty\": 1\n    }\n  ],\n  \"tracks\": [\n    {\n      \"track_number\": \"1Y-9876543210\",\n      \"title\": \"United Parcel Service\",\n      \"carrier_code\": \"ups\"\n    }\n  ]\n}"
-        },
         "url": {
           "raw": "{{m2_rest}}/V1/shopgate/order/{{shopgate_order_id}}",
           "host": [

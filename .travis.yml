@@ -1,40 +1,41 @@
-dist: trusty
+dist: xenial
 sudo: false
 language: php
 
 install:
-- phpenv config-rm xdebug.ini || return 0
+  - phpenv config-rm xdebug.ini || return 0
 # todo-sg: need to install magento2 to run tests as it uses the bootstrap file in dev folder
 #- echo "{\"http-basic\":{\"repo.magento.com\":{\"username\":\"${MAGENTO_USERNAME}\",\"password\":\"${MAGENTO_PASSWORD}\"}}}" > auth.json
 #- if [[ "$MAGENTO_USERNAME" ]]; then composer install ; fi
-php:
-  - 5.6
-  - 7.0
-  - 7.1
-
 script:
-  - curl -L http://files.shopgate.com/travis-ci/php-cs-fixer.phar -o php-cs-fixer
+  - curl -L https://cs.symfony.com/download/php-cs-fixer-v2.phar -o php-cs-fixer
   - chmod a+x php-cs-fixer
   - git checkout -B $TRAVIS_BRANCH
   - ./php-cs-fixer fix --config=.php-cs.dist --cache-file=.php-cs.cache --diff --dry-run --verbose
   - rm php-cs-fixer
+
 jobs:
   include:
-  - stage: deploy
-    php: 7.0
-    before_script: skip
-    script:
-    - if [[ "$TRAVIS_TAG" ]]; then
-        chmod +x ./release/build_release_package.sh;
-        ./release/build_release_package.sh;
-      fi
-    deploy:
-      provider: releases
-      api_key: ${GITHUB_TOKEN}
-      file: shopgate-base-${TRAVIS_TAG}.zip
-      skip_cleanup: true
-      on:
-        tags: true
+    - stage: Code Style
+      php: '7.2'
+    - php: '7.1'
+    - php: '7.0'
+      dist: trusty
+    - stage: deploy
+      php: '7.1'
+      before_script: skip
+      script:
+        - if [[ "$TRAVIS_TAG" ]]; then
+          chmod +x ./release/build_release_package.sh;
+          ./release/build_release_package.sh;
+          fi
+      deploy:
+        provider: releases
+        api_key: ${GITHUB_TOKEN}
+        file: shopgate-base-${TRAVIS_TAG}.zip
+        skip_cleanup: true
+        on:
+          tags: true
 
 notifications:
   slack:
