@@ -27,6 +27,7 @@ use Magento\Catalog\Model\Product\Attribute\Source\Status as MageStatus;
 use Magento\Catalog\Model\Product\Type\AbstractType;
 use Magento\Framework\Api\SimpleDataObjectConverter;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\DataObject;
 use Magento\Framework\Phrase;
 use Magento\Framework\Webapi\Exception;
 use Magento\Quote\Model\Quote as MageQuote;
@@ -40,6 +41,7 @@ use Shopgate\Base\Model\Shopgate\Extended;
 use Shopgate\Base\Model\Utility\Registry;
 use Shopgate\Base\Model\Utility\SgLoggerInterface;
 use ShopgateLibraryException;
+use \Zend\Serializer\Serializer;
 
 /**
  * This class must not return anything except itself as it only
@@ -186,6 +188,10 @@ class Quote
                 }
                 $quoteItem->setTaxPercent($item->getTaxPercent());
 
+                $additionalDataObject = new DataObject();
+                $additionalDataObject->setShopgateItemNumber($item->getOrderItemId());
+                $quoteItem->setAdditionalData(Serializer::serialize($additionalDataObject));
+
                 if (!$item->isSimple()) {
                     $productWeight = $product->getTypeInstance()->getWeight($product);
                     $quoteItem->setWeight($productWeight);
@@ -193,6 +199,12 @@ class Quote
 
                 $quoteItem->setRowWeight($quoteItem->getWeight() * $quoteItem->getQty());
                 $this->quote->setItemsCount($this->quote->getItemsCount() + 1);
+
+                /**
+                 * Magento's flow is to save Quote on addItem, then on saveOrder load quote again. We mimic this here.
+                 */
+                $this->quoteRepository->save($this->quote);
+                $this->quote = $this->quoteRepository->get($this->quote->getId());
             } catch (\Exception $e) {
                 $this->log->error(
                     "Error importing product to quote by id: {$product->getId()}, error: {$e->getMessage()}"
@@ -201,12 +213,6 @@ class Quote
                 $item->setMagentoError($e->getMessage());
             }
         }
-
-        /**
-         * Magento's flow is to save Quote on addItem, then on saveOrder load quote again. We mimic this here.
-         */
-        $this->quoteRepository->save($this->quote);
-        $this->quote = $this->quoteRepository->get($this->quote->getId());
     }
 
     /**

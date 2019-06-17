@@ -91,7 +91,7 @@ class Config extends \ShopgateConfig
         $this->registry       = $initializer->getRegistry();
         $this->configHelper   = $initializer->getHelper();
         $this->plugin_name    = 'magento2';
-        $this->configMapping += $this->configHelper->loadUndefinedConfigPaths();
+        $this->configMapping  += $this->configHelper->loadUndefinedConfigPaths();
         $this->loadArray($this->configMethods);
 
         return true;
@@ -102,17 +102,19 @@ class Config extends \ShopgateConfig
      * Note that we use the += operator intentionally
      *
      * @param array|null $settings
+     *
+     * @throws \ReflectionException
      */
     public function load(array $settings = null)
     {
         $classVars = array_keys(get_class_vars(get_class($this)));
 
         foreach ($settings as $name => $value) {
-            if (in_array($name, $this->blacklistConfig)) {
+            if (in_array($name, $this->blacklistConfig, true)) {
                 continue;
             }
 
-            if (in_array($name, $classVars)) {
+            if (in_array($name, $classVars, true)) {
                 $method = 'set' . SimpleDataObjectConverter::snakeCaseToUpperCamelCase($name);
                 if (method_exists($this, $method)) {
                     $this->configMapping += $this->configHelper->getNewSettingPath($name);
@@ -141,6 +143,7 @@ class Config extends \ShopgateConfig
      * @param string $property
      *
      * @return boolean|number|string|integer
+     * @throws \ReflectionException
      */
     protected function castToType($value, $property)
     {
@@ -168,10 +171,11 @@ class Config extends \ShopgateConfig
      * @param string $property
      *
      * @return string
+     * @throws \ReflectionException
      */
     protected function getPropertyType($property)
     {
-        if (!in_array($property, array_keys(get_class_vars('ShopgateConfig')))) {
+        if (!array_key_exists($property, get_class_vars('ShopgateConfig'))) {
             return 'string';
         }
 
@@ -190,6 +194,9 @@ class Config extends \ShopgateConfig
     /**
      * Load general information and values.
      * Use shop number to determine store only when it is not a frontend call
+     *
+     * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws \ReflectionException
      */
     public function loadConfig()
     {
@@ -206,7 +213,7 @@ class Config extends \ShopgateConfig
      */
     public function getShopNumber()
     {
-        if (is_null($this->shop_number)) {
+        if ($this->shop_number === null) {
             $this->shop_number = $this->configHelper->getShopNumber();
         }
 
@@ -215,33 +222,40 @@ class Config extends \ShopgateConfig
 
     /**
      * Setup export, log and tmp folder and check if need to create them
+     *
+     * @throws \Magento\Framework\Exception\FileSystemException
      */
     protected function setExportTmpAndLogSettings()
     {
         $this->setExportFolderPath(
             $this->directory->getPath(DirectoryList::TMP) . DS . 'shopgate' . DS . $this->getShopNumber()
         );
-        if (!file_exists($this->getExportFolderPath())) {
-            @mkdir($this->getExportFolderPath(), 0777, true);
-        }
+        $this->createFolderIfNotExist($this->getExportFolderPath());
 
         $this->setLogFolderPath(
             $this->directory->getPath(DirectoryList::LOG) . DS . 'shopgate' . DS . $this->getShopNumber()
         );
-        if (!file_exists($this->getLogFolderPath())) {
-            @mkdir($this->getLogFolderPath(), 0777, true);
-        }
+        $this->createFolderIfNotExist($this->getLogFolderPath());
 
         $this->setCacheFolderPath(
             $this->directory->getPath(DirectoryList::TMP) . DS . 'shopgate' . DS . $this->getShopNumber()
         );
-        if (!file_exists($this->getCacheFolderPath())) {
-            @mkdir($this->getCacheFolderPath(), 0777, true);
+        $this->createFolderIfNotExist($this->getCacheFolderPath());
+    }
+
+    /**
+     * @param string $folderPath - folder path to check if exists and create
+     */
+    private function createFolderIfNotExist($folderPath)
+    {
+        if (!is_dir($folderPath) && mkdir($folderPath, 0777, true) && !is_dir($folderPath)) {
+            $this->logger->error('Could not create path: ' . $folderPath);
         }
     }
 
     /**
      * @return array
+     * @throws \ReflectionException
      */
     public function toArray()
     {
@@ -314,6 +328,7 @@ class Config extends \ShopgateConfig
      *                   & value is core_config_data path
      *
      * @return array - $return['key'] = (cast type) value
+     * @throws \ReflectionException
      */
     private function getCoreConfigMap(array $map)
     {
@@ -321,7 +336,7 @@ class Config extends \ShopgateConfig
 
         foreach ($map as $key => $path) {
             $value = $this->coreConfig->getConfigByPath($path)->getData('value');
-            if (!is_null($value)) {
+            if ($value !== null) {
                 $result[$key] = $this->castToType($value, $key);
             }
         }
@@ -347,7 +362,7 @@ class Config extends \ShopgateConfig
         }
 
         foreach ($fieldList as $property) {
-            if (in_array($property, $this->blacklistConfig)) {
+            if (in_array($property, $this->blacklistConfig, true)) {
                 continue;
             }
 
@@ -358,8 +373,7 @@ class Config extends \ShopgateConfig
                     $this->configMapping[$property],
                     $property,
                     $config->getScope(),
-                    $config->getScopeId(),
-                    null
+                    $config->getScopeId()
                 );
             }
         }
@@ -381,7 +395,7 @@ class Config extends \ShopgateConfig
      */
     protected function saveField($path, $property, $scope, $scopeId, $value = null)
     {
-        if (is_null($value)) {
+        if ($value === null) {
             if (isset($this->configMapping[$property])) {
                 $value = $this->getPropertyValue($property);
             } else {
@@ -389,7 +403,7 @@ class Config extends \ShopgateConfig
             }
         }
 
-        if (!is_null($value)) {
+        if ($value !== null) {
             $this->logger->debug(
                 '    Saving config field \'' . $property . '\' with value \'' . $value . '\' to scope {\''
                 . $scope . '\':\'' . $scopeId . '\'}'
@@ -436,6 +450,7 @@ class Config extends \ShopgateConfig
 
     /**
      * @return int
+     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function getStoreViewId()
     {

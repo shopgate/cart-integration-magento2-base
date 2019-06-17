@@ -21,13 +21,19 @@
 
 namespace Shopgate\Base\Helper\Settings\Tax;
 
+use Magento\Customer\Api\Data\AddressInterface;
+use Magento\Customer\Api\Data\AddressInterfaceFactory;
+use Magento\Customer\Api\Data\RegionInterface;
+use Magento\Customer\Api\Data\RegionInterfaceFactory;
 use Magento\Customer\Api\GroupManagementInterface;
 use Magento\Directory\Model\ResourceModel\Region;
-use Magento\Framework\DataObject;
+use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Tax\Api\Data\TaxClassInterface;
 use Magento\Tax\Model\ClassModel;
 use Magento\Tax\Model\ResourceModel\Calculation\Rate;
 use Magento\Tax\Model\ResourceModel\Calculation\Rule;
+use Magento\Tax\Model\ResourceModel\TaxClass\Collection;
 use Shopgate\Base\Helper\Regions;
 
 class Retriever
@@ -40,30 +46,22 @@ class Retriever
     /** Type used by pattern based zip codes */
     const ZIP_CODE_TYPE_PATTERN = 'pattern';
 
-    /**
-     * @var ClassModel - main interface for tax collection retrieval
-     */
+    /** @var ClassModel - main interface for tax collection retrieval */
     private $taxClass;
-    /**
-     * @var GroupManagementInterface
-     */
+    /** @var GroupManagementInterface */
     private $customerGroup;
-    /**
-     * @var Rate\Collection
-     */
+    /** @var Rate\Collection */
     private $taxRates;
-    /**
-     * @var Region\Collection
-     */
+    /** @var Region\Collection */
     private $regionCollection;
-    /**
-     * @var Regions
-     */
+    /** @var Regions */
     private $regionHelper;
-    /**
-     * @var Rule\Collection
-     */
+    /** @var Rule\Collection */
     private $taxRules;
+    /** @var AddressFactory */
+    private $addressFactory;
+    /** @var RegionInterfaceFactory */
+    private $regionInterfaceFactory;
 
     /**
      * @param TaxClassInterface        $taxClass - tax collection
@@ -72,6 +70,8 @@ class Retriever
      * @param Region\Collection        $regionCollection
      * @param Regions                  $regionHelper
      * @param Rule\Collection          $taxRules
+     * @param AddressInterfaceFactory  $addressFactory
+     * @param RegionInterfaceFactory   $regionInterfaceFactory
      */
     public function __construct(
         TaxClassInterface $taxClass,
@@ -79,14 +79,18 @@ class Retriever
         Rate\Collection $taxRates,
         Region\Collection $regionCollection,
         Regions $regionHelper,
-        Rule\Collection $taxRules
+        Rule\Collection $taxRules,
+        AddressInterfaceFactory $addressFactory,
+        RegionInterfaceFactory $regionInterfaceFactory
     ) {
-        $this->taxClass         = $taxClass;
-        $this->customerGroup    = $customerGroup;
-        $this->taxRates         = $taxRates;
-        $this->regionCollection = $regionCollection;
-        $this->regionHelper     = $regionHelper;
-        $this->taxRules         = $taxRules;
+        $this->taxClass               = $taxClass;
+        $this->customerGroup          = $customerGroup;
+        $this->taxRates               = $taxRates;
+        $this->regionCollection       = $regionCollection;
+        $this->regionHelper           = $regionHelper;
+        $this->taxRules               = $taxRules;
+        $this->addressFactory         = $addressFactory;
+        $this->regionInterfaceFactory = $regionInterfaceFactory;
     }
 
     /**
@@ -95,9 +99,9 @@ class Retriever
      *
      * @return array
      */
-    public function getProductTaxClasses()
+    public function getProductTaxClasses(): array
     {
-        /** @var \Magento\Tax\Model\ResourceModel\TaxClass\Collection $taxCollection */
+        /** @var Collection $taxCollection */
         $classes       = [];
         $taxCollection = $this->taxClass->getCollection();
         $taxCollection->setClassTypeFilter(ClassModel::TAX_CLASS_TYPE_PRODUCT);
@@ -118,10 +122,12 @@ class Retriever
      * for Merchant API to pick up
      *
      * @return array
+     * @throws LocalizedException
+     * @throws NoSuchEntityException
      */
-    public function getCustomerTaxClasses()
+    public function getCustomerTaxClasses(): array
     {
-        /** @var \Magento\Tax\Model\ResourceModel\TaxClass\Collection $taxCollection */
+        /** @var Collection $taxCollection */
         $classes       = [];
         $defaultTaxId  = $this->customerGroup->getNotLoggedInGroup()->getTaxClassId();
         $taxCollection = $this->taxClass->getCollection();
@@ -132,7 +138,7 @@ class Retriever
             $classes[] = [
                 'id'         => $tax->getId(),
                 'key'        => $tax->getClassName(),
-                'is_default' => intval($defaultTaxId == $tax->getId()),
+                'is_default' => (int) ($defaultTaxId == $tax->getId()),
             ];
         }
 
@@ -145,7 +151,7 @@ class Retriever
      *
      * @return array
      */
-    public function getTaxRates()
+    public function getTaxRates(): array
     {
         $rates = [];
         /** @var \Magento\Tax\Model\Calculation\Rate $rate */
@@ -159,7 +165,7 @@ class Retriever
                 $zipCodeType      = self::ZIP_CODE_TYPE_RANGE;
                 $zipCodeRangeFrom = $rate->getZipFrom();
                 $zipCodeRangeTo   = $rate->getZipTo();
-            } elseif ($rate->getTaxPostcode() && $rate->getTaxPostcode() != '*') {
+            } elseif ($rate->getTaxPostcode() && $rate->getTaxPostcode() !== '*') {
                 $zipCodeType    = self::ZIP_CODE_TYPE_PATTERN;
                 $zipCodePattern = $rate->getTaxPostcode();
             }
@@ -168,15 +174,15 @@ class Retriever
             $regionId = $rate->getTaxRegionId();
 
             if ($regionId) {
+                /** @var AddressInterface $address */
+                $address = $this->addressFactory->create();
                 /** @var \Magento\Directory\Model\Region $region */
                 $region = $this->regionCollection->getItemById($regionId);
-                $state  = $this->regionHelper->getIsoStateByMagentoRegion(
-                    new DataObject(
-                        [
-                            'region_code' => $region->getCode(),
-                            'country_id'  => $rate->getTaxCountryId()
-                        ]
-                    )
+                /** @var RegionInterface $regionInterface */
+                $regionInterface = $this->regionInterfaceFactory->create();
+                $regionInterface->setRegionCode($region->getCode());
+                $state = $this->regionHelper->getIsoStateByMagentoRegion(
+                    $address->setCountryId($rate->getTaxCountryId())->setRegion($regionInterface)
                 );
             }
 
@@ -203,7 +209,7 @@ class Retriever
      *
      * @return array
      */
-    public function getTaxRules()
+    public function getTaxRules(): array
     {
         $rules = [];
         /* @var \Magento\Tax\Model\Calculation\Rule $rule */
