@@ -8,6 +8,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Fixed
 - Region/state mapping for get_customer calls, e.g. returns US-TX instead of TX
 
+### Added
+- Support for Export shopgate order collection calls
+
 ## [2.9.13] - 2019-06-05
 ### Fixed
 - Cart validation for products with the same item id
