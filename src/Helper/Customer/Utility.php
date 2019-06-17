@@ -23,9 +23,16 @@
 namespace Shopgate\Base\Helper\Customer;
 
 use Magento\Customer\Api\Data\CustomerInterface;
+use Magento\Customer\Model\Data\Address;
+use Magento\Customer\Model\Group;
 use Magento\Customer\Model\ResourceModel\Group\Collection as GroupCollection;
 use Magento\Directory\Model\CountryFactory;
+use Magento\Tax\Model\ClassModel;
 use Magento\Tax\Model\ResourceModel\TaxClass\Collection as TaxClassCollection;
+use Shopgate\Base\Helper\Regions;
+use ShopgateAddress;
+use ShopgateCustomer;
+use ShopgateCustomerGroup;
 
 class Utility
 {
@@ -39,30 +46,35 @@ class Utility
     private $taxCollection;
     /** @var  CountryFactory */
     protected $countryFactory;
+    /** @var Regions */
+    private $regions;
 
     /**
      * @param GroupCollection    $customerGroupCollection
      * @param TaxClassCollection $taxCollection
      * @param CountryFactory     $countryFactory
+     * @param Regions            $regions
      */
     public function __construct(
         GroupCollection $customerGroupCollection,
         TaxClassCollection $taxCollection,
-        CountryFactory $countryFactory
+        CountryFactory $countryFactory,
+        Regions $regions
     ) {
         $this->customerGroupCollection = $customerGroupCollection;
         $this->taxCollection           = $taxCollection;
         $this->countryFactory          = $countryFactory;
+        $this->regions                 = $regions;
     }
 
     /**
      * @param CustomerInterface $magentoCustomer
      *
-     * @return \ShopgateCustomer
+     * @return ShopgateCustomer
      */
-    public function loadByMagentoCustomer($magentoCustomer)
+    public function loadByMagentoCustomer($magentoCustomer): ShopgateCustomer
     {
-        $shopgateCustomer = new \ShopgateCustomer();
+        $shopgateCustomer = new ShopgateCustomer();
         $this->setBaseData($shopgateCustomer, $magentoCustomer);
         $this->setGroupData($shopgateCustomer, $magentoCustomer);
         $this->setAddresses($shopgateCustomer, $magentoCustomer);
@@ -71,7 +83,7 @@ class Utility
     }
 
     /**
-     * @param \ShopgateCustomer $shopgateCustomer
+     * @param ShopgateCustomer  $shopgateCustomer
      * @param CustomerInterface $magentoCustomer
      */
     protected function setBaseData($shopgateCustomer, $magentoCustomer)
@@ -90,13 +102,13 @@ class Utility
      *
      * @return string
      */
-    protected function getShopgateGender($magentoGender)
+    protected function getShopgateGender($magentoGender): string
     {
         $gender = '';
         if ($magentoGender === self::MAGENTO_GENDER_MALE) {
-            $gender = \ShopgateCustomer::MALE;
+            $gender = ShopgateCustomer::MALE;
         } elseif ($magentoGender === self::MAGENTO_GENDER_FEMALE) {
-            $gender = \ShopgateCustomer::FEMALE;
+            $gender = ShopgateCustomer::FEMALE;
         }
 
         return $gender;
@@ -110,34 +122,32 @@ class Utility
     public function getMagentoGender($shopgateGender)
     {
         switch ($shopgateGender) {
-            case \ShopgateCustomer::MALE:
+            case ShopgateCustomer::MALE:
                 return self::MAGENTO_GENDER_MALE;
-                break;
-            case \ShopgateCustomer::FEMALE:
+            case ShopgateCustomer::FEMALE:
                 return self::MAGENTO_GENDER_FEMALE;
-                break;
             default:
                 return self::MAGENTO_GENDER_NO_SPECIFIED;
         }
     }
 
     /**
-     * @param \ShopgateCustomer $shopgateCustomer
+     * @param ShopgateCustomer  $shopgateCustomer
      * @param CustomerInterface $magentoCustomer
      */
     public function setGroupData($shopgateCustomer, $magentoCustomer)
     {
-        /** @var \Magento\Customer\Model\Group $magentoCustomerGroup */
+        /** @var Group $magentoCustomerGroup */
         $magentoCustomerGroup =
             $this->customerGroupCollection->getItemByColumnValue('customer_group_id', $magentoCustomer->getGroupId());
         if ($magentoCustomerGroup) {
-            $shopgateCustomerGroup = new \ShopgateCustomerGroup;
+            $shopgateCustomerGroup = new ShopgateCustomerGroup;
             $shopgateCustomerGroup->setId($magentoCustomerGroup->getId());
             $shopgateCustomerGroup->setName($magentoCustomerGroup->getCode());
-            $shopgateCustomer->setCustomerGroups([($shopgateCustomerGroup)]);
+            $shopgateCustomer->setCustomerGroups([$shopgateCustomerGroup]);
         }
 
-        /** @var \Magento\Tax\Model\ClassModel $taxClass */
+        /** @var ClassModel $taxClass */
         $taxClass = $this->taxCollection->getItemByColumnValue('class_id', $magentoCustomerGroup->getTaxClassId());
         if ($taxClass) {
             $shopgateCustomer->setTaxClassId($taxClass->getClassId());
@@ -146,34 +156,34 @@ class Utility
     }
 
     /**
-     * @param \ShopgateCustomer $shopgateCustomer
+     * @param ShopgateCustomer  $shopgateCustomer
      * @param CustomerInterface $magentoCustomer
      */
     protected function setAddresses($shopgateCustomer, $magentoCustomer)
     {
         $addresses = [];
-        foreach ($magentoCustomer->getAddresses() as $magentoCustomerAddress) {
-            /** @var  \Magento\Customer\Model\Data\Address $magentoCustomerAddress */
-            $shopgateAddress = new \ShopgateAddress();
-            $shopgateAddress->setId($magentoCustomerAddress->getId());
+        foreach ($magentoCustomer->getAddresses() as $mageAddress) {
+            /** @var  Address $mageAddress */
+            $shopgateAddress = new ShopgateAddress();
+            $shopgateAddress->setId($mageAddress->getId());
             $shopgateAddress->setIsDeliveryAddress(1);
             $shopgateAddress->setIsInvoiceAddress(1);
-            $shopgateAddress->setFirstName($magentoCustomerAddress->getFirstname());
-            $shopgateAddress->setLastName($magentoCustomerAddress->getLastname());
-            $shopgateAddress->setCompany($magentoCustomerAddress->getCompany());
-            $shopgateAddress->setPhone($magentoCustomerAddress->getTelephone());
+            $shopgateAddress->setFirstName($mageAddress->getFirstname());
+            $shopgateAddress->setLastName($mageAddress->getLastname());
+            $shopgateAddress->setCompany($mageAddress->getCompany());
+            $shopgateAddress->setPhone($mageAddress->getTelephone());
 
-            $streetArray = $magentoCustomerAddress->getStreet();
+            $streetArray = $mageAddress->getStreet();
             if (isset($streetArray[0])) {
                 $shopgateAddress->setStreet1($streetArray[0]);
             }
             if (isset($streetArray[1])) {
                 $shopgateAddress->setStreet2($streetArray[1]);
             }
-            $shopgateAddress->setCity($magentoCustomerAddress->getCity());
-            $shopgateAddress->setZipcode($magentoCustomerAddress->getPostcode());
-            $shopgateAddress->setCountry($magentoCustomerAddress->getCountryId());
-            $shopgateAddress->setState($magentoCustomerAddress->getRegion()->getRegionCode());
+            $shopgateAddress->setCity($mageAddress->getCity());
+            $shopgateAddress->setZipcode($mageAddress->getPostcode());
+            $shopgateAddress->setCountry($mageAddress->getCountryId());
+            $shopgateAddress->setState($this->regions->getIsoStateByMagentoRegion($mageAddress));
 
             $addresses[] = $shopgateAddress;
         }
