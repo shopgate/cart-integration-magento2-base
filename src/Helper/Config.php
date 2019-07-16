@@ -22,6 +22,7 @@
 
 namespace Shopgate\Base\Helper;
 
+use Magento\Framework\App\Config\Value;
 use Magento\Framework\App\RequestInterface;
 use Shopgate\Base\Api\Config\CoreInterface;
 use Shopgate\Base\Api\Config\SgCoreInterface;
@@ -53,11 +54,11 @@ class Config
      *
      * @return array $list - list of undefined keys and core_config_paths to them
      */
-    public function loadUndefinedConfigPaths()
+    public function loadUndefinedConfigPaths(): array
     {
         $list       = [];
         $collection = $this->coreConfig->getCollectionByPath(SgCoreInterface::PATH_UNDEFINED . '%');
-        /** @var \Magento\Framework\App\Config\Value $item */
+        /** @var Value $item */
         foreach ($collection as $item) {
             $path       = explode('/', $item->getPath());
             $key        = array_pop($path);
@@ -75,7 +76,7 @@ class Config
      *
      * @return array - [sg_config_key => core_config_path]
      */
-    public function getNewSettingPath($propertyName)
+    public function getNewSettingPath($propertyName): array
     {
         return [$propertyName => SgCoreInterface::PATH_UNDEFINED . $propertyName];
     }
@@ -85,11 +86,11 @@ class Config
      *
      * @return string
      */
-    public function getShopNumber()
+    public function getShopNumber(): string
     {
         $shopNumber = $this->request->getParam('shop_number');
         $item       = $this->sgCoreConfig->getShopNumberCollection($shopNumber)->getFirstItem();
 
-        return $item->getData('value') ? $shopNumber : '';
+        return $item->getData('value') ? : '';
     }
 }
