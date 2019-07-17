@@ -22,9 +22,13 @@
 
 namespace Shopgate\Base\Model\Service\Config;
 
+use Exception;
 use Magento\Config\Model\ResourceModel\Config\Data\Collection;
 use Magento\Framework\App\Config\Value;
+use Magento\Framework\DataObject;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Store\Model\ScopeInterface;
+use Magento\Store\Model\Website;
 use Shopgate\Base\Api\Config\SgCoreInterface;
 use ShopgateLibraryException;
 
@@ -33,6 +37,8 @@ class SgCore extends Core implements SgCoreInterface
 
     /**
      * @inheritdoc
+     * @throws LocalizedException
+     * @throws Exception
      */
     public function getStoreId($shopNumber)
     {
@@ -41,22 +47,28 @@ class SgCore extends Core implements SgCoreInterface
 
         switch ($configItem->getData('scope')) {
             case ScopeInterface::SCOPE_STORES:
-                return (int)$scopeId;
+                return (int) $scopeId;
             case ScopeInterface::SCOPE_WEBSITES:
-                /** @var \Magento\Store\Model\Website $website */
+                /** @var Website $website */
                 $website = $this->storeManager->getWebsite($scopeId);
 
                 return $website->getDefaultStore()->getStoreId();
             default:
-                return $this->storeManager->getDefaultStoreView()->getId();
+                $default = $this->storeManager->getDefaultStoreView();
+
+                if (null === $default) {
+                    throw new Exception('No default Store View set up');
+                }
+
+                return $default->getId();
         }
     }
 
     /**
      * @inheritdoc
-     * @return \Magento\Config\Model\ResourceModel\Config\Data\Collection
+     * @return Collection
      */
-    public function getShopNumberCollection($shopNumber)
+    public function getShopNumberCollection($shopNumber): Collection
     {
         return $this->configFactory->create()
                                    ->addFieldToFilter('path', self::PATH_SHOP_NUMBER)
@@ -66,6 +78,7 @@ class SgCore extends Core implements SgCoreInterface
 
     /**
      * @inheritdoc
+     * @throws ShopgateLibraryException
      */
     public function getSaveScope($path, $shopNumber)
     {
@@ -77,9 +90,7 @@ class SgCore extends Core implements SgCoreInterface
             return $storeConfig;
         }
 
-        $shopConfig = $this->retrievePathScope($path, $shopNumber);
-
-        return $shopConfig;
+        return $this->retrievePathScope($path, $shopNumber);
     }
 
     /**
@@ -92,7 +103,7 @@ class SgCore extends Core implements SgCoreInterface
      * @param string $path
      * @param string $shopNumber
      *
-     * @return Value | \Magento\Framework\DataObject
+     * @return Value | DataObject
      * @throws ShopgateLibraryException
      */
     private function retrievePathScope($path, $shopNumber)
@@ -132,16 +143,11 @@ class SgCore extends Core implements SgCoreInterface
     /**
      * @inheritdoc
      */
-    public function isValid()
+    public function isValid(): bool
     {
-        if (!empty($this->getConfigByPath(self::PATH_ACTIVE)->getValue())
+        return !empty($this->getConfigByPath(self::PATH_ACTIVE)->getValue())
             && !empty($this->getConfigByPath(self::PATH_API_KEY)->getValue())
             && !empty($this->getConfigByPath(self::PATH_SHOP_NUMBER)->getValue())
-            && !empty($this->getConfigByPath(self::PATH_CUSTOMER_NUMBER)->getValue())
-        ) {
-            return true;
-        }
-
-        return false;
+            && !empty($this->getConfigByPath(self::PATH_CUSTOMER_NUMBER)->getValue());
     }
 }

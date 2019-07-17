@@ -23,8 +23,10 @@
 namespace Shopgate\Base\Helper\Quote;
 
 use Magento\Config\Model\Config\Backend\Admin\Custom;
+use Magento\Customer\Model\Group;
 use Magento\Customer\Model\Session;
 use Magento\Framework\DataObject;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Model\Quote as MageQuote;
 use Shopgate\Base\Helper\Customer as CustomerHelper;
@@ -32,6 +34,7 @@ use Shopgate\Base\Helper\Shopgate\Customer as SgCustomerHelper;
 use Shopgate\Base\Model\Service\Config\Core as SgCoreConfig;
 use Shopgate\Base\Model\Shopgate\Extended\Base;
 use Shopgate\Base\Model\Utility\SgLoggerInterface;
+use ShopgateLibraryException;
 
 /**
  * Class that helps set the customer object to quote and session
@@ -82,7 +85,8 @@ class Customer
      *
      * @param MageQuote $quote
      *
-     * @throws \ShopgateLibraryException
+     * @throws ShopgateLibraryException
+     * @throws LocalizedException
      */
     public function setEntity(MageQuote $quote)
     {
@@ -98,15 +102,13 @@ class Customer
         $quote->setCustomerEmail($email)
             ->setRemoteIp($this->sgBase->getCustomerIp());
         if ($this->sgBase->isGuest()) {
-            $quote->setCustomerIsGuest(true);
+            $quote->setCustomerIsGuest(true)->setCustomerGroupId(Group::NOT_LOGGED_IN_ID);
         } elseif ($customer->getId()) {
             $this->session->setCustomerId($customer->getId())->setCustomerGroupId($customer->getGroupId());
-
-            $quote->setCustomer($customer)
-                ->setCustomerIsGuest(false);
+            $quote->setCustomer($customer)->setCustomerIsGuest(false);
         } else {
-            throw new \ShopgateLibraryException(
-                \ShopgateLibraryException::UNKNOWN_ERROR_CODE,
+            throw new ShopgateLibraryException(
+                ShopgateLibraryException::UNKNOWN_ERROR_CODE,
                 __('Customer with external id "%1" or email "%2" does not exist', $id, $email)->render()
             );
         }
@@ -117,7 +119,7 @@ class Customer
      *
      * @param MageQuote $quote
      *
-     * @throws \Magento\Framework\Exception\LocalizedException
+     * @throws LocalizedException
      */
     public function setAddress(MageQuote $quote)
     {

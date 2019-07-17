@@ -22,7 +22,9 @@
 
 namespace Shopgate\Base\Model\Utility;
 
-class Registry extends \Magento\Framework\Registry
+use Magento\Framework\DataObject;
+
+class Registry extends DataObject
 {
     const API      = 'shopgate_api';
     const ACTION   = 'shopgate_action';
@@ -32,11 +34,9 @@ class Registry extends \Magento\Framework\Registry
      * Sets current process as an API call,
      * normally made from the main controller
      */
-    public function flagApi()
+    public function flagApi(): Registry
     {
-        if (!$this->isApi()) {
-            $this->register(self::API, true);
-        }
+        return $this->register(self::API, true);
     }
 
     /**
@@ -44,21 +44,23 @@ class Registry extends \Magento\Framework\Registry
      *
      * @return bool
      */
-    public function isApi()
+    public function isApi(): bool
     {
         return $this->registry(self::API) === true;
     }
 
     /**
      * @param string $action
+     *
+     * @return Registry
      */
-    public function setAction($action)
+    public function setAction($action): Registry
     {
-        $this->register(self::ACTION, $action);
+        return $this->register(self::ACTION, $action);
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getAction()
     {
@@ -72,7 +74,7 @@ class Registry extends \Magento\Framework\Registry
      *
      * @return bool
      */
-    public function isAction($action)
+    public function isAction($action): bool
     {
         return $this->getAction() === $action;
     }
@@ -84,9 +86,9 @@ class Registry extends \Magento\Framework\Registry
      *
      * @return bool
      */
-    public function isActionInList($list)
+    public function isActionInList($list): bool
     {
-        return in_array($this->getAction(), $list);
+        return in_array($this->getAction(), $list, true);
     }
 
     /**
@@ -94,7 +96,7 @@ class Registry extends \Magento\Framework\Registry
      *
      * @return bool
      */
-    public function isRedirect()
+    public function isRedirect(): bool
     {
         return $this->registry(self::REDIRECT) === true;
     }
@@ -103,10 +105,41 @@ class Registry extends \Magento\Framework\Registry
      * Sets redirect to true in case the call is made
      * from the frontend controller
      */
-    public function flagRedirect()
+    public function flagRedirect(): Registry
     {
-        if (!$this->isRedirect()) {
-            $this->register(self::REDIRECT, true);
-        }
+        return $this->register(self::REDIRECT, true);
+    }
+
+    /**
+     * @param string $key
+     * @param mixed  $value
+     *
+     * @return Registry
+     */
+    public function register(string $key, $value): Registry
+    {
+        $this->setData($key, $value);
+
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     *
+     * @return mixed
+     */
+    public function registry(string $key)
+    {
+        return $this->getData($key);
+    }
+
+    /**
+     * @param $key
+     *
+     * @return Registry
+     */
+    public function unregister(string $key): Registry
+    {
+        return $this->unsetData($key);
     }
 }

@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Error "unknown shop number" when using Shopgate with different store views connected
 
 ## [2.9.14] - 2019-06-17
 ### Added

@@ -43,6 +43,7 @@
     </type>
     <type name="Shopgate\Base\Helper\Initializer\Config">
         <arguments>
+            <argument name="registry" xsi:type="object" shared="true">Shopgate\Base\Model\Utility\Registry</argument>
             <argument name="configMethods" xsi:type="array">
                 <item name="blacklist_config" xsi:type="array">
                     <item name="0" xsi:type="string">is_active</item>
@@ -114,6 +115,11 @@
             <argument name="data" xsi:type="array">
                 <item name="form_name" xsi:type="string">sales_rule_form</item>
             </argument>
+        </arguments>
+    </type>
+    <type name="Shopgate\Base\Controller\Plugin\Index">
+        <arguments>
+            <argument name="registry" xsi:type="object" shared="true">Shopgate\Base\Model\Utility\Registry</argument>
         </arguments>
     </type>
 </config>
