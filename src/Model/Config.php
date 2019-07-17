@@ -22,19 +22,26 @@
 
 namespace Shopgate\Base\Model;
 
+use Exception;
 use Magento\Config\Model\ResourceModel\Config as ConfigResource;
 use Magento\Framework\Api\SimpleDataObjectConverter;
 use Magento\Framework\App\CacheInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\ObjectManager;
+use Magento\Framework\Exception\FileSystemException;
+use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Store\Model\StoreManagerInterface;
+use ReflectionException;
+use ReflectionProperty;
 use Shopgate\Base\Api\Config\CoreInterface;
 use Shopgate\Base\Api\Config\SgCoreInterface;
 use Shopgate\Base\Helper\Config as ConfigHelper;
 use Shopgate\Base\Model\Utility\Registry;
 use Shopgate\Base\Model\Utility\SgLoggerInterface;
+use ShopgateConfig;
+use ShopgateLibraryException;
 
-class Config extends \ShopgateConfig
+class Config extends ShopgateConfig
 {
     /** @var CoreInterface */
     protected $coreConfig;
@@ -103,7 +110,7 @@ class Config extends \ShopgateConfig
      *
      * @param array|null $settings
      *
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function load(array $settings = null)
     {
@@ -143,7 +150,7 @@ class Config extends \ShopgateConfig
      * @param string $property
      *
      * @return boolean|number|string|integer
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     protected function castToType($value, $property)
     {
@@ -171,15 +178,15 @@ class Config extends \ShopgateConfig
      * @param string $property
      *
      * @return string
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
-    protected function getPropertyType($property)
+    protected function getPropertyType($property): string
     {
         if (!array_key_exists($property, get_class_vars('ShopgateConfig'))) {
             return 'string';
         }
 
-        $r   = new \ReflectionProperty('ShopgateConfig', $property);
+        $r   = new ReflectionProperty('ShopgateConfig', $property);
         $doc = $r->getDocComment();
         preg_match_all('#@var ([a-zA-Z-_]*(\[\])?)(.*?)\n#s', $doc, $annotations);
 
@@ -195,21 +202,34 @@ class Config extends \ShopgateConfig
      * Load general information and values.
      * Use shop number to determine store only when it is not a frontend call
      *
-     * @throws \Magento\Framework\Exception\FileSystemException
-     * @throws \ReflectionException
+     * @throws FileSystemException
+     * @throws ReflectionException
      */
     public function loadConfig()
     {
-        if (!$this->registry->isRedirect()) {
-            $storeId = $this->sgCoreConfig->getStoreId($this->getShopNumber());
-            $this->storeManager->setCurrentStore($storeId);
-        }
+        $this->setGlobalStoreOfShopNumber($this->getShopNumber());
         $this->loadArray($this->toArray());
         $this->setExportTmpAndLogSettings();
     }
 
     /**
+     * Retrieves the storeId of the shopNumber's config and sets that
+     * store ID as global
+     *
+     * @param string $shopNumber
+     */
+    private function setGlobalStoreOfShopNumber(string $shopNumber)
+    {
+        if (!$this->registry->isRedirect()) {
+            $storeId = $this->sgCoreConfig->getStoreId($shopNumber);
+            $this->storeManager->setCurrentStore($storeId);
+        }
+    }
+
+    /**
      * Retrieve the shop number of the current request
+     *
+     * @return string|null
      */
     public function getShopNumber()
     {
@@ -223,7 +243,7 @@ class Config extends \ShopgateConfig
     /**
      * Setup export, log and tmp folder and check if need to create them
      *
-     * @throws \Magento\Framework\Exception\FileSystemException
+     * @throws FileSystemException
      */
     protected function setExportTmpAndLogSettings()
     {
@@ -255,9 +275,9 @@ class Config extends \ShopgateConfig
 
     /**
      * @return array
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
-    public function toArray()
+    public function toArray(): array
     {
         /**
          * Blacklist check
@@ -328,9 +348,9 @@ class Config extends \ShopgateConfig
      *                   & value is core_config_data path
      *
      * @return array - $return['key'] = (cast type) value
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
-    private function getCoreConfigMap(array $map)
+    private function getCoreConfigMap(array $map): array
     {
         $result = [];
 
@@ -350,8 +370,8 @@ class Config extends \ShopgateConfig
      * @param array   $fieldList
      * @param boolean $validate
      *
-     * @throws \Exception
-     * @throws \ShopgateLibraryException
+     * @throws Exception
+     * @throws ShopgateLibraryException
      */
     public function save(array $fieldList, $validate = true)
     {
@@ -391,7 +411,7 @@ class Config extends \ShopgateConfig
      * @param int    $scopeId
      * @param mixed  $value
      *
-     * @throws \Exception
+     * @throws Exception
      */
     protected function saveField($path, $property, $scope, $scopeId, $value = null)
     {
@@ -420,13 +440,14 @@ class Config extends \ShopgateConfig
      * @param mixed  $value
      *
      * @return mixed
+     * @throws ReflectionException
      */
     protected function prepareForDatabase($property, $value)
     {
         $type = $this->getPropertyType($property);
 
-        if ($type == 'array' && is_array($value)) {
-            return implode(",", $value);
+        if ($type === 'array' && is_array($value)) {
+            return implode(',', $value);
         }
         if (is_bool($value)) {
             $value = (int) $value;
@@ -450,11 +471,12 @@ class Config extends \ShopgateConfig
 
     /**
      * @return int
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
+     * @throws NoSuchEntityException
      */
-    public function getStoreViewId()
+    public function getStoreViewId(): int
     {
         if (!$this->storeViewId) {
+            $this->setGlobalStoreOfShopNumber($this->getShopNumber());
             $this->storeViewId = $this->storeManager->getStore()->getId();
         }
 
@@ -483,7 +505,7 @@ class Config extends \ShopgateConfig
      *
      * @return array
      */
-    public function getSupportedFieldsCheckCart()
+    public function getSupportedFieldsCheckCart(): array
     {
         return array_values(parent::getSupportedFieldsCheckCart());
     }
@@ -493,7 +515,7 @@ class Config extends \ShopgateConfig
      * di.xml controls which one it uses
      *
      * @see https://shopgate.atlassian.net/browse/MAGENTO2-6
-     * @return string
+     * @return null|string
      */
     public function getOauthAccessToken()
     {
