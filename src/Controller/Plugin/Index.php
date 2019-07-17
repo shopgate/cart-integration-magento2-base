@@ -22,12 +22,15 @@
 
 namespace Shopgate\Base\Controller\Plugin;
 
+use Exception;
 use Magento\Framework\App\Action\Action;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\Request\Http;
 use Magento\Framework\Module\ResourceInterface;
 use Shopgate\Base\Model\Forwarder;
 use Shopgate\Base\Model\Utility\Registry;
+use ShopgateLibraryException;
+use ShopgatePluginApiResponseAppJson;
 
 /**
  * Merchant API to Magento2 call router
@@ -62,13 +65,14 @@ class Index extends Action
             $request = $context->getRequest();
             if ($request instanceof Http && $request->isPost()) {
                 $request->setParam('isAjax', true);
+                $request->getHeaders()->addHeaderLine('X_REQUESTED_WITH', 'XMLHttpRequest');
             }
         }
         parent::__construct($context);
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function execute()
     {
@@ -78,8 +82,8 @@ class Index extends Action
 
         try {
             $this->forwarder->handleRequest($this->getRequest()->getParams());
-        } catch (\ShopgateLibraryException $e) {
-            $response = new \ShopgatePluginApiResponseAppJson(
+        } catch (ShopgateLibraryException $e) {
+            $response = new ShopgatePluginApiResponseAppJson(
                 $this->getRequest()->getParam('trace_id')
             );
             $response->markError($e->getCode(), $e->getMessage());
