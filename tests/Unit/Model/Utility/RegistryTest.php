@@ -23,9 +23,10 @@
 namespace Shopgate\Base\Tests\Unit\Model\Utility;
 
 use Magento\Framework\TestFramework\Unit\Helper\ObjectManager;
+use PHPUnit\Framework\TestCase;
 use Shopgate\Base\Model\Utility\Registry;
 
-class RegistryTest extends \PHPUnit\Framework\TestCase
+class RegistryTest extends TestCase
 {
     /** @var Registry */
     private $registry;
@@ -79,7 +80,7 @@ class RegistryTest extends \PHPUnit\Framework\TestCase
     /**
      * @return array
      */
-    public function actionListProvider()
+    public function actionListProvider(): array
     {
         return [
             'add_order is in list'      => [
@@ -110,7 +111,7 @@ class RegistryTest extends \PHPUnit\Framework\TestCase
     /**
      * @return array
      */
-    public function actionProvider()
+    public function actionProvider(): array
     {
         return [
             'action is add_order'  => [
@@ -132,7 +133,7 @@ class RegistryTest extends \PHPUnit\Framework\TestCase
                 'expected' => false,
                 'call'     => null,
                 'action'   => 'add_order'
-            ],
+            ]
         ];
     }
 }

@@ -22,15 +22,19 @@
 namespace Shopgate\Base\Tests\Unit\Model;
 
 use Magento\Framework\TestFramework\Unit\Helper\ObjectManager;
+use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionException;
+use Shopgate\Base\Model\Config;
 
 /**
  * @coversDefaultClass \Shopgate\Base\Model\Config
  */
-class ConfigTest extends \PHPUnit\Framework\TestCase
+class ConfigTest extends TestCase
 {
     /** @var ObjectManager */
     private $objectManager;
-    /** @var \Shopgate\Base\Model\Config */
+    /** @var Config */
     private $configModel;
 
     /**
@@ -39,7 +43,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
     public function setUp()
     {
         $this->objectManager = new ObjectManager($this);
-        $this->configModel   = $this->getMock('Shopgate\Base\Model\Config', [], [], '', false);
+        $this->configModel   = $this->createMock(Config::class);
     }
 
     /**
@@ -50,10 +54,11 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
      *
      * @covers       ::getPropertyType()
      * @dataProvider propertyProvider
+     * @throws ReflectionException
      */
     public function testGetProperty($expected, $property)
     {
-        $reflection = new \ReflectionClass($this->configModel);
+        $reflection = new ReflectionClass($this->configModel);
         $method     = $reflection->getMethod('getPropertyType');
         $method->setAccessible(true);
         $result = $method->invoke($this->configModel, $property);
@@ -70,10 +75,11 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
      *
      * @covers       ::castToType()
      * @dataProvider castTypeProvider
+     * @throws ReflectionException
      */
     public function testCastToType($expected, $value, $property)
     {
-        $reflection = new \ReflectionClass($this->configModel);
+        $reflection = new ReflectionClass($this->configModel);
         $method     = $reflection->getMethod('castToType');
         $method->setAccessible(true);
         $result = $method->invoke($this->configModel, $value, $property);
@@ -90,10 +96,11 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
      *
      * @covers ::prepareForDatabase()
      * @dataProvider prepareForDatabaseProvider
+     * @throws ReflectionException
      */
     public function testPrepareForDatabase($expected, $value, $property)
     {
-        $reflection = new \ReflectionClass($this->configModel);
+        $reflection = new ReflectionClass($this->configModel);
         $method     = $reflection->getMethod('prepareForDatabase');
         $method->setAccessible(true);
         $result = $method->invoke($this->configModel, $property, $value);
@@ -104,7 +111,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
     /**
      * @return array
      */
-    public function propertyProvider()
+    public function propertyProvider(): array
     {
         return [
             ['string', 'apikey'],
@@ -118,7 +125,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
     /**
      * @return array
      */
-    public function castTypeProvider()
+    public function castTypeProvider(): array
     {
         return [
             'int converts to str'    => ['1', 1, 'apikey'],
@@ -135,7 +142,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
     /**
      * @return array
      */
-    public function prepareForDatabaseProvider()
+    public function prepareForDatabaseProvider(): array
     {
         return [
             'array converts to str'  => ['test1,test2', ['test1', 'test2'], 'api_urls'],
