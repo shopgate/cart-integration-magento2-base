@@ -22,14 +22,16 @@
 
 namespace Shopgate\Base\Model\Rule\Condition;
 
+use Magento\Framework\App\RequestInterface;
 use Magento\Rule\Model\Condition\AbstractCondition;
 use ShopgateClient;
 
 class ShopgateOrder extends AbstractCondition
 {
-    const CLIENT_ATTRIBUTE  = 'shopgate_client';
-    const IS_SHOPGATE_ORDER = 'is_shopgate_order';
-    const APP_CLIENTS       = [
+    const SHOPGATE_MODULE_NAME = 'shopgate';
+    const CLIENT_ATTRIBUTE     = 'shopgate_client';
+    const IS_SHOPGATE_ORDER    = 'is_shopgate_order';
+    const APP_CLIENTS          = [
         ShopgateClient::TYPE_IPHONEAPP,
         ShopgateClient::TYPE_IPADAPP,
         ShopgateClient::TYPE_ANDROIDPHONEAPP,
@@ -47,20 +49,28 @@ class ShopgateOrder extends AbstractCondition
     protected $orderFactory;
 
     /**
+     * @var RequestInterface
+     */
+    protected $request;
+
+    /**
      * @param \Magento\Rule\Model\Condition\Context                      $context
      * @param \Magento\Config\Model\Config\Source\Yesno                  $sourceYesno
      * @param \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderFactory
+     * @param RequestInterface                                           $request
      * @param array                                                      $data
      */
     public function __construct(
         \Magento\Rule\Model\Condition\Context $context,
         \Magento\Config\Model\Config\Source\Yesno $sourceYesno,
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderFactory,
+        RequestInterface $request,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->sourceYesno  = $sourceYesno;
         $this->orderFactory = $orderFactory;
+        $this->request      = $request;
     }
 
     /**
@@ -125,9 +135,12 @@ class ShopgateOrder extends AbstractCondition
      */
     public function validate(\Magento\Framework\Model\AbstractModel $model)
     {
-        $isShopgateOrder = (int) in_array($model->getData(self::CLIENT_ATTRIBUTE), self::APP_CLIENTS);
+        $isShopgateOrder = $model->hasData(self::CLIENT_ATTRIBUTE)
+            ? in_array($model->getData(self::CLIENT_ATTRIBUTE), self::APP_CLIENTS)
+            : $this->request->getModuleName() === self::SHOPGATE_MODULE_NAME;
+
         // TODO add validation for web checkout
-        $model->setData(self::IS_SHOPGATE_ORDER, $isShopgateOrder);
+        $model->setData(self::IS_SHOPGATE_ORDER, (int)$isShopgateOrder);
 
         return parent::validate($model);
     }
