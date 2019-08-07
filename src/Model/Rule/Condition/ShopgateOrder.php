@@ -22,13 +22,12 @@
 
 namespace Shopgate\Base\Model\Rule\Condition;
 
-use Magento\Framework\App\RequestInterface;
 use Magento\Rule\Model\Condition\AbstractCondition;
 use ShopgateClient;
+use Shopgate\Base\Model\Utility\Registry;
 
 class ShopgateOrder extends AbstractCondition
 {
-    const SHOPGATE_MODULE_NAME = 'shopgate';
     const CLIENT_ATTRIBUTE     = 'shopgate_client';
     const IS_SHOPGATE_ORDER    = 'is_shopgate_order';
     const APP_CLIENTS          = [
@@ -49,28 +48,29 @@ class ShopgateOrder extends AbstractCondition
     protected $orderFactory;
 
     /**
-     * @var RequestInterface
+     * @var Registry
      */
-    protected $request;
+    private $registry;
+
 
     /**
      * @param \Magento\Rule\Model\Condition\Context                      $context
      * @param \Magento\Config\Model\Config\Source\Yesno                  $sourceYesno
      * @param \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderFactory
-     * @param RequestInterface                                           $request
+     * @param Registry                                                   $registry
      * @param array                                                      $data
      */
     public function __construct(
         \Magento\Rule\Model\Condition\Context $context,
         \Magento\Config\Model\Config\Source\Yesno $sourceYesno,
         \Magento\Sales\Model\ResourceModel\Order\CollectionFactory $orderFactory,
-        RequestInterface $request,
+        Registry $registry,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->sourceYesno  = $sourceYesno;
         $this->orderFactory = $orderFactory;
-        $this->request      = $request;
+        $this->registry     = $registry;
     }
 
     /**
@@ -137,7 +137,7 @@ class ShopgateOrder extends AbstractCondition
     {
         $isShopgateOrder = $model->hasData(self::CLIENT_ATTRIBUTE)
             ? in_array($model->getData(self::CLIENT_ATTRIBUTE), self::APP_CLIENTS)
-            : $this->request->getModuleName() === self::SHOPGATE_MODULE_NAME;
+            : $this->registry->isApi();
 
         // TODO add validation for web checkout
         $model->setData(self::IS_SHOPGATE_ORDER, (int)$isShopgateOrder);
