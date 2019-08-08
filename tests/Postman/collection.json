@@ -1694,7 +1694,7 @@
 									"formdata": [
 										{
 											"key": "order_numbers[0]",
-											"value": "12345",
+											"value": "54321",
 											"type": "text"
 										},
 										{
@@ -2950,9 +2950,7 @@
 									"});",
 									"",
 									"var jsonData = pm.response.json();",
-									"if (jsonData.hasOwnProperty('items') && jsonData.items.length > 0) {",
-									"    pm.environment.set(\"order_item_id\", jsonData.items[0].item_id);",
-									"}",
+									"pm.expect(jsonData.coupon_code).to.eq('APP10');",
 									""
 								]
 							}
