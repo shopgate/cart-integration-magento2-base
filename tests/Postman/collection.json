@@ -2927,16 +2927,11 @@
 							]
 						},
 						"url": {
-							"raw": "{{domain}}?XDEBUG_SESSION_START=PHPSTORM",
+							"raw": "{{domain}}",
 							"host": [
 								"{{domain}}"
 							],
-							"query": [
-								{
-									"key": "XDEBUG_SESSION_START",
-									"value": "PHPSTORM"
-								}
-							]
+							"query": []
 						}
 					},
 					"response": []
