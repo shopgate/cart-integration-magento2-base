@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- registered internalCartInfo cart helper method
+
 ## [2.9.16] - 2019-08-08
 ### Fixed
 - app only coupons not working
