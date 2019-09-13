@@ -24,9 +24,9 @@ namespace Shopgate\Base\Helper\Product\Type;
 
 use Magento\Bundle\Model\OptionRepository;
 use Magento\Bundle\Model\ResourceModel\Selection;
-use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\Product\Option;
+use Magento\Catalog\Model\ProductFactory;
 use Magento\CatalogInventory\Api\StockRegistryInterface;
 use Magento\CatalogInventory\Model\Spi\StockStateProviderInterface;
 use Magento\Framework\DataObject;
@@ -48,7 +48,7 @@ class Bundle extends Generic
      * @param OptionRepository            $bundleOptions
      * @param StockRegistryInterface      $stockRegistry
      * @param StockStateProviderInterface $stateProvider
-     * @param ProductRepositoryInterface  $productRepository
+     * @param ProductFactory              $productFactory
      * @param StoreManagerInterface       $storeManager
      * @param Utility                     $productUtility
      */
@@ -58,13 +58,13 @@ class Bundle extends Generic
         OptionRepository $bundleOptions,
         StockRegistryInterface $stockRegistry,
         StockStateProviderInterface $stateProvider,
-        ProductRepositoryInterface $productRepository,
+        ProductFactory $productFactory,
         StoreManagerInterface $storeManager,
         Utility $productUtility
     ) {
         $this->bundleOptions       = $bundleOptions;
         $this->selectionCollection = $selectCollection;
-        parent::__construct($productOptionRepo, $stockRegistry, $stateProvider, $productRepository, $productUtility);
+        parent::__construct($productOptionRepo, $stockRegistry, $stateProvider, $productFactory, $productUtility);
     }
 
     /**

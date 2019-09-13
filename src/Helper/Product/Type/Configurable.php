@@ -64,15 +64,13 @@ class Configurable extends Generic
      */
     public function getChildren()
     {
-        $children        = [];
-        $childProductIds = $this->getItem()->getTypeInstance()->getChildrenIds($this->getItem()->getId());
-        $childProductIds = current($childProductIds);
+        $childProductIds   = $this->getItem()->getTypeInstance()->getChildrenIds($this->getItem()->getId());
+        $childProductIds   = current($childProductIds);
+        $productCollection = $this->productFactory->create()->getCollection();
+        $productCollection->addAttributeToFilter('entity_id', ['in' => $childProductIds]);
+        $productCollection->addStoreFilter();
 
-        foreach ($childProductIds as $childProductId) {
-            $children[] = $this->productRepository->getById($childProductId);
-        }
-
-        return $children;
+        return $productCollection;
     }
 
     /**

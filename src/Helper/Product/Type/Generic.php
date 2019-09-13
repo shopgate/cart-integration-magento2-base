@@ -24,9 +24,9 @@ namespace Shopgate\Base\Helper\Product\Type;
 
 use Magento\Bundle\Api\Data\OptionInterface;
 use Magento\Catalog\Api\Data\ProductCustomOptionInterface;
-use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product as MageProduct;
 use Magento\Catalog\Model\Product\Option;
+use Magento\Catalog\Model\ProductFactory;
 use Magento\CatalogInventory\Api\StockRegistryInterface;
 use Magento\CatalogInventory\Model\Spi\StockStateProviderInterface;
 use Magento\Framework\DataObject;
@@ -44,8 +44,8 @@ class Generic
     protected $stateProvider;
     /** @var Option\Repository */
     private $productOptionRepo;
-    /** @var ProductRepositoryInterface */
-    protected $productRepository;
+    /** @var ProductFactory */
+    protected $productFactory;
     /** @var OrderItem | MageProduct | QuoteItem $item */
     protected $item;
     /** @var Utility */
@@ -55,20 +55,20 @@ class Generic
      * @param Option\Repository           $productOptionRepo
      * @param StockRegistryInterface      $stockRegistry
      * @param StockStateProviderInterface $stateProvider
-     * @param ProductRepositoryInterface  $productRepository
+     * @param ProductFactory              $productFactory
      * @param Utility                     $productUtility
      */
     public function __construct(
         Option\Repository $productOptionRepo,
         StockRegistryInterface $stockRegistry,
         StockStateProviderInterface $stateProvider,
-        ProductRepositoryInterface $productRepository,
+        ProductFactory $productFactory,
         Utility $productUtility
     ) {
         $this->productOptionRepo = $productOptionRepo;
         $this->stockRegistry     = $stockRegistry;
         $this->stateProvider     = $stateProvider;
-        $this->productRepository = $productRepository;
+        $this->productFactory    = $productFactory;
         $this->productUtility    = $productUtility;
     }
 
@@ -211,8 +211,7 @@ class Generic
     }
 
     /**
-     * @return \Magento\Catalog\Model\Product[]
-     * @throws NoSuchEntityException
+     * @return \Magento\Catalog\Model\ResourceModel\Product\Collection | array
      */
     public function getChildren()
     {
