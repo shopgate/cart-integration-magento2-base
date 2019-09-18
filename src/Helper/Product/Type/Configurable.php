@@ -70,7 +70,12 @@ class Configurable extends Generic
         $productCollection->addAttributeToFilter('entity_id', ['in' => $childProductIds]);
         $productCollection->addStoreFilter();
 
-        return $productCollection;
+        $children = [];
+        foreach ($productCollection as $product) {
+            $children[] = $this->productFactory->create()->load($product->getId());
+        }
+
+        return $children;
     }
 
     /**

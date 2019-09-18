@@ -211,7 +211,8 @@ class Generic
     }
 
     /**
-     * @return \Magento\Catalog\Model\ResourceModel\Product\Collection | array
+     * @return \Magento\Catalog\Model\Product[]
+     * @throws NoSuchEntityException
      */
     public function getChildren()
     {
