@@ -69,13 +69,9 @@ class Configurable extends Generic
         $productCollection = $this->productFactory->create()->getCollection();
         $productCollection->addAttributeToFilter('entity_id', ['in' => $childProductIds]);
         $productCollection->addStoreFilter();
+        $productCollection->addAttributeToSelect('*');
 
-        $children = [];
-        foreach ($productCollection as $product) {
-            $children[] = $this->productFactory->create()->load($product->getId());
-        }
-
-        return $children;
+        return $productCollection;
     }
 
     /**
