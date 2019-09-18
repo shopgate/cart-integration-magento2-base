@@ -52,6 +52,7 @@ class Grouped extends Generic
         $productCollection    = $this->productFactory->create()->getCollection();
         $productCollection->addAttributeToFilter('entity_id', ['in' => $associatedProductIds]);
         $productCollection->addStoreFilter();
+        $productCollection->addAttributeToSelect('*');
 
         return $productCollection;
     }
