@@ -64,7 +64,7 @@
                 <item name="supported_fields_check_cart" xsi:type="array">
                     <item name="0" xsi:type="string">internal_cart_info</item>
                     <item name="1" xsi:type="string">currency</item>
-                    <!--<item name="2" xsi:type="string">customer</item>-->
+                    <item name="2" xsi:type="string">customer</item>
                     <item name="3" xsi:type="string">shipping_methods</item>
                     <!--<item name="4" xsi:type="string">payment_methods</item>-->
                     <item name="5" xsi:type="string">items</item>
