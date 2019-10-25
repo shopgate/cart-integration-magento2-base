@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 ### Added
 - support for including customer data in cart validation by exposing the getCustomer method in checkCart
+- return address custom fields in call to get customer
 
 ## [2.9.19] - 2019-09-18
 ### Fixed
