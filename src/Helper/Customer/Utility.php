@@ -29,16 +29,19 @@ use Magento\Customer\Model\ResourceModel\Group\Collection as GroupCollection;
 use Magento\Directory\Model\CountryFactory;
 use Magento\Tax\Model\ClassModel;
 use Magento\Tax\Model\ResourceModel\TaxClass\Collection as TaxClassCollection;
+use Magento\Framework\Api\SimpleDataObjectConverter;
 use Shopgate\Base\Helper\Regions;
 use ShopgateAddress;
 use ShopgateCustomer;
 use ShopgateCustomerGroup;
+use ShopgateOrderCustomField;
 
 class Utility
 {
     const MAGENTO_GENDER_MALE         = '1';
     const MAGENTO_GENDER_FEMALE       = '2';
     const MAGENTO_GENDER_NO_SPECIFIED = '3';
+    const ADDRESS_CUSTOM_FIELD_WHITELIST = ['vat_id', 'suffix', 'prefix', 'fax'];
 
     /** @var GroupCollection */
     private $customerGroupCollection;
@@ -184,9 +187,41 @@ class Utility
             $shopgateAddress->setZipcode($mageAddress->getPostcode());
             $shopgateAddress->setCountry($mageAddress->getCountryId());
             $shopgateAddress->setState($this->regions->getIsoStateByMagentoRegion($mageAddress));
-
+            $shopgateAddress->setCustomFields($this->getShopgateAddressCustomFields($mageAddress));
             $addresses[] = $shopgateAddress;
         }
         $shopgateCustomer->setAddresses($addresses);
+    }
+
+    /**
+     * @param Address $mageAddress
+     *
+     * @return ShopgateOrderCustomField[]
+     */
+    protected function getShopgateAddressCustomFields($mageAddress)
+    {
+        $customFields = [];
+        foreach(self::ADDRESS_CUSTOM_FIELD_WHITELIST as $customFieldKey)
+        {
+            $getter = 'get' . SimpleDataObjectConverter::snakeCaseToUpperCamelCase($customFieldKey);
+
+            if (!method_exists($mageAddress, $getter)) {
+                continue;
+            }
+
+            $fieldValue = $mageAddress->$getter();
+
+            if(empty($fieldValue)) {
+                continue;
+            }
+
+            $customField = new ShopgateOrderCustomField();
+            $customField->setLabel($customFieldKey);
+            $customField->setInternalFieldName($customFieldKey);
+            $customField->setValue($fieldValue);
+            $customFields[] = $customField;
+        }
+
+        return $customFields;
     }
 }
