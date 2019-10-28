@@ -24,6 +24,7 @@ namespace Shopgate\Base\Helper\Customer;
 
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Customer\Model\Data\Address;
+use Magento\Framework\Api\CustomAttributesDataInterface;
 use Magento\Customer\Model\Group;
 use Magento\Customer\Model\ResourceModel\Group\Collection as GroupCollection;
 use Magento\Directory\Model\CountryFactory;
@@ -42,6 +43,7 @@ class Utility
     const MAGENTO_GENDER_FEMALE          = '2';
     const MAGENTO_GENDER_NO_SPECIFIED    = '3';
     const ADDRESS_CUSTOM_FIELD_WHITELIST = ['vat_id', 'suffix', 'prefix', 'fax'];
+    const CUSTOMER_CUSTOM_FIELD_WHITELIST = ['taxvat'];
 
     /** @var GroupCollection */
     private $customerGroupCollection;
@@ -98,6 +100,9 @@ class Utility
         $shopgateCustomer->setBirthday($magentoCustomer->getDob());
         $shopgateCustomer->setGender($this->getShopgateGender($magentoCustomer->getGender()));
         $shopgateCustomer->setRegistrationDate($magentoCustomer->getCreatedAt());
+        $shopgateCustomer->setCustomFields(
+            $this->getShopgateCustomFields($magentoCustomer, self::CUSTOMER_CUSTOM_FIELD_WHITELIST)
+        );
     }
 
     /**
@@ -187,21 +192,25 @@ class Utility
             $shopgateAddress->setZipcode($mageAddress->getPostcode());
             $shopgateAddress->setCountry($mageAddress->getCountryId());
             $shopgateAddress->setState($this->regions->getIsoStateByMagentoRegion($mageAddress));
-            $shopgateAddress->setCustomFields($this->getShopgateAddressCustomFields($mageAddress));
+            $shopgateAddress->setCustomFields(
+                $this->getShopgateCustomFields($mageAddress, self::ADDRESS_CUSTOM_FIELD_WHITELIST)
+            );
             $addresses[] = $shopgateAddress;
         }
         $shopgateCustomer->setAddresses($addresses);
     }
 
     /**
-     * @param Address $mageAddress
+     * @param CustomAttributesDataInterface $mageAddress
+     * @param string[]                      $customFieldKeys
      *
      * @return ShopgateOrderCustomField[]
      */
-    protected function getShopgateAddressCustomFields($mageAddress)
+    protected function getShopgateCustomFields($mageAddress, $customFieldKeys)
     {
         $customFields = [];
-        foreach (self::ADDRESS_CUSTOM_FIELD_WHITELIST as $customFieldKey) {
+        foreach($customFieldKeys as $customFieldKey)
+        {
             $getter = 'get' . SimpleDataObjectConverter::snakeCaseToUpperCamelCase($customFieldKey);
             if (!method_exists($mageAddress, $getter)) {
                 continue;
