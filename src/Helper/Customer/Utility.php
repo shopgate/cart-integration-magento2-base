@@ -203,7 +203,6 @@ class Utility
         $customFields = [];
         foreach (self::ADDRESS_CUSTOM_FIELD_WHITELIST as $customFieldKey) {
             $getter = 'get' . SimpleDataObjectConverter::snakeCaseToUpperCamelCase($customFieldKey);
-
             if (!method_exists($mageAddress, $getter)) {
                 continue;
             }
