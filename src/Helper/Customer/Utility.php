@@ -209,8 +209,7 @@ class Utility
     protected function getShopgateCustomFields($mageAddress, $customFieldKeys)
     {
         $customFields = [];
-        foreach($customFieldKeys as $customFieldKey)
-        {
+        foreach($customFieldKeys as $customFieldKey) {
             $getter = 'get' . SimpleDataObjectConverter::snakeCaseToUpperCamelCase($customFieldKey);
             if (!method_exists($mageAddress, $getter)) {
                 continue;
