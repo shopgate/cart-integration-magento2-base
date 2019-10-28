@@ -39,10 +39,10 @@ use ShopgateOrderCustomField;
 
 class Utility
 {
-    const MAGENTO_GENDER_MALE            = '1';
-    const MAGENTO_GENDER_FEMALE          = '2';
-    const MAGENTO_GENDER_NO_SPECIFIED    = '3';
-    const ADDRESS_CUSTOM_FIELD_WHITELIST = ['vat_id', 'suffix', 'prefix', 'fax'];
+    const MAGENTO_GENDER_MALE             = '1';
+    const MAGENTO_GENDER_FEMALE           = '2';
+    const MAGENTO_GENDER_NO_SPECIFIED     = '3';
+    const ADDRESS_CUSTOM_FIELD_WHITELIST  = ['vat_id', 'suffix', 'prefix', 'fax'];
     const CUSTOMER_CUSTOM_FIELD_WHITELIST = ['taxvat'];
 
     /** @var GroupCollection */
@@ -209,7 +209,7 @@ class Utility
     protected function getShopgateCustomFields($mageAddress, $customFieldKeys)
     {
         $customFields = [];
-        foreach($customFieldKeys as $customFieldKey) {
+        foreach ($customFieldKeys as $customFieldKey) {
             $getter = 'get' . SimpleDataObjectConverter::snakeCaseToUpperCamelCase($customFieldKey);
             if (!method_exists($mageAddress, $getter)) {
                 continue;
