@@ -209,7 +209,6 @@ class Utility
             }
 
             $fieldValue = $mageAddress->$getter();
-
             if (empty($fieldValue)) {
                 continue;
             }
