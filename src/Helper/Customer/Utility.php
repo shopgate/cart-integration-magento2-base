@@ -24,12 +24,12 @@ namespace Shopgate\Base\Helper\Customer;
 
 use Magento\Customer\Api\Data\CustomerInterface;
 use Magento\Customer\Model\Data\Address;
-use Magento\Framework\Api\CustomAttributesDataInterface;
 use Magento\Customer\Model\Group;
 use Magento\Customer\Model\ResourceModel\Group\Collection as GroupCollection;
 use Magento\Directory\Model\CountryFactory;
 use Magento\Tax\Model\ClassModel;
 use Magento\Tax\Model\ResourceModel\TaxClass\Collection as TaxClassCollection;
+use Magento\Framework\Api\CustomAttributesDataInterface;
 use Magento\Framework\Api\SimpleDataObjectConverter;
 use Shopgate\Base\Helper\Regions;
 use ShopgateAddress;
@@ -201,21 +201,21 @@ class Utility
     }
 
     /**
-     * @param CustomAttributesDataInterface $mageAddress
+     * @param CustomAttributesDataInterface $mageData
      * @param string[]                      $customFieldKeys
      *
      * @return ShopgateOrderCustomField[]
      */
-    protected function getShopgateCustomFields($mageAddress, $customFieldKeys)
+    protected function getShopgateCustomFields($mageData, $customFieldKeys)
     {
         $customFields = [];
         foreach ($customFieldKeys as $customFieldKey) {
             $getter = 'get' . SimpleDataObjectConverter::snakeCaseToUpperCamelCase($customFieldKey);
-            if (!method_exists($mageAddress, $getter)) {
+            if (!method_exists($mageData, $getter)) {
                 continue;
             }
 
-            $fieldValue = $mageAddress->$getter();
+            $fieldValue = $mageData->$getter();
             if (empty($fieldValue)) {
                 continue;
             }
