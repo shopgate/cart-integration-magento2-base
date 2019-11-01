@@ -29,16 +29,21 @@ use Magento\Customer\Model\ResourceModel\Group\Collection as GroupCollection;
 use Magento\Directory\Model\CountryFactory;
 use Magento\Tax\Model\ClassModel;
 use Magento\Tax\Model\ResourceModel\TaxClass\Collection as TaxClassCollection;
+use Magento\Framework\Api\CustomAttributesDataInterface;
+use Magento\Framework\Api\SimpleDataObjectConverter;
 use Shopgate\Base\Helper\Regions;
 use ShopgateAddress;
 use ShopgateCustomer;
 use ShopgateCustomerGroup;
+use ShopgateOrderCustomField;
 
 class Utility
 {
-    const MAGENTO_GENDER_MALE         = '1';
-    const MAGENTO_GENDER_FEMALE       = '2';
-    const MAGENTO_GENDER_NO_SPECIFIED = '3';
+    const MAGENTO_GENDER_MALE             = '1';
+    const MAGENTO_GENDER_FEMALE           = '2';
+    const MAGENTO_GENDER_NO_SPECIFIED     = '3';
+    const ADDRESS_CUSTOM_FIELD_WHITELIST  = ['vat_id', 'suffix', 'prefix', 'fax'];
+    const CUSTOMER_CUSTOM_FIELD_WHITELIST = ['taxvat'];
 
     /** @var GroupCollection */
     private $customerGroupCollection;
@@ -95,6 +100,9 @@ class Utility
         $shopgateCustomer->setBirthday($magentoCustomer->getDob());
         $shopgateCustomer->setGender($this->getShopgateGender($magentoCustomer->getGender()));
         $shopgateCustomer->setRegistrationDate($magentoCustomer->getCreatedAt());
+        $shopgateCustomer->setCustomFields(
+            $this->getShopgateCustomFields($magentoCustomer, self::CUSTOMER_CUSTOM_FIELD_WHITELIST)
+        );
     }
 
     /**
@@ -184,9 +192,41 @@ class Utility
             $shopgateAddress->setZipcode($mageAddress->getPostcode());
             $shopgateAddress->setCountry($mageAddress->getCountryId());
             $shopgateAddress->setState($this->regions->getIsoStateByMagentoRegion($mageAddress));
-
+            $shopgateAddress->setCustomFields(
+                $this->getShopgateCustomFields($mageAddress, self::ADDRESS_CUSTOM_FIELD_WHITELIST)
+            );
             $addresses[] = $shopgateAddress;
         }
         $shopgateCustomer->setAddresses($addresses);
+    }
+
+    /**
+     * @param CustomAttributesDataInterface $mageData
+     * @param string[]                      $customFieldKeys
+     *
+     * @return ShopgateOrderCustomField[]
+     */
+    protected function getShopgateCustomFields($mageData, $customFieldKeys)
+    {
+        $customFields = [];
+        foreach ($customFieldKeys as $customFieldKey) {
+            $getter = 'get' . SimpleDataObjectConverter::snakeCaseToUpperCamelCase($customFieldKey);
+            if (!method_exists($mageData, $getter)) {
+                continue;
+            }
+
+            $fieldValue = $mageData->$getter();
+            if (empty($fieldValue)) {
+                continue;
+            }
+
+            $customField = new ShopgateOrderCustomField();
+            $customField->setLabel($customFieldKey);
+            $customField->setInternalFieldName($customFieldKey);
+            $customField->setValue($fieldValue);
+            $customFields[] = $customField;
+        }
+
+        return $customFields;
     }
 }

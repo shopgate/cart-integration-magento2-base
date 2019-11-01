@@ -48,15 +48,13 @@ class Grouped extends Generic
      */
     public function getChildren()
     {
-        $children = [];
-        /** @noinspection PhpParamsInspection */
-        /** @var Product $associatedProduct */
-        $associatedProducts = $this->getItem()->getTypeInstance()->getAssociatedProducts($this->getItem());
-        foreach ($associatedProducts as $associatedProduct) {
-            $children[] = $this->productRepository->getById($associatedProduct->getId());
-        }
+        $associatedProductIds = $this->getItem()->getTypeInstance()->getAssociatedProductIds($this->getItem());
+        $productCollection    = $this->productFactory->create()->getCollection();
+        $productCollection->addAttributeToFilter('entity_id', ['in' => $associatedProductIds]);
+        $productCollection->addStoreFilter();
+        $productCollection->addAttributeToSelect('*');
 
-        return $children;
+        return $productCollection;
     }
 
     /**

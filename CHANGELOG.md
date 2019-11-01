@@ -5,6 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.9.20] - 2019-11-01
+### Added
+- support for including customer data in cart validation by exposing the getCustomer method in checkCart
+- export custom attributes as extra fields with customer and customer address data
+
+## [2.9.19] - 2019-09-18
+### Fixed
+- Export of child products
+
+## [2.9.18] - 2019-09-13
+### Added
+- filter for website specific items in product export
+
+## [2.9.17] - 2019-08-22
+### Added
+- registered internalCartInfo cart helper method
+
 ## [2.9.16] - 2019-08-08
 ### Fixed
 - app only coupons not working
@@ -119,7 +137,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Version 2.9.0
 - Created Initial Plugin
 
-[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.16...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.20...HEAD
+[2.9.20]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.19...2.9.20
+[2.9.19]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.18...2.9.19
+[2.9.18]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.17...2.9.18
+[2.9.17]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.16...2.9.17
 [2.9.16]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.15...2.9.16
 [2.9.15]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.14...2.9.15
 [2.9.14]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.13...2.9.14
