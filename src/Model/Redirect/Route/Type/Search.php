@@ -54,6 +54,6 @@ class Search extends Generic
      */
     protected function getSpecialId()
     {
-        return hash("sha256", $this->getQuery());
+        return hash('sha256', $this->getQuery());
     }
 }
