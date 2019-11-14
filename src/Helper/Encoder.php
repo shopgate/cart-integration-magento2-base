@@ -22,8 +22,23 @@
 
 namespace Shopgate\Base\Helper;
 
+use Magento\Framework\Serialize\SerializerInterface;
+
 class Encoder
 {
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
+    /**
+     * @param SerializerInterface $serializer
+     */
+    public function __construct(SerializerInterface $serializer)
+    {
+        $this->serializer = $serializer;
+    }
+
     /**
      * Serialize data into string
      *
@@ -96,7 +111,7 @@ class Encoder
             },
             E_NOTICE
         );
-        $result = unserialize($string);
+        $result = $this->serializer->unserialize($string);
         restore_error_handler();
 
         return $result;

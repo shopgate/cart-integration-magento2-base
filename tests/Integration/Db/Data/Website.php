@@ -36,14 +36,15 @@ class Website
     private $store;
 
     /**
-     * @param string $websiteCode
-     *
+     * @param null|string $websiteCode
      * @return WebsiteInterface
+     *
+     * @throws \Exception
      */
     public function createWebsite($websiteCode = null)
     {
         if (!$websiteCode) {
-            $websiteCode = 'website_' . mt_rand(0, 99999);
+            $websiteCode = 'website_' . random_int(0, 99999);
         }
 
         return $this->website = Bootstrap::getObjectManager()
@@ -54,16 +55,18 @@ class Website
     }
 
     /**
-     * @param int         $websiteId
+     * @param null|int    $websiteId
      * @param int         $rootCatId
      * @param string|null $groupName
      *
      * @return GroupInterface
+     *
+     * @throws \Exception
      */
     public function createGroup($websiteId = null, $rootCatId = 0, $groupName = null)
     {
         if (!$groupName) {
-            $groupName = 'group_' . rand(0, 99999);
+            $groupName = 'group_' . random_int(0, 99999);
         }
         if (!$websiteId) {
             $websiteId = $this->getWebsite()->getId();
