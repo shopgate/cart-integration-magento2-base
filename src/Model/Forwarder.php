@@ -23,6 +23,8 @@
 namespace Shopgate\Base\Model;
 
 use Magento\Framework\App\ObjectManager;
+use Magento\Framework\Module\FullModuleList;
+use Magento\Framework\App\ProductMetadataInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Shopgate\Base\Api\CronInterface;
 use Shopgate\Base\Api\ExportInterface;
@@ -220,5 +222,41 @@ class Forwarder extends \ShopgatePlugin
         }
 
         return $reviews;
+    }
+
+    /**
+     * @return array|mixed[]
+     */
+    public function createPluginInfo()
+    {
+        $objectManager   = ObjectManager::getInstance();
+        $productMetadata = $objectManager->get(ProductMetadataInterface::class);
+
+        return [
+            'Magento-Name'    => $productMetadata->getName(),
+            'Magento-Version' => $productMetadata->getVersion(),
+            'Magento-Edition' => $productMetadata->getEdition(),
+        ];
+    }
+
+    /**
+     * get additional data from the magento instance
+     *
+     * @return array|mixed[]
+     */
+    public function createShopInfo()
+    {
+        $objectManager  = ObjectManager::getInstance();
+        $moduleList     = $objectManager->get(FullModuleList::class);
+        $pluginResponse = [];
+
+        foreach ($moduleList->getAll() as $module) {
+            $pluginResponse[] = [
+                'name'    => $module['name'],
+                'version' => $module['setup_version'],
+            ];
+        }
+
+        return ['plugins_installed' => $pluginResponse];
     }
 }
