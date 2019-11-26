@@ -6,6 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 
+## [2.9.21] - 2019-11-26
+### Added
+- Security enhancements
+- PluginInfo and ShopInfo to ping action
+
+### Removed
+- Support for PHP < 7.1
+- Support for Magento < 2.2  
+
 ## [2.9.20] - 2019-11-01
 ### Added
 - support for including customer data in cart validation by exposing the getCustomer method in checkCart
@@ -137,7 +146,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Version 2.9.0
 - Created Initial Plugin
 
-[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.20...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.21...HEAD
+[2.9.21]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.20...2.9.21
 [2.9.20]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.19...2.9.20
 [2.9.19]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.18...2.9.19
 [2.9.18]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.17...2.9.18
