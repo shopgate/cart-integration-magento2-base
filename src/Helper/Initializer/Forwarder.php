@@ -22,8 +22,8 @@
 
 namespace Shopgate\Base\Helper\Initializer;
 
-use Magento\Framework\Module\FullModuleList;
 use Magento\Framework\App\ProductMetadataInterface;
+use Magento\Framework\Module\FullModuleList;
 use Shopgate\Base\Api\CronInterface;
 use Shopgate\Base\Api\ExportInterface;
 use Shopgate\Base\Api\ImportInterface;
