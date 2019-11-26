@@ -232,7 +232,7 @@ class Forwarder extends \ShopgatePlugin
     }
 
     /**
-     * @return array|string[]
+     * @return string[]
      */
     public function createPluginInfo()
     {
