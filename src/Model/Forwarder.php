@@ -250,13 +250,16 @@ class Forwarder extends \ShopgatePlugin
      */
     public function createShopInfo()
     {
-        foreach ($this->fullModuleList->getAll() as $module) {
-            $pluginResponse[] = [
-                'name'    => $module['name'],
-                'version' => $module['setup_version'],
-            ];
-        }
-
-        return ['plugins_installed' => $pluginResponse];
+        return [
+            'plugins_installed' => array_map(
+                static function ($module) {
+                    return [
+                        'name'    => $module['name'],
+                        'version' => $module['setup_version'],
+                    ];
+                },
+                $this->fullModuleList->getAll()
+            )
+        ];
     }
 }
