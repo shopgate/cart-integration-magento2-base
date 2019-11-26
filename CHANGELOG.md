@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 ### Added
 - Security enhancements
+- PluginInfo and ShopInfo to ping action
 
 ### Removed
 - Support for PHP < 7.1
