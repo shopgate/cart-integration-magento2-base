@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.9.21] - 2019-11-26
 ### Added
 - Security enhancements
 - PluginInfo and ShopInfo to ping action
@@ -144,7 +146,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Version 2.9.0
 - Created Initial Plugin
 
-[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.20...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.21...HEAD
+[2.9.21]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.20...2.9.21
 [2.9.20]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.19...2.9.20
 [2.9.19]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.18...2.9.19
 [2.9.18]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.17...2.9.18
