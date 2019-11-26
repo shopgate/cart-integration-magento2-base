@@ -246,7 +246,7 @@ class Forwarder extends \ShopgatePlugin
     /**
      * Retrieve module information from the magento instance
      *
-     * @return array|string[]
+     * @return string[]
      */
     public function createShopInfo()
     {
