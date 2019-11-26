@@ -22,6 +22,8 @@
 
 namespace Shopgate\Base\Helper\Initializer;
 
+use Magento\Framework\Module\FullModuleList;
+use Magento\Framework\App\ProductMetadataInterface;
 use Shopgate\Base\Api\CronInterface;
 use Shopgate\Base\Api\ExportInterface;
 use Shopgate\Base\Api\ImportInterface;
@@ -46,14 +48,20 @@ class Forwarder
     private $importInterface;
     /** @var CronInterface */
     private $cronInterface;
+    /** @var FullModuleList */
+    private $fullModuleList;
+    /** @var ProductMetadataInterface */
+    private $productMetadataInterface;
 
     /**
-     * @param Config            $configInitializer
-     * @param MainConfig        $mainConfig
-     * @param SettingsInterface $settingsInterface
-     * @param ExportInterface   $exportInterface
-     * @param ImportInterface   $importInterface
-     * @param CronInterface     $cronInterface
+     * @param Config                   $configInitializer
+     * @param MainConfig               $mainConfig
+     * @param SettingsInterface        $settingsInterface
+     * @param ExportInterface          $exportInterface
+     * @param ImportInterface          $importInterface
+     * @param CronInterface            $cronInterface
+     * @param FullModuleList           $fullModuleList
+     * @param ProductMetadataInterface $productMetadataInterface
      *
      * @@codeCoverageIgnore
      */
@@ -63,14 +71,18 @@ class Forwarder
         SettingsInterface $settingsInterface,
         ExportInterface $exportInterface,
         ImportInterface $importInterface,
-        CronInterface $cronInterface
+        CronInterface $cronInterface,
+        FullModuleList $fullModuleList,
+        ProductMetadataInterface $productMetadataInterface
     ) {
-        $this->mainConfig        = $mainConfig;
-        $this->configInitializer = $configInitializer;
-        $this->settingsInterface = $settingsInterface;
-        $this->exportInterface   = $exportInterface;
-        $this->importInterface   = $importInterface;
-        $this->cronInterface     = $cronInterface;
+        $this->mainConfig               = $mainConfig;
+        $this->configInitializer        = $configInitializer;
+        $this->settingsInterface        = $settingsInterface;
+        $this->exportInterface          = $exportInterface;
+        $this->importInterface          = $importInterface;
+        $this->cronInterface            = $cronInterface;
+        $this->fullModuleList           = $fullModuleList;
+        $this->productMetadataInterface = $productMetadataInterface;
     }
 
     /**
@@ -119,5 +131,21 @@ class Forwarder
     public function getCronInterface()
     {
         return $this->cronInterface;
+    }
+
+    /**
+     * @return FullModuleList
+     */
+    public function getFullModuleList()
+    {
+        return $this->fullModuleList;
+    }
+
+    /**
+     * @return ProductMetadataInterface
+     */
+    public function getProductMetadataInterface()
+    {
+        return $this->productMetadataInterface;
     }
 }

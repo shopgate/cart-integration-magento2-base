@@ -23,13 +23,14 @@
 namespace Shopgate\Base\Model;
 
 use Magento\Framework\App\ObjectManager;
-use Magento\Framework\Module\FullModuleList;
 use Magento\Framework\App\ProductMetadataInterface;
+use Magento\Framework\Module\FullModuleList;
 use Magento\Store\Model\StoreManagerInterface;
 use Shopgate\Base\Api\CronInterface;
 use Shopgate\Base\Api\ExportInterface;
 use Shopgate\Base\Api\ImportInterface;
 use Shopgate\Base\Api\SettingsInterface;
+use ShopgateBuilder;
 use ShopgateCart;
 use ShopgateCustomer;
 use ShopgateOrder;
@@ -51,6 +52,10 @@ class Forwarder extends \ShopgatePlugin
     private $importApi;
     /** @var CronInterface */
     private $cronApi;
+    /** @var FullModuleList */
+    private $fullModuleList;
+    /** @var ProductMetadataInterface */
+    private $productMetadataInterface;
 
     /**
      * Gets called on initialization
@@ -68,8 +73,10 @@ class Forwarder extends \ShopgatePlugin
         $this->importApi      = $forwarderInitializer->getImportInterface();
         $this->cronApi        = $forwarderInitializer->getCronInterface();
 
-        $configInitializer  = $forwarderInitializer->getConfigInitializer();
-        $this->storeManager = $configInitializer->getStoreManager();
+        $this->fullModuleList           = $forwarderInitializer->getFullModuleList();
+        $this->productMetadataInterface = $forwarderInitializer->getProductMetadataInterface();
+        $configInitializer              = $forwarderInitializer->getConfigInitializer();
+        $this->storeManager             = $configInitializer->getStoreManager();
         $this->config->loadConfig();
     }
 
@@ -225,17 +232,14 @@ class Forwarder extends \ShopgatePlugin
     }
 
     /**
-     * @return array|mixed[]
+     * @return array|string[]
      */
     public function createPluginInfo()
     {
-        $objectManager   = ObjectManager::getInstance();
-        $productMetadata = $objectManager->get(ProductMetadataInterface::class);
-
         return [
-            'Magento-Name'    => $productMetadata->getName(),
-            'Magento-Version' => $productMetadata->getVersion(),
-            'Magento-Edition' => $productMetadata->getEdition(),
+            'Magento-Name'    => $this->productMetadataInterface->getName(),
+            'Magento-Version' => $this->productMetadataInterface->getVersion(),
+            'Magento-Edition' => $this->productMetadataInterface->getEdition(),
         ];
     }
 
@@ -246,11 +250,7 @@ class Forwarder extends \ShopgatePlugin
      */
     public function createShopInfo()
     {
-        $objectManager  = ObjectManager::getInstance();
-        $moduleList     = $objectManager->get(FullModuleList::class);
-        $pluginResponse = [];
-
-        foreach ($moduleList->getAll() as $module) {
+        foreach ($this->fullModuleList->getAll() as $module) {
             $pluginResponse[] = [
                 'name'    => $module['name'],
                 'version' => $module['setup_version'],
