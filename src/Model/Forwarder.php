@@ -240,7 +240,7 @@ class Forwarder extends \ShopgatePlugin
     }
 
     /**
-     * get additional data from the magento instance
+     * Retrieve module information from the magento instance
      *
      * @return array|mixed[]
      */
