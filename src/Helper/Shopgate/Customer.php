@@ -24,7 +24,6 @@ namespace Shopgate\Base\Helper\Shopgate;
 
 use Shopgate\Base\Helper\Address;
 use Shopgate\Base\Helper\Regions;
-use Shopgate\Base\Model\Shopgate\Extended\Base;
 
 /**
  * Helps with data translation from shopgate customer data to mage data
@@ -74,9 +73,10 @@ class Customer
      */
     private function buildMagentoAddressArray($order, $address)
     {
-        $phoneNumber = $order->getMobile() ? : $order->getPhone();
-        $region      = $this->regionsHelper->getMageRegionByAddress($address);
-        $street2     = $address->getStreet2() ? "\n" . $address->getStreet2() : '';
+        $phoneNumber  = $order->getMobile() ? : $order->getPhone();
+        $region       = $this->regionsHelper->getMageRegionByAddress($address);
+        $street2      = $address->getStreet2() ? "\n" . $address->getStreet2() : '';
+        $regionString = $this->regionsHelper->getRawRegionStringByAddress($address);
 
         return [
             'company'    => $address->getCompany(),
@@ -88,7 +88,8 @@ class Customer
             'telephone'  => $phoneNumber ? : 'n.a.',
             'email'      => $order->getMail(),
             'country_id' => $address->getCountry(),
-            'region_id'  => $region->getId() ? : ''
+            'region_id'  => $region->getId() ? : '',
+            'region'     => !$region->getId() ? $regionString : ''
         ];
     }
 
