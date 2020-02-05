@@ -350,13 +350,22 @@ class Regions
     /**
      * @param ShopgateAddress $address
      *
+     * @return null|string
+     */
+    public function getRawRegionStringByAddress($address): ?string
+    {
+        return preg_replace("/{$address->getCountry()}\-/", '', $address->getState());
+    }
+
+    /**
+     * @param ShopgateAddress $address
+     *
      * @return Region
      */
     public function getMageRegionByAddress($address): Region
     {
-        $map = $this->getIsoToMagentoMapping();
-
-        $state = preg_replace("/{$address->getCountry()}\-/", '', $address->getState());
+        $map   = $this->getIsoToMagentoMapping();
+        $state = $this->getRawRegionStringByAddress($address);
 
         /** @var Collection $set */
         /** @var Region $region */

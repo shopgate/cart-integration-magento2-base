@@ -129,8 +129,7 @@ class Customer
             $quote->getBillingAddress()
                   ->addData($data)
                   ->setCustomerAddressId($billing->getId())
-                  ->setCustomerId($this->sgBase->getExternalCustomerId())
-                  ->setData('should_ignore_validation', true);
+                  ->setCustomerId($this->sgBase->getExternalCustomerId());
         }
 
         $shipping = $this->sgBase->getDeliveryAddress();
@@ -139,8 +138,7 @@ class Customer
             $quote->getShippingAddress()
                   ->addData($data)
                   ->setCustomerAddressId($shipping->getId())
-                  ->setCustomerId($this->sgBase->getExternalCustomerId())
-                  ->setData('should_ignore_validation', true);
+                  ->setCustomerId($this->sgBase->getExternalCustomerId());
         }
 
         if (!$quote->getShippingAddress()->getCountryId()) {
