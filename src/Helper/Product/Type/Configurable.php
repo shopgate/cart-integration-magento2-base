@@ -71,7 +71,7 @@ class Configurable extends Generic
         $productCollection->addAttributeToFilter('entity_id', ['in' => $childProductIds]);
         $productCollection->addStoreFilter();
         $productCollection->addAttributeToSelect('*');
-        $productCollection->addAttributeToFilter('status', array('eq' => Status::STATUS_ENABLED));
+        $productCollection->addAttributeToFilter('status', ['eq' => Status::STATUS_ENABLED]);
 
         return $productCollection;
     }
