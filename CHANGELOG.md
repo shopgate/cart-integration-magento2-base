@@ -11,7 +11,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [2.9.22] - 2020-02-05
 ### Added
 - support for regions based on text input fields
-:wq!:wq!
+
 ## [2.9.21] - 2019-11-26
 ### Added
 - Security enhancements
