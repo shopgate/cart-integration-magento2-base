@@ -24,6 +24,7 @@ namespace Shopgate\Base\Helper\Product\Type;
 
 use Magento\Catalog\Model\Product;
 use Magento\Catalog\Model\Product as MageProduct;
+use Magento\Catalog\Model\Product\Attribute\Source\Status;
 use Magento\GroupedProduct\Model\Product\Type\Grouped as MageGrouped;
 
 class Grouped extends Generic
@@ -53,6 +54,7 @@ class Grouped extends Generic
         $productCollection->addAttributeToFilter('entity_id', ['in' => $associatedProductIds]);
         $productCollection->addStoreFilter();
         $productCollection->addAttributeToSelect('*');
+        $productCollection->addAttributeToFilter('status', array('eq' => Status::STATUS_ENABLED));
 
         return $productCollection;
     }

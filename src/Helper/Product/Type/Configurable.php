@@ -23,6 +23,7 @@
 namespace Shopgate\Base\Helper\Product\Type;
 
 use Magento\Catalog\Model\Product;
+use Magento\Catalog\Model\Product\Attribute\Source\Status;
 use Magento\Quote\Model\Quote\Item;
 
 class Configurable extends Generic
@@ -70,6 +71,7 @@ class Configurable extends Generic
         $productCollection->addAttributeToFilter('entity_id', ['in' => $childProductIds]);
         $productCollection->addStoreFilter();
         $productCollection->addAttributeToSelect('*');
+        $productCollection->addAttributeToFilter('status', array('eq' => Status::STATUS_ENABLED));
 
         return $productCollection;
     }
