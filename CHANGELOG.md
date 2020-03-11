@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- Inactive child products are not exported anymore
+
 ## [2.9.22] - 2020-02-05
 ### Added
 - support for regions based on text input fields
