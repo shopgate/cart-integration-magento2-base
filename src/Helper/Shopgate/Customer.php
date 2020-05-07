@@ -79,6 +79,7 @@ class Customer
         $regionString = $this->regionsHelper->getRawRegionStringByAddress($address);
 
         return [
+            'prefix'     => ' ',
             'company'    => $address->getCompany(),
             'firstname'  => $address->getFirstName(),
             'lastname'   => $address->getLastName(),
