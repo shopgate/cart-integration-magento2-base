@@ -32,7 +32,6 @@ use Magento\Framework\Api\SimpleDataObjectConverter;
 use Magento\Tax\Model\ClassModel;
 use Magento\Tax\Model\ResourceModel\TaxClass\Collection as TaxClassCollection;
 use Shopgate\Base\Helper\Regions;
-use Shopgate\Base\Helper\Shopgate\Customer as CustomerHelper;
 use ShopgateAddress;
 use ShopgateCustomer;
 use ShopgateCustomerGroup;
@@ -43,8 +42,7 @@ class Utility
     const MAGENTO_GENDER_MALE             = '1';
     const MAGENTO_GENDER_FEMALE           = '2';
     const MAGENTO_GENDER_NO_SPECIFIED     = '3';
-    const MAGENTO_NAME_PREFIX             = 'prefix';
-    const ADDRESS_CUSTOM_FIELD_WHITELIST  = ['vat_id', 'suffix', self::MAGENTO_NAME_PREFIX, 'fax'];
+    const ADDRESS_CUSTOM_FIELD_WHITELIST  = ['vat_id', 'suffix', 'prefix', 'fax'];
     const CUSTOMER_CUSTOM_FIELD_WHITELIST = ['taxvat'];
 
     /** @var GroupCollection */
@@ -55,28 +53,23 @@ class Utility
     protected $countryFactory;
     /** @var Regions */
     private $regions;
-    /** @var CustomerHelper */
-    protected $customerHelper;
 
     /**
      * @param GroupCollection    $customerGroupCollection
      * @param TaxClassCollection $taxCollection
      * @param CountryFactory     $countryFactory
      * @param Regions            $regions
-     * @param CustomerHelper     $customer
      */
     public function __construct(
         GroupCollection $customerGroupCollection,
         TaxClassCollection $taxCollection,
         CountryFactory $countryFactory,
-        Regions $regions,
-        CustomerHelper $customer
+        Regions $regions
     ) {
         $this->customerGroupCollection = $customerGroupCollection;
         $this->taxCollection           = $taxCollection;
         $this->countryFactory          = $countryFactory;
         $this->regions                 = $regions;
-        $this->customerHelper          = $customer;
     }
 
     /**
@@ -223,10 +216,6 @@ class Utility
             }
 
             $fieldValue = $mageData->$getter();
-//            $fieldValue = $customFieldKey === self::MAGENTO_NAME_PREFIX
-//                ? $this->customerHelper->getShopgatePrefix($mageData->$getter())
-//                : $mageData->$getter();
-
             if (empty($fieldValue)) {
                 continue;
             }
