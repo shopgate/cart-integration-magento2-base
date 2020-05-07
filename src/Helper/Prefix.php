@@ -30,7 +30,7 @@ use Shopgate\Base\Api\Config\SgCoreInterface;
 class Prefix
 {
     /** @var CoreInterface */
-    protected $config;
+    private $config;
     /** @var Encoder */
     private $encoder;
 
