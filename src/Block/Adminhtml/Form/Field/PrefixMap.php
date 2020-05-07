@@ -58,23 +58,6 @@ class PrefixMap extends AbstractFieldArray
     }
 
     /**
-     * @return MagentoPrefix
-     * @throws LocalizedException
-     */
-    private function getMagentoPrefixRenderer(): MagentoPrefix
-    {
-        if (!$this->magentoPrefix) {
-            $this->magentoPrefix = $this->getLayout()->createBlock(
-                MagentoPrefix::class,
-                '',
-                ['data' => ['is_render_to_js_template' => true]]
-            );
-        }
-
-        return $this->magentoPrefix;
-    }
-
-    /**
      * @return ShopgatePrefix
      * @throws LocalizedException
      */
@@ -89,6 +72,23 @@ class PrefixMap extends AbstractFieldArray
         }
 
         return $this->shopgatePrefix;
+    }
+
+    /**
+     * @return MagentoPrefix
+     * @throws LocalizedException
+     */
+    private function getMagentoPrefixRenderer(): MagentoPrefix
+    {
+        if (!$this->magentoPrefix) {
+            $this->magentoPrefix = $this->getLayout()->createBlock(
+                MagentoPrefix::class,
+                '',
+                ['data' => ['is_render_to_js_template' => true]]
+            );
+        }
+
+        return $this->magentoPrefix;
     }
 
     /**

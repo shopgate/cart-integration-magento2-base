@@ -41,15 +41,15 @@ class MagentoPrefix extends Select
     private $context;
 
     /**
-     * @param Context               $context
-     * @param array                 $data
+     * @param Context $context
+     * @param array   $data
      */
     public function __construct(
         Context $context,
         array $data = []
     ) {
         parent::__construct($context, $data);
-        $this->context            = $context;
+        $this->context = $context;
     }
 
     /**
