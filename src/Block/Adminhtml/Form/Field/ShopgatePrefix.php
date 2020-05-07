@@ -59,7 +59,6 @@ class ShopgatePrefix extends Select
 
     /**
      * @return array
-     * @throws LocalizedException
      */
     public function createOptions(): array
     {

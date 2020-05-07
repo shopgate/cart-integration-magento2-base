@@ -55,7 +55,7 @@ class MagentoPrefix extends Select
     /**
      * @param string $value
      *
-     * @return ShopgatePrefix
+     * @return MagentoPrefix
      */
     public function setInputName($value): MagentoPrefix
     {
@@ -78,7 +78,6 @@ class MagentoPrefix extends Select
 
     /**
      * @return array
-     * @throws LocalizedException
      */
     public function createOptions(): array
     {
@@ -98,7 +97,7 @@ class MagentoPrefix extends Select
     }
 
     /**
-     * @return array
+     * @return string
      */
     private function getPrefixesForScope(): string
     {
