@@ -29,6 +29,11 @@ use Magento\Config\Model\Config\CommentInterface;
 
 class PrefixComment extends AbstractBlock implements CommentInterface
 {
+    /**
+     * @param string $elementValue
+     *
+     * @return string
+     */
     public function getCommentText($elementValue): string
     {
         $url = sprintf(
