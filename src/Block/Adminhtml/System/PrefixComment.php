@@ -39,7 +39,7 @@ class PrefixComment extends AbstractBlock implements CommentInterface
         );
 
         return sprintf(
-            __('Note: only one entry per prefix allowed.<br/>Prefixes must be configured first at:<br/>%s'),
+            __('Note: Only one entry per prefix allowed.<br/>Prefixes must be configured first at:<br/>%s'),
             $url
         );
     }

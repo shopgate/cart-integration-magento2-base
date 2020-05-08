@@ -22,4 +22,4 @@
 "Duplicate entries were removed.","Doppelte Einträge wurden entfernt"
 "Mr.","Herr"
 "Ms.","Frau"
-"Note: only one entry per prefix allowed.<br/>Prefixes must be configured first at:<br/>%s","Hinweis: nur ein Eintrag pro Prefix erlaubt.<br/>Prefixe müssen zuerst hier Konfiguriert werden:<br/>%1"
+"Note: Only one entry per prefix allowed.<br/>Prefixes must be configured first at:<br/>%s","Hinweis: Nur ein Eintrag pro Prefix erlaubt.<br/>Prefixe müssen zuerst hier Konfiguriert werden:<br/>%1"

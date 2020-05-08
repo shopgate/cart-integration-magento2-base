@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 ### Added
-- mapping fore name prefix
+- mapping for name prefix
 
 ## [2.9.23] - 2020-03-17
 ### Fixed
