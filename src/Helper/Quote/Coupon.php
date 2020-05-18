@@ -94,8 +94,6 @@ class Coupon
             }
             $this->quote->loadActive($quoteId);
             $this->checkoutSession->replaceQuote($this->quote);
-//            $this->checkoutSession->setQuoteId($quoteId);
-//            $this->checkoutSession->clearStorage();
             $this->validCoupons++;
         } catch (ShopgateLibraryException $e) {
             $coupon->setErrorByCode($e->getCode());
