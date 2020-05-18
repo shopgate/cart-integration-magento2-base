@@ -22,6 +22,7 @@
 
 namespace Shopgate\Base\Helper\Quote;
 
+use Magento\Checkout\Model\Session;
 use Magento\Framework\Exception\CouldNotSaveException;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Model\CouponManagement;
@@ -43,23 +44,28 @@ class Coupon
     private $couponManagement;
     /** @var int - counts the amount of valid coupons in cart */
     private $validCoupons = 0;
+    /** @var Session */
+    private $checkoutSession;
 
     /**
      * @param Quote             $quote
      * @param Base              $cart
      * @param SgLoggerInterface $log
      * @param CouponManagement  $couponManagement
+     * @param Session           $checkoutSession
      */
     public function __construct(
         Quote $quote,
         Base $cart,
         SgLoggerInterface $log,
-        CouponManagement $couponManagement
+        CouponManagement $couponManagement,
+        Session $checkoutSession
     ) {
         $this->quote            = $quote;
         $this->cart             = $cart;
         $this->log              = $log;
         $this->couponManagement = $couponManagement;
+        $this->checkoutSession  = $checkoutSession;
     }
 
     /**
@@ -81,12 +87,15 @@ class Coupon
      */
     public function setCouponToQuote(ExternalCoupon $coupon)
     {
-        $couponId = $this->quote->getEntityId();
+        $quoteId = $this->quote->getEntityId();
         try {
-            if ($this->couponManagement->set($couponId, $coupon->getCode()) && $this->validCoupons > 0) {
+            if ($this->couponManagement->set($quoteId, $coupon->getCode()) && $this->validCoupons > 0) {
                 throw new ShopgateLibraryException(ShopgateLibraryException::COUPON_TOO_MANY_COUPONS);
             }
-            $this->quote->loadActive($couponId);
+            $this->quote->loadActive($quoteId);
+            $this->checkoutSession->replaceQuote($this->quote);
+//            $this->checkoutSession->setQuoteId($quoteId);
+//            $this->checkoutSession->clearStorage();
             $this->validCoupons++;
         } catch (ShopgateLibraryException $e) {
             $coupon->setErrorByCode($e->getCode());
