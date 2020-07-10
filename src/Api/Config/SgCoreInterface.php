@@ -23,23 +23,24 @@ namespace Shopgate\Base\Api\Config;
 
 interface SgCoreInterface
 {
-    const SECTION_BASE         = 'shopgate_base';
-    const SECTION_ADVANCED     = 'shopgate_advanced';
-    const PATH_GENERAL         = self::SECTION_BASE . '/general';
-    const PATH_REDIRECT        = self::SECTION_BASE . '/redirect';
-    const PATH_UNDEFINED       = self::SECTION_BASE . '/undefined/';
-    const PATH_ACTIVE          = self::PATH_GENERAL . '/active';
-    const PATH_CUSTOMER_NUMBER = self::PATH_GENERAL . '/customer_number';
-    const PATH_SHOP_NUMBER     = self::PATH_GENERAL . '/shop_number';
-    const PATH_API_KEY         = self::PATH_GENERAL . '/api_key';
-    const PATH_ALIAS           = self::PATH_REDIRECT . '/alias';
-    const PATH_CNAME           = self::PATH_REDIRECT . '/cname';
-    const PATH_REDIRECT_TYPE   = self::PATH_REDIRECT . '/type';
-    const PATH_CMS_MAP         = self::PATH_REDIRECT . '/cms_map';
-    const PATH_HTUSER          = self::SECTION_ADVANCED . '/staging/htuser';
-    const PATH_HTPASS          = self::SECTION_ADVANCED . '/staging/htpass';
-    const PATH_SERVER_TYPE     = self::SECTION_ADVANCED . '/staging/server';
-    const PATH_API_URL         = self::SECTION_ADVANCED . '/staging/api_url';
+    const SECTION_BASE             = 'shopgate_base';
+    const SECTION_ADVANCED         = 'shopgate_advanced';
+    const PATH_GENERAL             = self::SECTION_BASE . '/general';
+    const PATH_REDIRECT            = self::SECTION_BASE . '/redirect';
+    const PATH_UNDEFINED           = self::SECTION_BASE . '/undefined/';
+    const PATH_ACTIVE              = self::PATH_GENERAL . '/active';
+    const PATH_CUSTOMER_NUMBER     = self::PATH_GENERAL . '/customer_number';
+    const PATH_SHOP_NUMBER         = self::PATH_GENERAL . '/shop_number';
+    const PATH_API_KEY             = self::PATH_GENERAL . '/api_key';
+    const PATH_ALIAS               = self::PATH_REDIRECT . '/alias';
+    const PATH_CNAME               = self::PATH_REDIRECT . '/cname';
+    const PATH_REDIRECT_TYPE       = self::PATH_REDIRECT . '/type';
+    const PATH_CMS_MAP             = self::PATH_REDIRECT . '/cms_map';
+    const PATH_HTUSER              = self::SECTION_ADVANCED . '/staging/htuser';
+    const PATH_HTPASS              = self::SECTION_ADVANCED . '/staging/htpass';
+    const PATH_SERVER_TYPE         = self::SECTION_ADVANCED . '/staging/server';
+    const PATH_API_URL             = self::SECTION_ADVANCED . '/staging/api_url';
+    const PATH_USE_SHOPGATE_PRICES = self::SECTION_ADVANCED . '/order/use_shopgate_prices';
 
     const VALUE_REDIRECT_HTTP = 'http';
     const VALUE_REDIRECT_JS   = 'js';

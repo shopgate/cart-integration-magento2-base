@@ -25,6 +25,8 @@ namespace Shopgate\Base\Helper\Product;
 use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Catalog\Model\Product as MageProduct;
 use Magento\Store\Model\StoreManager;
+use Shopgate\Base\Api\Config\CoreInterface;
+use Shopgate\Base\Api\Config\SgCoreInterface;
 
 class Utility
 {
@@ -32,15 +34,23 @@ class Utility
     protected $storeManager;
     /** @var ProductRepositoryInterface */
     protected $productRepository;
+    /** @var CoreInterface */
+    protected $config;
+
 
     /**
      * @param StoreManager               $storeManager
      * @param ProductRepositoryInterface $productRepository
+     * @param CoreInterface              $config
      */
-    public function __construct(StoreManager $storeManager, ProductRepositoryInterface $productRepository)
-    {
+    public function __construct(
+        StoreManager $storeManager,
+        ProductRepositoryInterface $productRepository,
+        CoreInterface $config
+    ) {
         $this->storeManager      = $storeManager;
         $this->productRepository = $productRepository;
+        $this->config            = $config;
     }
 
     /**
@@ -53,4 +63,13 @@ class Utility
     {
         return $this->productRepository->getById($productId, false, $this->storeManager->getStore()->getId(), true);
     }
+
+    /**
+     * @return bool
+     */
+    public function useShopgatePrices(): bool
+    {
+        return (bool) $this->config->getConfigByPath(SgCoreInterface::PATH_USE_SHOPGATE_PRICES);
+    }
+
 }

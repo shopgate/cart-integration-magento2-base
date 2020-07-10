@@ -98,6 +98,7 @@
                 <item name="server" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_SERVER_TYPE</item>
                 <item name="api_url" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_API_URL</item>
                 <item name="cname" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_CNAME</item>
+                <item name="use_shopgate_prices" xsi:type="const">Shopgate\Base\Api\Config\SgCoreInterface::PATH_USE_SHOPGATE_PRICES</item>
             </argument>
         </arguments>
     </type>
