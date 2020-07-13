@@ -240,11 +240,6 @@ class Config extends ShopgateConfig
         return $this->shop_number;
     }
 
-    public function useShopgatePrices(): bool
-    {
-
-    }
-
     /**
      * Setup export, log and tmp folder and check if need to create them
      *
