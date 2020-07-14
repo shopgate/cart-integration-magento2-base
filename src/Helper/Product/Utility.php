@@ -69,7 +69,6 @@ class Utility
      */
     public function useShopgatePrices(): bool
     {
-        return (bool) $this->config->getConfigByPath(SgCoreInterface::PATH_USE_SHOPGATE_PRICES);
+        return (bool) $this->config->getConfigByPath(SgCoreInterface::PATH_USE_SHOPGATE_PRICES)->getValue();
     }
-
 }
