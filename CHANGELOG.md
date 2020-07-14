@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 - Order import for Estonia and Croatia when also states are used
 
 ### Added
-- quote to checkout session
+- Quote to checkout session
+- Support for custom product prices during check_cart and add_order
 
 ## [2.9.23] - 2020-03-17
 ### Fixed
