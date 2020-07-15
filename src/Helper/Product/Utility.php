@@ -37,7 +37,6 @@ class Utility
     /** @var CoreInterface */
     protected $config;
 
-
     /**
      * @param StoreManager               $storeManager
      * @param ProductRepositoryInterface $productRepository
