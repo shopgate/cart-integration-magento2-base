@@ -7,6 +7,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 ### Added
 - mapping for name prefix
+- quote to checkout session
+
+### Fixed
+- Order import for Estonia and Croatia when also states are used
 
 ## [2.9.23] - 2020-03-17
 ### Fixed
