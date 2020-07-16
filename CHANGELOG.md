@@ -5,11 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- mapping for name prefix
+- quote to checkout session
+
 ### Fixed
 - Order import for Estonia and Croatia when also states are used
-
-### Added
-- quote to checkout session
 
 ## [2.9.23] - 2020-03-17
 ### Fixed
