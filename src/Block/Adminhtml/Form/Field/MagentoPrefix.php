@@ -83,6 +83,11 @@ class MagentoPrefix extends Select
     {
         $list               = [];
         $scopePrefix        = $this->getPrefixesForScope();
+        
+        if ($scopePrefix === null) {
+            return $list;
+        }
+        
         $configuredPrefixes = explode(static::PREFIX_DELIMITER, $scopePrefix);
 
         if (!is_array($configuredPrefixes)) {
@@ -99,7 +104,7 @@ class MagentoPrefix extends Select
     /**
      * @return string
      */
-    private function getPrefixesForScope(): string
+    private function getPrefixesForScope(): ?string
     {
         if ($this->getRequest()->getParam(ScopeInterface::SCOPE_WEBSITE) !== null) {
             return $this->context->getScopeConfig()->getValue(
