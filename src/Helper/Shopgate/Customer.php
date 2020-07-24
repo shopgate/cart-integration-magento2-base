@@ -24,6 +24,8 @@ namespace Shopgate\Base\Helper\Shopgate;
 
 use Shopgate\Base\Helper\Address;
 use Shopgate\Base\Helper\Regions;
+use Shopgate\Base\Helper\Prefix;
+use Shopgate\Base\Block\Adminhtml\Form\Field\PrefixMap;
 
 /**
  * Helps with data translation from shopgate customer data to mage data
@@ -34,15 +36,19 @@ class Customer
     private $regionsHelper;
     /** @var Address */
     private $addressHelper;
+    /** @var Prefix */
+    private $prefixHelper;
 
     /**
      * @param Regions $regionsHelper
      * @param Address $addressHelper
+     * @param Prefix  $prefixHelper
      */
-    public function __construct(Regions $regionsHelper, Address $addressHelper)
+    public function __construct(Regions $regionsHelper, Address $addressHelper, Prefix $prefixHelper)
     {
         $this->regionsHelper = $regionsHelper;
         $this->addressHelper = $addressHelper;
+        $this->prefixHelper  = $prefixHelper;
     }
 
     /**
@@ -78,7 +84,7 @@ class Customer
         $street2      = $address->getStreet2() ? "\n" . $address->getStreet2() : '';
         $regionString = $this->regionsHelper->getRawRegionStringByAddress($address);
 
-        return [
+        $addressData = [
             'company'    => $address->getCompany(),
             'firstname'  => $address->getFirstName(),
             'lastname'   => $address->getLastName(),
@@ -91,6 +97,13 @@ class Customer
             'region_id'  => $region->getId() ? : '',
             'region'     => !$region->getId() ? $regionString : ''
         ];
+
+        $prefix = $this->getMagentoPrefix($address->getGender());
+        if ($prefix !== null) {
+            $addressData['prefix'] = $prefix;
+        }
+
+        return $addressData;
     }
 
     /**
@@ -109,5 +122,22 @@ class Customer
         }
 
         return $customFields;
+    }
+
+    /**
+     * @param string $shopgatePrefix
+     *
+     * @return string|null
+     */
+    public function getMagentoPrefix($shopgatePrefix): ?string
+    {
+        $prefixMap = $this->prefixHelper->getMapping();
+        foreach ($prefixMap as $map) {
+            if ($map[PrefixMap::INPUT_ID_PREFIX_SHOPGATE] === $shopgatePrefix) {
+                return $map[PrefixMap::INPUT_ID_PREFIX_MAGENTO];
+            }
+        }
+
+        return null;
     }
 }

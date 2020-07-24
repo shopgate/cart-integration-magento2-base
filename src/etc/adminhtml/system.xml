@@ -77,6 +77,16 @@
                     <comment>Note: only one entry per page allowed</comment>
                 </field>
             </group>
+            <group id="customer_configuration" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Customer Configuration</label>
+                <field id="prefix_map" translate="label tooltip comment" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Prefix Map</label>
+                    <frontend_model>Shopgate\Base\Block\Adminhtml\Form\Field\PrefixMap</frontend_model>
+                    <backend_model>Shopgate\Base\Model\Source\PrefixMap\ArraySerialized</backend_model>
+                    <tooltip>Allows to map your Magento prefixes to Shopgate's prefixes.</tooltip>
+                    <comment model="Shopgate\Base\Block\Adminhtml\System\PrefixComment"></comment>
+                </field>
+            </group>
         </section>
         <section id="shopgate_advanced" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
             <class>separator-top</class>

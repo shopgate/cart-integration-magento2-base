@@ -5,12 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-### Fixed
-- Order import for Estonia and Croatia when also states are used
-
+## [2.9.24] - 2020-07-24
 ### Added
 - Quote to checkout session
 - Support for custom product prices during check_cart and add_order
+- mapping for name prefix
+- quote to checkout session
+
+### Fixed
+- Order import for Estonia and Croatia when also states are used
 
 ## [2.9.23] - 2020-03-17
 ### Fixed
@@ -160,7 +163,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Version 2.9.0
 - Created Initial Plugin
 
-[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.23...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.24...HEAD
+[2.9.24]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.23...2.9.24
 [2.9.23]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.22...2.9.23
 [2.9.22]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.21...2.9.22
 [2.9.21]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.20...2.9.21
