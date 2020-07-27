@@ -177,7 +177,7 @@ class Quote
 
             try {
                 $quoteItem = $this->getQuoteItem($item, $product);
-                if ($this->useShopgatePrices()) {
+                if ($this->productHelper->useShopgatePrices()) {
                     if ($this->taxData->priceIncludesTax($this->storeManager->getStore())) {
                         $quoteItem->setCustomPrice($amountGross);
                         $quoteItem->setOriginalCustomPrice($amountGross);
@@ -267,16 +267,6 @@ class Quote
             __('The text is too long.')->render(),
             __('Please specify product\'s required option(s).')
         ];
-    }
-
-    /**
-     * @todo-sg: create config for this at some point
-     *
-     * @return bool
-     */
-    private function useShopgatePrices()
-    {
-        return false;
     }
 
     /**

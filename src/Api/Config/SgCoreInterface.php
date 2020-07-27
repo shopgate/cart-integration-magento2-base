@@ -42,6 +42,7 @@ interface SgCoreInterface
     const PATH_HTPASS                 = self::SECTION_ADVANCED . '/staging/htpass';
     const PATH_SERVER_TYPE            = self::SECTION_ADVANCED . '/staging/server';
     const PATH_API_URL                = self::SECTION_ADVANCED . '/staging/api_url';
+    const PATH_USE_SHOPGATE_PRICES    = self::SECTION_ADVANCED . '/order/use_shopgate_prices';
 
     const VALUE_REDIRECT_HTTP = 'http';
     const VALUE_REDIRECT_JS   = 'js';

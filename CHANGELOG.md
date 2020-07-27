@@ -7,6 +7,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 ## [2.9.24] - 2020-07-24
 ### Added
+- Quote to checkout session
+- Support for custom product prices during check_cart and add_order
 - mapping for name prefix
 - quote to checkout session
 

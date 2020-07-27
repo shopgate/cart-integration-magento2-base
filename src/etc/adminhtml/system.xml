@@ -93,6 +93,15 @@
             <label>Advanced</label>
             <tab>shopgate</tab>
             <resource>Shopgate_Base::config_advanced</resource>
+            <group id="order" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>Order</label>
+                <field id="use_shopgate_prices" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Use product prices from Shopgate</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Note: If you plan to use special discount for mobile, this option needs to be activated.</comment>
+                </field>
+            </group>
             <group id="staging" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Staging</label>
                 <attribute type="expanded">1</attribute>

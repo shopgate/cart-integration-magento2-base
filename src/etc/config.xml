@@ -33,6 +33,9 @@
             <staging>
                 <server>live</server>
             </staging>
+            <order>
+                <use_shopgate_prices>0</use_shopgate_prices>
+            </order>
         </shopgate_advanced>
     </default>
 </config>
