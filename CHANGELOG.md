@@ -5,10 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-## [2.9.24] - 2020-07-24
 ### Added
 - Quote to checkout session
 - Support for custom product prices during check_cart and add_order
+- Compatibility with Magento 2.4
+
+## [2.9.24] - 2020-07-24
+### Added
 - mapping for name prefix
 - quote to checkout session
 

@@ -3,7 +3,7 @@
   "description": "Shopgate base module for Magento 2, handles communication with merchant API and routing calls",
   "license": "Apache-2.0",
   "type": "magento2-module",
-  "version": "2.9.24",
+  "version": "2.9.25-rc.1",
   "authors": [
     {
       "name": "Konstantin Kiritsenko"
@@ -25,7 +25,7 @@
     "php": ">=7.1",
     "shopgate/cart-integration-sdk": "2.9.78",
     "magento/module-grouped-product": "^100.0",
-    "magento/module-bundle": "^100.0",
+    "magento/module-bundle": ">=100.0 <102.0",
     "magento/module-configurable-product": "^100.0"
   },
   "autoload": {
