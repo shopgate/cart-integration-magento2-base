@@ -6,9 +6,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 ### Added
-- Quote to checkout session
-- Support for custom product prices during check_cart and add_order
-- Compatibility with Magento 2.4
+- quote to checkout session
+- support for custom product prices during check_cart and add_order
+- support for Magento 2.4
+
+### Changed
+- uses Shopgate Cart Integration SDK v2.9.79
 
 ## [2.9.24] - 2020-07-24
 ### Added
