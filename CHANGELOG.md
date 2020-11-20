@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## [2.9.25] - 2020-11-19
 ### Added
 - quote to checkout session
 - support for custom product prices during check_cart and add_order
@@ -169,7 +170,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Version 2.9.0
 - Created Initial Plugin
 
-[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.24...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.25...HEAD
+[2.9.25]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.24...2.9.25
 [2.9.24]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.23...2.9.24
 [2.9.23]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.22...2.9.23
 [2.9.22]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.21...2.9.22
