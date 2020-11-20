@@ -30,7 +30,8 @@ jobs:
           fi
       deploy:
         provider: releases
-        api_key: ${GITHUB_TOKEN}
+        api_key:
+          secure: "wqBQjTz/WlTJ/466OGORSDghHMK74u3rXILa9WTex30gHc4WjirozR2x6L8PUeyUx0sIrcJMLt/Qk+6v7UXn2oPOadzvrA/S62dYs6TZCv72PN5QO5ZUqugT8M4GCveJxSWGfhvxpMdSEfqDd3IFqUDsRV9/uq6/twRpWvPA0j0Up2MZ66GxCaCaLi0oeViDGtP83dFNnSBD6+HbczzDpfdoDB84ajfbKQ8DCwlqSM+5vBigKWM6HXJH2+poi04frSRbKbGCypTERqeIe8tnQUzYLHJkMTezhOtlW6ua82gbiN7QA2RG5ViSBvrZ2sJq5UsTo9SWgGGY4C5Q/w4hheHvUhAf0vbvhvyUZRNfok42k6b34N2XJhGK3dLANUTkwgZssVJOse+rDwLoDbdo4v01uwngbOChjbAcfRkN4B12DYk5RsX7IXzTofyNxu3jlPEybHMR5sP2Vkc9kuXG9OaxYrh651lL/yHD2ltvuYOu7BGJ5En3iileLBrVqZr5hP181A1P36OByAcABSb1Wn3wjY8O0z1oFucT78SDsqGpYtO46BhYO97kLj1eE9FxNRB8Da5rRZiSxMAVZlLrm9j2rJc4T+VqbTKtBwuTxRTcxHGbqd6gltipI+pOGxBLwtU0gXHqdKtxQarOJqB2Uy8Y8LsJgoPAj8tmmGSWbyk="
         file: shopgate-base-${TRAVIS_TAG}.zip
         skip_cleanup: true
         on:
@@ -39,6 +40,6 @@ jobs:
 notifications:
   slack:
     rooms:
-      secure: mfCzFCn4+YP6Vh9/VVRgxUg178mcZtn+LyWmLu1DyFQOG/0JBcgbE4hAba6Fll2BbGvk29nckMsKsKzeydSjGCVAUu8N9LVAg3ZaszdIXZUZB9r56F/T/cyFm2O/n8xTBJIX+CRE94YSUcyocW/oERROlmrb7oWIQKYlHugAKAvOY5bC/SemxYl7HLoLHgra8JMqzpaxOtjt/jf9YVxcJafT8psQGzZ0sd3jiy1KHXjTpSblS+O2K110bCp6vGlRIM70bjXjZlvqex5yMg3oASIgIFtWuRkWH1ZwfPlPVYUd53ghq3K0vKG4/BOZ1T+6fTHbLwdiJUrkOMlHbheRPnTgKgBiQt9Gkqi04lXjv7aiYrWq4Tb222PTydytRpesSkmJPiXmtcKFUYsKvYA/ZzeBSRBDgxXlG4maCzEJALqiMgWRNL8DbzmMJ8qyzG56LHdQ+zhsWmY63yvVRxEtOX1LwMEjAJV1n1PQIVC1Yu61o1xO2uRonLwtlSj0a4oSn9Ftz7rAw36RguXUvX+4uOXRL2Hou3Jp5Piybn4NI7dnCZCrFlHY0CX/8CaerFDGVeQkpjUotUte92/VVkE4T8oL2kE/v64Wbw1RVZnFfX5gm7TWBf4Kxyu5l2RpcpkGlzC0YPXiEtLdsiRl4o47EmU1eZfqFEVgQIjqqfJQS9Y=
+      - secure: "QCOIv7rDYuXToHiQWcIEowsXbzW474zOmX0b3OgGaEuXxIA4IERc6aY+Hms37kTtjHzFYCWzgwteTMGG9E5gyQglx0fbZ2dJ26jRq+fAzCC4jJmTEsANUVfWZlFwedNy2lLmr0cOWXK76KLI1CozgBai2VY/C2z1sMNx5ZYm+1IkXY6oYE6rkF8xkRiu8UO+PNAMOXhsEy8DqrgPr9Ev1JBnKW8A9K19fv+XVs4+BRkCebKH64dBLaYjHhjJGUhX/ksX7KpHYjZhckF5rw9ZBEpZixyGRcpPWNuo+LcLFznlophUXy6XPnw0E5lV3GEgjg+YP2xPee9dIGrXqV5cs2vQQaN5IKrJUPFkmbCdiWdQC8pOj8HM9fj2BOD0mk8yVisvC5ZXnL+pnHmNmxfr8pbxjhHsijMQdNeWoludsM5BZSAcmIL4MVEIBut8QXU79yMqEgjrSx8AouyyzOVP0nkOa5TD6cyHyJjgi7JY5HVD2hEpIk086kw0eGbrFoVzPavtnS8/o3LkyptsIkRfpHuRhesseuTPzX11N3XFNvMBnfZ/4KSa6WiAElsjKaYH87hpYWcVuveSEtYgol0aFGpGop4Y7Qn0IyqrLfZu0w8b+L1PPFRRiX1tEjMCBLfWwL0DlvrMszt1xyWE6S8Ig5qcqZ4yzCk5iWYXDcwKwao="
     on_success: change
     on_failure: always
