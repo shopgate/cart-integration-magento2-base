@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- static reference to a private const, which caused problems when the class is extended
+
 ## [2.9.25] - 2020-11-19
 ### Added
 - quote to checkout session

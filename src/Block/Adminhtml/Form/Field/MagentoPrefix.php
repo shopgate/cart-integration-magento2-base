@@ -34,8 +34,8 @@ use Magento\Store\Model\ScopeInterface;
  */
 class MagentoPrefix extends Select
 {
-    private const PREFIX_CONFIG_PATH = 'customer/address/prefix_options';
-    private const PREFIX_DELIMITER   = ';';
+    protected const PREFIX_CONFIG_PATH = 'customer/address/prefix_options';
+    protected const PREFIX_DELIMITER   = ';';
 
     /** @var Context */
     private $context;
