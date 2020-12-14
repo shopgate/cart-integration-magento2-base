@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 ### Fixed
-- static reference to a private const, which caused problems when the class is extended
+- `private` access to class constants that need to be accessible by child classes are now `protected`
 
 ## [2.9.25] - 2020-11-19
 ### Added
