@@ -5,6 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- `private` access to class constants that need to be accessible by child classes are now `protected`
+
 ## [2.9.25] - 2020-11-19
 ### Added
 - quote to checkout session
