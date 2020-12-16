@@ -5,8 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.9.26] - 2020-12-16
 ### Fixed
-- `private` access to class constants that need to be accessible by child classes are now `protected`
+- an internal bug that would break the backend configuration page on some systems
 
 ## [2.9.25] - 2020-11-19
 ### Added
@@ -173,7 +175,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Version 2.9.0
 - Created Initial Plugin
 
-[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.25...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.26...HEAD
+[2.9.26]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.25...2.9.26
 [2.9.25]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.24...2.9.25
 [2.9.24]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.23...2.9.24
 [2.9.23]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.22...2.9.23
