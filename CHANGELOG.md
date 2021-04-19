@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 ### Fixed
-- avoid notification in payment mapping 
+- avoid logging or displaying a PHP "undefined index" notice on payment mapping
 
 ## [2.9.26] - 2020-12-16
 ### Fixed
