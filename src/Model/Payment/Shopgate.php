@@ -24,6 +24,7 @@ namespace Shopgate\Base\Model\Payment;
 
 use Magento\Framework\DataObject;
 use Magento\Quote\Api\Data\PaymentInterface;
+use ShopgateOrder;
 
 class Shopgate extends \Magento\Payment\Model\Method\AbstractMethod
 {
@@ -55,8 +56,8 @@ class Shopgate extends \Magento\Payment\Model\Method\AbstractMethod
         parent::assignData($data);
 
         $additionalData = $data->getData(PaymentInterface::KEY_ADDITIONAL_DATA);
-        $sgObject       = $additionalData[self::SG_DATA_OBJECT_KEY];
-        if (!empty($sgObject) && $sgObject instanceof \ShopgateOrder) {
+        $sgObject       = $additionalData[self::SG_DATA_OBJECT_KEY] ?? false;
+        if (!empty($sgObject) && $sgObject instanceof ShopgateOrder) {
             $info = $this->getInfoInstance();
             $info->setAdditionalInformation(self::INFO_RAW_METHOD, $sgObject->getPaymentMethod());
             $info->setAdditionalInformation(self::INFO_RAW_GROUP, $sgObject->getPaymentGroup());
