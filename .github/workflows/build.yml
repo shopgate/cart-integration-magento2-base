@@ -7,8 +7,9 @@ jobs:
       matrix:
         php: [7.1, 7.2]
     steps:
-      - name: Check out repository code & install dependencies
+      - name: Check out repository code
         uses: actions/checkout@v2
+      - name: Install dependencies
         run: composer install
       - name: Audit
         run: |
