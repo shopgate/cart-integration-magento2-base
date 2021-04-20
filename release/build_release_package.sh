@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ZIP_FOLDER="shopgate-base-${GITHUB_REF}"
+ZIP_FOLDER="shopgate-base-${TAG_NAME}"
 ZIP_FILE="${ZIP_FOLDER}.zip"
 
 # Remove mentioning the src/ structure when packaging
