@@ -11,6 +11,6 @@ mkdir release/${ZIP_FOLDER}
 rsync -a ./src/ release/${ZIP_FOLDER}
 rsync -av --exclude-from './release/exclude-list.txt' ./ release/${ZIP_FOLDER}
 cd ./release/${ZIP_FOLDER}
-zip -r ${ZIP_FILE} ./
-wget https://raw.githubusercontent.com/magento/marketplace-tools/master/validate_m2_package.php
+zip -r ../${ZIP_FILE} ./
+cd ..
 php validate_m2_package.php ${ZIP_FILE}
