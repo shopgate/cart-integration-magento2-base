@@ -1,7 +1,7 @@
 # Shopgate Magento2 Integration
 
 [![GitHub license](http://dmlc.github.io/img/apache2.svg)](LICENSE.md)
-[![Build Status](https://travis-ci.org/shopgate/cart-integration-magento2-base.svg?branch=master)](https://travis-ci.org/shopgate/cart-integration-magento2-base)
+[![Build Status](https://github.com/shopgate/cart-integration-magento2-base/actions/workflows/check_and_deploy.yml/badge.svg)](https://github.com/shopgate/cart-integration-magento2-base/actions/workflows/check_and_deploy.yml)
 
 The Shopgate Magento2 integration enables you to connect your Magento2 store with the Shopgate backend.
 
