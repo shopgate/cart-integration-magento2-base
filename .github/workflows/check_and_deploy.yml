@@ -47,8 +47,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./shopgate-base-${{ github.ref }}.zip
-          asset_name: shopgate-base-${{ github.ref }}.zip
+          asset_path: ./shopgate-base-${{ steps.set-tag.outputs.TAG_NAME }}.zip
+          asset_name: shopgate-base-${{ steps.set-tag.outputs.TAG_NAME }}.zip
           asset_content_type: application/zip
 
   notify-release-success:
