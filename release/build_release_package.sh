@@ -14,4 +14,3 @@ cd ./release/${ZIP_FOLDER}
 zip -r ${ZIP_FILE} ./
 wget https://raw.githubusercontent.com/magento/marketplace-tools/master/validate_m2_package.php
 php validate_m2_package.php ${ZIP_FILE}
-mv ${ZIP_FILE} ${TRAVIS_BUILD_DIR}/${ZIP_FILE}
