@@ -177,7 +177,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Version 2.9.0
 - Created Initial Plugin
 
-[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.26...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.27...HEAD
+[2.9.27]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.26...2.9.27
 [2.9.26]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.25...2.9.26
 [2.9.25]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.24...2.9.25
 [2.9.24]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.23...2.9.24
