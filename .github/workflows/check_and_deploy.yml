@@ -39,7 +39,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Shopgate Cart Integration SDK version ${{ github.ref }}
+          release_name: Shopgate Cart Integration Magento 2 Base ${{ github.ref }}
           draft: true
       - name: Upload ZIP to GitHub release
         uses: actions/upload-release-asset@v1
