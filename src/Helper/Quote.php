@@ -41,7 +41,7 @@ use Shopgate\Base\Model\Shopgate\Extended;
 use Shopgate\Base\Model\Utility\Registry;
 use Shopgate\Base\Model\Utility\SgLoggerInterface;
 use ShopgateLibraryException;
-use \Zend\Serializer\Serializer;
+use Laminas\Serializer\Serializer;
 
 /**
  * This class must not return anything except itself as it only
