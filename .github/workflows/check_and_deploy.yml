@@ -9,9 +9,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Code Style
         run: |
-          curl -L https://cs.symfony.com/download/php-cs-fixer-v2.phar -o php-cs-fixer
+          curl -L https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v3.4.0/php-cs-fixer.phar -o php-cs-fixer
           chmod a+x php-cs-fixer
-          ./php-cs-fixer fix --config=.php-cs.dist --cache-file=.php-cs.cache --diff --dry-run --verbose
+          ./php-cs-fixer fix --config=.php-cs-fixer.dist.php --cache-file=.php-cs-fixer.cache --diff --dry-run --verbose
 
   deploy:
     name: Deploy to GitHub
