@@ -5,8 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [2.9.30] - 2022-01-05
 ### Changed
-- uses Laminas serializer instead of Zend
+- fixed another incompatibility with Magento 2.4.3
 
 ## [2.9.29] - 2021-09-01
 ### Fixed
@@ -189,7 +191,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Version 2.9.0
 - Created Initial Plugin
 
-[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.29...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.30...HEAD
+[2.9.30]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.29...2.9.30
 [2.9.29]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.28...2.9.29
 [2.9.28]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.27...2.9.28
 [2.9.27]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.26...2.9.27
