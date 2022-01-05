@@ -6,7 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 ### Changed
-- Using Laminas Serializer instead of Zend
+- uses Laminas serializer instead of Zend
 
 ## [2.9.28] - 2021-09-01
 ### Fixed
