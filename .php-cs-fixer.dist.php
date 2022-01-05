@@ -11,9 +11,6 @@ use PhpCsFixer\Finder;
 $fixers = array(
     '@PSR1' => true,
     '@PSR2' => true,
-    'array_syntax' => array(
-        'syntax' => 'short',
-    ),
     'blank_line_after_opening_tag' => true,
     'method_argument_space' => false,
 );
@@ -23,8 +20,10 @@ $finder = Finder::create()
                 ->exclude('release')
                 ->in(__DIR__);
 
-return Config::create()
-             ->setRiskyAllowed(true)
-             ->setUsingCache(true)
-             ->setRules($fixers)
-             ->setFinder($finder);
+$config = new Config();
+$config->setRiskyAllowed(true)
+       ->setUsingCache(true)
+       ->setRules($fixers)
+       ->setFinder($finder);
+
+return $config;
