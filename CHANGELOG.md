@@ -8,6 +8,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ### Changed
 - uses Laminas serializer instead of Zend
 
+## [2.9.29] - 2021-09-01
+### Fixed
+- restored compatibility with Magento 2.4.3 and lower
+
 ## [2.9.28] - 2021-09-01
 ### Fixed
 - compatibility with Magento 2.4.3
@@ -185,7 +189,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Version 2.9.0
 - Created Initial Plugin
 
-[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.28...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.29...HEAD
+[2.9.29]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.28...2.9.29
 [2.9.28]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.27...2.9.28
 [2.9.27]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.26...2.9.27
 [2.9.26]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.25...2.9.26
