@@ -100,7 +100,8 @@ class Fix extends AbstractCarrier implements CarrierInterface
      */
     public function collectRates(RateRequest $request)
     {
-        if (!$this->sgOrder->getOrderNumber() || !$this->sgOrder->getShippingInfos()) {
+        if (!$this->sgOrder->getOrderNumber() || !$this->sgOrder->getShippingInfos()
+            || $this->sgOrder->getShippingType() === 'PLUGINAPI') {
             return false;
         }
 
