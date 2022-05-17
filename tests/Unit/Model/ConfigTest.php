@@ -40,7 +40,7 @@ class ConfigTest extends TestCase
     /**
      * Load object manager for initialization
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->objectManager = new ObjectManager($this);
         $this->configModel   = $this->createMock(Config::class);
@@ -115,7 +115,7 @@ class ConfigTest extends TestCase
     {
         return [
             ['string', 'apikey'],
-            ['int', 'shop_number'],
+            ['string', 'shop_number'],
             ['bool', 'shop_is_active'],
             ['array', 'api_urls'],
             ['string', 'random_var'],

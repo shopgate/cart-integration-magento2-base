@@ -42,7 +42,7 @@ class Db extends \PHPUnit\Framework\TestCase
     /**
      * Init website manager
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->config        = new ConfigManager;
         $this->websiteConfig = new WebsiteManager;

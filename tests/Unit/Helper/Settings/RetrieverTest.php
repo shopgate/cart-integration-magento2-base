@@ -37,7 +37,7 @@ class RetrieverTest extends \PHPUnit\Framework\TestCase
     /**
      * Load object manager for initialization
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->objectManager = new ObjectManager($this);
     }
@@ -101,8 +101,8 @@ class RetrieverTest extends \PHPUnit\Framework\TestCase
                 [
                     'expected' => [
                         'tax'             => [
-                            'tax_rates' => null,
-                            'tax_rules' => null
+                            'tax_rates' => [],
+                            'tax_rules' => []
                         ],
                         'customer_groups' => null,
                         'payment_methods' => null,

@@ -23,7 +23,7 @@
   ],
   "require": {
     "php": ">=7.1",
-    "shopgate/cart-integration-sdk": "2.9.83",
+    "shopgate/cart-integration-sdk": "2.9.89",
     "magento/module-grouped-product": "^100.0",
     "magento/module-bundle": ">=100.0 <102.0",
     "magento/module-configurable-product": "^100.0",

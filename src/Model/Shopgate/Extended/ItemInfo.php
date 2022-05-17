@@ -43,12 +43,11 @@ class ItemInfo extends DataObject
      * @param string | array | null $data
      *
      * @return $this
-     * @throws \Zend_Json_Exception
      */
     public function loadInfo($data)
     {
         if ($this->isJson($data)) {
-            $data = \Zend_Json_Decoder::decode($data);
+            $data = \json_decode($data, true);
         } elseif (is_null($data)) {
             $data = [];
         }

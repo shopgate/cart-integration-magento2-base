@@ -36,7 +36,7 @@ class UtilityTest extends \PHPUnit\Framework\TestCase
     /** @var \Magento\Backend\App\Action\Context */
     private $context;
 
-    public function setUp()
+    public function setUp(): void
     {
         $manager       = Bootstrap::getObjectManager();
         $this->class   = $manager->create('Shopgate\Base\Model\Redirect\Route\Utility');

@@ -37,7 +37,7 @@ class CustomerTest extends \PHPUnit\Framework\TestCase
     /**
      * Init DB entry, save ID for retrieval
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         /** @var \Shopgate\Base\Model\Shopgate\Customer $model */
         $model = Bootstrap::getObjectManager()->create('Shopgate\Base\Model\Shopgate\Customer');

@@ -57,7 +57,7 @@ class SgCoreTest extends \PHPUnit\Framework\TestCase
     /**
      * Set up essentials
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->config        = new ConfigManager;
         $this->websiteConfig = new WebsiteManager;
