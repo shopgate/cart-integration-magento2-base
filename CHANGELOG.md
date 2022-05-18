@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+## [2.9.31]
 ### Added
 - Support for Magento 2.4.4 
 - Support for PHP 8.1.x
@@ -197,7 +198,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## Version 2.9.0
 - Created Initial Plugin
 
-[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.30...HEAD
+[Unreleased]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.31...HEAD
+[2.9.31]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.30...2.9.31
 [2.9.30]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.29...2.9.30
 [2.9.29]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.28...2.9.29
 [2.9.28]: https://github.com/shopgate/cart-integration-magento2-base/compare/2.9.27...2.9.28
