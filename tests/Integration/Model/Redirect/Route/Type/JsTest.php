@@ -40,7 +40,7 @@ class JsTest extends \PHPUnit\Framework\TestCase
     /** @var \Magento\Backend\App\Action\Context */
     private $context;
 
-    public function setUp()
+    public function setUp(): void
     {
         $manager       = Bootstrap::getObjectManager();
         $this->cfg     = new ConfigManager();
@@ -83,7 +83,7 @@ class JsTest extends \PHPUnit\Framework\TestCase
     /**
      * @after
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->cfg->removeConfigs();
 

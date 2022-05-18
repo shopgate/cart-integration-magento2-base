@@ -43,7 +43,7 @@ class CoreTest extends \PHPUnit\Framework\TestCase
     /**
      * Set up essentials
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->cfgManager  = new ConfigManager;
         $this->siteManager = new WebsiteManager;

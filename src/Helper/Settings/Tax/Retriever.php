@@ -190,7 +190,7 @@ class Retriever
                 'id'                 => $rate->getId(),
                 'key'                => $rate->getId(),
                 'display_name'       => $rate->getCode(),
-                'tax_percent'        => round($rate->getRate(), 4),
+                'tax_percent'        => round((float)$rate->getRate(), 4),
                 'country'            => $rate->getTaxCountryId(),
                 'state'              => $state,
                 'zipcode_type'       => $zipCodeType,

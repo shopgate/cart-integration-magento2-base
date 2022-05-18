@@ -37,7 +37,7 @@ class UtilityTest extends \PHPUnit\Framework\TestCase
     /**
      * Load object manager for initialization
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->objectManager = Bootstrap::getObjectManager();
     }

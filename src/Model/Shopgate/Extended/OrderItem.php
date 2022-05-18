@@ -23,6 +23,7 @@
 namespace Shopgate\Base\Model\Shopgate\Extended;
 
 use Magento\GroupedProduct\Model\Product\Type\Grouped;
+use Shopgate\Base\Helper\Encoder;
 use Shopgate\Base\Helper\Quote;
 
 class OrderItem extends \ShopgateOrderItem
@@ -39,16 +40,24 @@ class OrderItem extends \ShopgateOrderItem
     private $unhandledError = false;
     /** @var Quote */
     private $quoteHelper;
+    /** @var Encoder */
+    private $encoder;
 
     /**
      * @param ItemInfoFactory $itemInfoFactory
      * @param Quote           $quoteHelper
+     * @param Encoder         $encoder
      * @param array           $data
      */
-    public function __construct(ItemInfoFactory $itemInfoFactory, Quote $quoteHelper, $data = [])
-    {
+    public function __construct(
+        ItemInfoFactory $itemInfoFactory,
+        Quote $quoteHelper,
+        Encoder $encoder,
+        $data = []
+    ) {
         $this->itemInfoFactory = $itemInfoFactory;
         $this->quoteHelper     = $quoteHelper;
+        $this->encoder         = $encoder;
         parent::__construct($data);
     }
 
@@ -98,8 +107,7 @@ class OrderItem extends \ShopgateOrderItem
     }
 
     /**
-     * @return ItemInfo
-     * @throws \Zend_Json_Exception
+     * @return ItemInfo|string
      */
     public function getInternalOrderInfo()
     {
@@ -135,7 +143,7 @@ class OrderItem extends \ShopgateOrderItem
         if ($value instanceof ItemInfo) {
             $value = $value->toJson();
         } elseif (is_array($value)) {
-            $value = \Zend_Json_Encoder::encode($value);
+            $value = $this->encoder->encode($value);
         }
 
         return parent::setInternalOrderInfo($value);

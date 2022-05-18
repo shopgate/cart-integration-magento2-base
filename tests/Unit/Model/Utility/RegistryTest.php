@@ -34,7 +34,7 @@ class RegistryTest extends TestCase
     /**
      * Load object manager for initialization
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->registry = (new ObjectManager($this))->getObject(Registry::class);
     }

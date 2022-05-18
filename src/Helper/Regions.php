@@ -396,7 +396,7 @@ class Regions
      */
     public function getRawRegionStringByAddress($address): ?string
     {
-        return preg_replace("/{$address->getCountry()}\-/", '', $address->getState());
+        return preg_replace("/{$address->getCountry()}\-/", '', $address->getState() ?: '');
     }
 
     /**

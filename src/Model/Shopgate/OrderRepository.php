@@ -23,6 +23,7 @@
 namespace Shopgate\Base\Model\Shopgate;
 
 use Shopgate\Base\Api\OrderRepositoryInterface;
+use Shopgate\Base\Helper\Encoder;
 use Shopgate\Base\Model\Config;
 use Shopgate\Base\Model\Shopgate\Extended\Base;
 use Shopgate\Base\Model\Utility\SgLoggerInterface;
@@ -37,23 +38,28 @@ class OrderRepository implements OrderRepositoryInterface
     private $config;
     /** @var SgLoggerInterface */
     private $sgLogger;
+    /** @var Encoder */
+    private $encoder;
 
     /**
      * @param OrderFactory      $orderFactory
      * @param Base              $sgOrder
      * @param Config            $config
      * @param SgLoggerInterface $sgLogger
+     * @param Encoder           $encoder
      */
     public function __construct(
         OrderFactory $orderFactory,
         Base $sgOrder,
         Config $config,
-        SgLoggerInterface $sgLogger
+        SgLoggerInterface $sgLogger,
+        Encoder $encoder
     ) {
         $this->orderFactory = $orderFactory;
         $this->sgOrder      = $sgOrder;
         $this->config       = $config;
         $this->sgLogger     = $sgLogger;
+        $this->encoder      = $encoder;
     }
 
     /**
@@ -83,7 +89,7 @@ class OrderRepository implements OrderRepositoryInterface
             ->setIsCustomerInvoiceBlocked($this->sgOrder->getIsCustomerInvoiceBlocked());
 
         try {
-            $order->setReceivedData(\Zend_Json_Encoder::encode($this->sgOrder->toArray()));
+            $order->setReceivedData($this->encoder->encode($this->sgOrder->toArray()));
         } catch (\InvalidArgumentException $exception) {
             $this->sgLogger->error($exception->getMessage());
         }

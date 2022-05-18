@@ -43,7 +43,7 @@ class RedirectTest extends \PHPUnit\Framework\TestCase
     /** @var ConfigManager */
     private $cfgManager;
 
-    public function setUp()
+    public function setUp(): void
     {
         $manager          = Bootstrap::getObjectManager();
         $this->cfgManager = new ConfigManager;
@@ -210,7 +210,7 @@ class RedirectTest extends \PHPUnit\Framework\TestCase
     /**
      * @after
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->cfgManager->removeConfigs();
     }

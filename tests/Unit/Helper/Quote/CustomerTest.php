@@ -41,7 +41,7 @@ class CustomerTest extends \PHPUnit\Framework\TestCase
     /**
      * Load object manager for initialization
      */
-    public function setUp()
+    public function setUp(): void
     {
         $this->objectManager = new ObjectManager($this);
     }

@@ -37,7 +37,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     /** @var ConfigManager */
     private $cfg;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->cfg   = new ConfigManager();
         $manager     = Bootstrap::getObjectManager();
@@ -71,7 +71,7 @@ class BuilderTest extends \PHPUnit\Framework\TestCase
     /**
      * @after
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         $this->cfg->removeConfigs();
     }
