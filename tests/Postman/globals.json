@@ -1,6 +1,12 @@
 {
-  "id": "7f78eb7a-54ca-4077-81a2-cd7d96ca677a",
+  "id": "ce246018-7c1a-47cc-8e02-6ab28741465b",
   "values": [
+    {
+      "key": "system_port",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
     {
       "key": "framework_action_ping",
       "value": "ping",
@@ -14,6 +20,11 @@
     {
       "key": "framework_action_get_categories",
       "value": "get_categories",
+      "enabled": true
+    },
+    {
+      "key": "framework_action_get_orders",
+      "value": "get_orders",
       "enabled": true
     },
     {
@@ -42,6 +53,11 @@
       "enabled": true
     },
     {
+      "key": "framework_action_update_order",
+      "value": "update_order",
+      "enabled": true
+    },
+    {
       "key": "framework_action_check_cart",
       "value": "check_cart",
       "enabled": true
@@ -52,29 +68,33 @@
       "enabled": true
     },
     {
-      "key": "m2_store",
-      "value": "default",
+      "key": "framework_action_register_customer",
+      "value": "register_customer",
       "enabled": true
     },
     {
-      "key": "m2_rest",
-      "value": "{{mage_domain}}/rest/{{m2_store}}",
+      "key": "mock_server_merchant_uri",
+      "value": "{{host}}:3000",
+      "enabled": true
+    },
+    {
+      "key": "m2_rest_default",
+      "value": "{{mage_domain}}{{system_port}}/rest/{{m2_store}}",
       "enabled": true
     },
     {
       "key": "m2_endpoint_admin_token",
-      "value": "{{m2_rest}}/V1/integration/admin/token",
+      "value": "{{m2_rest_default}}/V1/integration/admin/token",
       "enabled": true
     },
     {
       "key": "m2_endpoint_customer",
-      "value": "{{m2_rest}}/V1/customers/2",
-      "enabled": true,
-      "type": "text"
+      "value": "{{m2_rest_default}}/V1/customers/2",
+      "enabled": true
     }
   ],
-  "name": "Shopgate Interface Plugins Globals",
+  "name": "Globals",
   "_postman_variable_scope": "globals",
-  "_postman_exported_at": "2019-06-13T15:13:52.493Z",
-  "_postman_exported_using": "Postman/7.1.1"
+  "_postman_exported_at": "2022-11-07T13:47:51.156Z",
+  "_postman_exported_using": "Postman/10.1.1"
 }
