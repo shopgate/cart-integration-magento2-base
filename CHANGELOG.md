@@ -5,13 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-## [2.9.31] - 2022-05-18
-### Added
-- Support for Magento 2.4.4 
-- Support for PHP 8.1.x
+### Fixed
+- character encoding issues in some cases when using PHP 8.1
 
 ### Changed
-- Uses Shopgate Cart Integration SDK v2.9.89
+- uses Shopgate Cart Integration SDK 2.9.90
+
+## [2.9.31] - 2022-05-18
+### Added
+- support for Magento 2.4.4
+- support for PHP 8.1.x
+
+### Changed
+- uses Shopgate Cart Integration SDK v2.9.89
 
 ## [2.9.30] - 2022-01-05
 ### Changed
