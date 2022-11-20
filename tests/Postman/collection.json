@@ -2165,9 +2165,9 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{m2_rest}}/V1/orders/{{order_id}}",
+                  "raw": "{{m2_rest_default}}/V1/orders/{{order_id}}",
                   "host": [
-                    "{{m2_rest}}"
+                    "{{m2_rest_default}}"
                   ],
                   "path": [
                     "V1",
@@ -2253,9 +2253,9 @@
                   "raw": "{\n  \"items\": [\n    {\n      \"order_item_id\": \"{{order_item_id}}\",\n      \"qty\": 1\n    }\n  ],\n  \"tracks\": [\n    {\n      \"track_number\": \"1Y-9876543210\",\n      \"title\": \"United Parcel Service\",\n      \"carrier_code\": \"ups\"\n    }\n  ]\n}"
                 },
                 "url": {
-                  "raw": "{{m2_rest}}/V1/order/{{order_id}}/ship",
+                  "raw": "{{m2_rest_default}}/V1/order/{{order_id}}/ship",
                   "host": [
-                    "{{m2_rest}}"
+                    "{{m2_rest_default}}"
                   ],
                   "path": [
                     "V1",
@@ -2412,9 +2412,9 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{m2_rest}}/V1/shopgate/order/mage/{{order_id}}",
+                  "raw": "{{m2_rest_default}}/V1/shopgate/order/mage/{{order_id}}",
                   "host": [
-                    "{{m2_rest}}"
+                    "{{m2_rest_default}}"
                   ],
                   "path": [
                     "V1",
@@ -2502,9 +2502,9 @@
                   "raw": "{\n  \"items\": [\n    {\n      \"order_item_id\": \"{{order_item_id}}\",\n      \"qty\": 1\n    }\n  ],\n  \"tracks\": [\n    {\n      \"track_number\": \"1Y-9876543210\",\n      \"title\": \"United Parcel Service\",\n      \"carrier_code\": \"ups\"\n    }\n  ]\n}"
                 },
                 "url": {
-                  "raw": "{{m2_rest}}/V1/order/{{order_id}}/ship",
+                  "raw": "{{m2_rest_default}}/V1/order/{{order_id}}/ship",
                   "host": [
-                    "{{m2_rest}}"
+                    "{{m2_rest_default}}"
                   ],
                   "path": [
                     "V1",
@@ -2661,9 +2661,9 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{m2_rest}}/V1/shopgate/order/mage/{{order_id}}",
+                  "raw": "{{m2_rest_default}}/V1/shopgate/order/mage/{{order_id}}",
                   "host": [
-                    "{{m2_rest}}"
+                    "{{m2_rest_default}}"
                   ],
                   "path": [
                     "V1",
@@ -2825,9 +2825,9 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{m2_rest}}/V1/shopgate/order/mage/{{order_id}}",
+                  "raw": "{{m2_rest_default}}/V1/shopgate/order/mage/{{order_id}}",
                   "host": [
-                    "{{m2_rest}}"
+                    "{{m2_rest_default}}"
                   ],
                   "path": [
                     "V1",
@@ -2911,9 +2911,9 @@
                   "raw": "{\n  \"items\": [\n    {\n      \"order_item_id\": \"{{order_item_id}}\",\n      \"qty\": 1\n    }\n  ],\n  \"tracks\": [\n    {\n      \"track_number\": \"1Y-9876543210\",\n      \"title\": \"United Parcel Service\",\n      \"carrier_code\": \"ups\"\n    }\n  ]\n}"
                 },
                 "url": {
-                  "raw": "{{m2_rest}}/V1/orders/{{order_id}}/cancel",
+                  "raw": "{{m2_rest_default}}/V1/orders/{{order_id}}/cancel",
                   "host": [
-                    "{{m2_rest}}"
+                    "{{m2_rest_default}}"
                   ],
                   "path": [
                     "V1",
@@ -3074,9 +3074,9 @@
                   }
                 ],
                 "url": {
-                  "raw": "{{m2_rest}}/V1/shopgate/order/mage/{{order_id}}",
+                  "raw": "{{m2_rest_default}}/V1/shopgate/order/mage/{{order_id}}",
                   "host": [
-                    "{{m2_rest}}"
+                    "{{m2_rest_default}}"
                   ],
                   "path": [
                     "V1",
@@ -3233,9 +3233,9 @@
               }
             ],
             "url": {
-              "raw": "{{m2_rest}}/V1/orders/{{order_id}}",
+              "raw": "{{m2_rest_default}}/V1/orders/{{order_id}}",
               "host": [
-                "{{m2_rest}}"
+                "{{m2_rest_default}}"
               ],
               "path": [
                 "V1",
@@ -3656,9 +3656,9 @@
           }
         ],
         "url": {
-          "raw": "{{m2_rest}}/V1/shopgate/order/{{shopgate_order_id}}",
+          "raw": "{{m2_rest_default}}/V1/shopgate/order/{{shopgate_order_id}}",
           "host": [
-            "{{m2_rest}}"
+            "{{m2_rest_default}}"
           ],
           "path": [
             "V1",
