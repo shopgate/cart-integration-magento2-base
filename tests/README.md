@@ -11,7 +11,7 @@ bin/n98-magerun2 config:set shopgate_base/general/api_key 111111111111111111;
 bin/n98-magerun2 config:set oauth/access_token_lifetime/admin ""
 bin/n98-magerun2 config:set oauth/access_token_lifetime/customer ""
 bin/n98-magerun2 config:set sshopgate_advanced/staging/server "custom"
-bin/n98-magerun2 config:set shopgate_advanced/staging/api_url [MOCK_URL]
+bin/n98-magerun2 config:set shopgate_advanced/staging/api_url "https://eoscstmcvyyyg6w.m.pipedream.net"
 ```
 Note that you can get the `mock_url` from the environment file of the Postman test suite.
 

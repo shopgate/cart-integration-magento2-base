@@ -1,9 +1,8 @@
 {
   "info": {
-    "_postman_id": "d49974e6-965f-4a44-afc6-adbcac5c875e",
+    "_postman_id": "0a1dd61d-fb77-46c1-bead-e36af5f10ebb",
     "name": "Mage2",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "5289226"
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
     {
@@ -2099,7 +2098,6 @@
                 {
                   "listen": "test",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
                       "pm.test(\"Status code is 200\", function () {",
                       "    pm.response.to.have.status(200);",
@@ -2110,39 +2108,17 @@
                       "    pm.environment.set(\"order_item_id\", jsonData.items[0].item_id);",
                       "}",
                       ""
-                    ]
+                    ],
+                    "type": "text/javascript"
                   }
                 },
                 {
                   "listen": "prerequest",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
-                      "// Retrieve magento 2 API key",
-                      "const key = pm.environment.get(\"m2_api_key\")",
-                      "if (!key) {",
-                      "    const url = pm.environment.get(\"mage_domain\") + '/rest/default/V1/integration/admin/token'",
-                      "    const postRequest = {",
-                      "      url: url,",
-                      "      method: 'POST',",
-                      "      header: 'Content-Type:application/json',",
-                      "      body: {",
-                      "        mode: 'raw',",
-                      "        raw: JSON.stringify({",
-                      "        \t\"username\": pm.environment.get(\"admin_user\"),",
-                      "        \t\"password\": pm.environment.get(\"admin_pass\")",
-                      "        })",
-                      "      }",
-                      "    };",
-                      "   pm.sendRequest(postRequest, function (err, response) {",
-                      "    if (err) {",
-                      "        console.log(err);",
-                      "    } else {",
-                      "        pm.environment.set(\"m2_api_key\", response.text().replace(/['\"]+/g, ''));",
-                      "    }",
-                      "}); ",
-                      "}"
-                    ]
+                      ""
+                    ],
+                    "type": "text/javascript"
                   }
                 }
               ],
@@ -2152,7 +2128,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{m2_api_key}}",
+                      "value": "{{gen_adminToken}}",
                       "type": "string"
                     }
                   ]
@@ -2184,7 +2160,6 @@
                 {
                   "listen": "test",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
                       "pm.test(\"Status code is 200\", function () {",
                       "    pm.response.to.have.status(200);",
@@ -2194,39 +2169,17 @@
                       "  pm.environment.set(\"shipment_id\", response.text().replace(/['\"]+/g, ''));   ",
                       "}",
                       ""
-                    ]
+                    ],
+                    "type": "text/javascript"
                   }
                 },
                 {
                   "listen": "prerequest",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
-                      "// Retrieve magento 2 API key",
-                      "const key = pm.environment.get(\"m2_api_key\")",
-                      "if (!key) {",
-                      "    const url = pm.environment.get(\"mage_domain\") + '/rest/default/V1/integration/admin/token'",
-                      "    const postRequest = {",
-                      "      url: url,",
-                      "      method: 'POST',",
-                      "      header: 'Content-Type:application/json',",
-                      "      body: {",
-                      "        mode: 'raw',",
-                      "        raw: JSON.stringify({",
-                      "        \t\"username\": pm.environment.get(\"admin_user\"),",
-                      "        \t\"password\": pm.environment.get(\"admin_pass\")",
-                      "        })",
-                      "      }",
-                      "    };",
-                      "   pm.sendRequest(postRequest, function (err, response) {",
-                      "    if (err) {",
-                      "        console.log(err);",
-                      "    } else {",
-                      "        pm.environment.set(\"m2_api_key\", response.text().replace(/['\"]+/g, ''));",
-                      "    }",
-                      "}); ",
-                      "}"
-                    ]
+                      ""
+                    ],
+                    "type": "text/javascript"
                   }
                 }
               ],
@@ -2236,7 +2189,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{m2_api_key}}",
+                      "value": "{{gen_adminToken}}",
                       "type": "string"
                     }
                   ]
@@ -2338,7 +2291,6 @@
                 {
                   "listen": "test",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
                       "pm.test(\"Status code is 200\", function () {",
                       "    pm.response.to.have.status(200);",
@@ -2352,13 +2304,13 @@
                       "pm.test(\"Is not sent to shopgate as the order is not fulfilled\", function () {",
                       "    pm.expect(jsonData.is_sent_to_shopgate).to.eql(0);",
                       "});"
-                    ]
+                    ],
+                    "type": "text/javascript"
                   }
                 },
                 {
                   "listen": "prerequest",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
                       "// Retrieve magento 2 API key",
                       "const key = pm.environment.get(\"m2_api_key\")",
@@ -2389,7 +2341,8 @@
                       "",
                       "",
                       ""
-                    ]
+                    ],
+                    "type": "text/javascript"
                   }
                 }
               ],
@@ -2399,7 +2352,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{m2_api_key}}",
+                      "value": "{{gen_adminToken}}",
                       "type": "string"
                     }
                   ]
@@ -2433,7 +2386,6 @@
                 {
                   "listen": "test",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
                       "pm.test(\"Status code is 200\", function () {",
                       "    pm.response.to.have.status(200);",
@@ -2443,39 +2395,17 @@
                       "  pm.environment.set(\"shipment_id\", response.text().replace(/['\"]+/g, ''));   ",
                       "}",
                       ""
-                    ]
+                    ],
+                    "type": "text/javascript"
                   }
                 },
                 {
                   "listen": "prerequest",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
-                      "// Retrieve magento 2 API key",
-                      "const key = pm.environment.get(\"m2_api_key\")",
-                      "if (!key) {",
-                      "    const url = pm.environment.get(\"mage_domain\") + '/rest/default/V1/integration/admin/token'",
-                      "    const postRequest = {",
-                      "      url: url,",
-                      "      method: 'POST',",
-                      "      header: 'Content-Type:application/json',",
-                      "      body: {",
-                      "        mode: 'raw',",
-                      "        raw: JSON.stringify({",
-                      "        \t\"username\": pm.environment.get(\"admin_user\"),",
-                      "        \t\"password\": pm.environment.get(\"admin_pass\")",
-                      "        })",
-                      "      }",
-                      "    };",
-                      "   pm.sendRequest(postRequest, function (err, response) {",
-                      "    if (err) {",
-                      "        console.log(err);",
-                      "    } else {",
-                      "        pm.environment.set(\"m2_api_key\", response.text().replace(/['\"]+/g, ''));",
-                      "    }",
-                      "}); ",
-                      "}"
-                    ]
+                      ""
+                    ],
+                    "type": "text/javascript"
                   }
                 }
               ],
@@ -2485,7 +2415,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{m2_api_key}}",
+                      "value": "{{gen_adminToken}}",
                       "type": "string"
                     }
                   ]
@@ -2587,7 +2517,6 @@
                 {
                   "listen": "test",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
                       "pm.test(\"Status code is 200\", function () {",
                       "    pm.response.to.have.status(200);",
@@ -2601,44 +2530,17 @@
                       "pm.test(\"Is sent to shopgate as the order is fulfilled\", function () {",
                       "    pm.expect(jsonData.is_sent_to_shopgate).to.eql(1);",
                       "});"
-                    ]
+                    ],
+                    "type": "text/javascript"
                   }
                 },
                 {
                   "listen": "prerequest",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
-                      "// Retrieve magento 2 API key",
-                      "const key = pm.environment.get(\"m2_api_key\")",
-                      "if (!key) {",
-                      "    const url = pm.environment.get(\"mage_domain\") + '/rest/default/V1/integration/admin/token'",
-                      "    const postRequest = {",
-                      "      url: url,",
-                      "      method: 'POST',",
-                      "      header: 'Content-Type:application/json',",
-                      "      body: {",
-                      "        mode: 'raw',",
-                      "        raw: JSON.stringify({",
-                      "        \t\"username\": pm.environment.get(\"admin_user\"),",
-                      "        \t\"password\": pm.environment.get(\"admin_pass\")",
-                      "        })",
-                      "      }",
-                      "    };",
-                      "   pm.sendRequest(postRequest, function (err, response) {",
-                      "    if (err) {",
-                      "        console.log(err);",
-                      "    } else {",
-                      "        pm.environment.set(\"m2_api_key\", response.text().replace(/['\"]+/g, ''));",
-                      "    }",
-                      "}); ",
-                      "}",
-                      "",
-                      "",
-                      "",
-                      "",
                       ""
-                    ]
+                    ],
+                    "type": "text/javascript"
                   }
                 }
               ],
@@ -2648,7 +2550,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{m2_api_key}}",
+                      "value": "{{gen_adminToken}}",
                       "type": "string"
                     }
                   ]
@@ -2755,7 +2657,6 @@
                 {
                   "listen": "test",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
                       "pm.test(\"Status code is 200\", function () {",
                       "    pm.response.to.have.status(200);",
@@ -2765,44 +2666,17 @@
                       "pm.test(\"Cancellation is not sent to shopgate\", function () {",
                       "    pm.expect(jsonData.is_cancellation_sent_to_shopgate).to.eql(0);",
                       "});"
-                    ]
+                    ],
+                    "type": "text/javascript"
                   }
                 },
                 {
                   "listen": "prerequest",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
-                      "// Retrieve magento 2 API key",
-                      "const key = pm.environment.get(\"m2_api_key\")",
-                      "if (!key) {",
-                      "    const url = pm.environment.get(\"mage_domain\") + '/rest/default/V1/integration/admin/token'",
-                      "    const postRequest = {",
-                      "      url: url,",
-                      "      method: 'POST',",
-                      "      header: 'Content-Type:application/json',",
-                      "      body: {",
-                      "        mode: 'raw',",
-                      "        raw: JSON.stringify({",
-                      "        \t\"username\": pm.environment.get(\"admin_user\"),",
-                      "        \t\"password\": pm.environment.get(\"admin_pass\")",
-                      "        })",
-                      "      }",
-                      "    };",
-                      "   pm.sendRequest(postRequest, function (err, response) {",
-                      "    if (err) {",
-                      "        console.log(err);",
-                      "    } else {",
-                      "        pm.environment.set(\"m2_api_key\", response.text().replace(/['\"]+/g, ''));",
-                      "    }",
-                      "}); ",
-                      "}",
-                      "",
-                      "",
-                      "",
-                      "",
                       ""
-                    ]
+                    ],
+                    "type": "text/javascript"
                   }
                 }
               ],
@@ -2812,7 +2686,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{m2_api_key}}",
+                      "value": "{{gen_adminToken}}",
                       "type": "string"
                     }
                   ]
@@ -2846,45 +2720,22 @@
                 {
                   "listen": "test",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
                       "pm.test(\"Status code is 200\", function () {",
                       "    pm.response.to.have.status(200);",
                       "});",
                       ""
-                    ]
+                    ],
+                    "type": "text/javascript"
                   }
                 },
                 {
                   "listen": "prerequest",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
-                      "// Retrieve magento 2 API key",
-                      "const key = pm.environment.get(\"m2_api_key\")",
-                      "if (!key) {",
-                      "    const url = pm.environment.get(\"mage_domain\") + '/rest/default/V1/integration/admin/token'",
-                      "    const postRequest = {",
-                      "      url: url,",
-                      "      method: 'POST',",
-                      "      header: 'Content-Type:application/json',",
-                      "      body: {",
-                      "        mode: 'raw',",
-                      "        raw: JSON.stringify({",
-                      "        \t\"username\": pm.environment.get(\"admin_user\"),",
-                      "        \t\"password\": pm.environment.get(\"admin_pass\")",
-                      "        })",
-                      "      }",
-                      "    };",
-                      "   pm.sendRequest(postRequest, function (err, response) {",
-                      "    if (err) {",
-                      "        console.log(err);",
-                      "    } else {",
-                      "        pm.environment.set(\"m2_api_key\", response.text().replace(/['\"]+/g, ''));",
-                      "    }",
-                      "}); ",
-                      "}"
-                    ]
+                      ""
+                    ],
+                    "type": "text/javascript"
                   }
                 }
               ],
@@ -2894,7 +2745,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{m2_api_key}}",
+                      "value": "{{gen_adminToken}}",
                       "type": "string"
                     }
                   ]
@@ -2996,7 +2847,6 @@
                 {
                   "listen": "test",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
                       "pm.test(\"Status code is 200\", function () {",
                       "    pm.response.to.have.status(200);",
@@ -3014,44 +2864,17 @@
                       "pm.test(\"Shipping is not sent to shopgate\", function () {",
                       "    pm.expect(jsonData.is_sent_to_shopgate).to.eql(0);",
                       "});"
-                    ]
+                    ],
+                    "type": "text/javascript"
                   }
                 },
                 {
                   "listen": "prerequest",
                   "script": {
-                    "type": "text/javascript",
                     "exec": [
-                      "// Retrieve magento 2 API key",
-                      "const key = pm.environment.get(\"m2_api_key\")",
-                      "if (!key) {",
-                      "    const url = pm.environment.get(\"mage_domain\") + '/rest/default/V1/integration/admin/token'",
-                      "    const postRequest = {",
-                      "      url: url,",
-                      "      method: 'POST',",
-                      "      header: 'Content-Type:application/json',",
-                      "      body: {",
-                      "        mode: 'raw',",
-                      "        raw: JSON.stringify({",
-                      "        \t\"username\": pm.environment.get(\"admin_user\"),",
-                      "        \t\"password\": pm.environment.get(\"admin_pass\")",
-                      "        })",
-                      "      }",
-                      "    };",
-                      "   pm.sendRequest(postRequest, function (err, response) {",
-                      "    if (err) {",
-                      "        console.log(err);",
-                      "    } else {",
-                      "        pm.environment.set(\"m2_api_key\", response.text().replace(/['\"]+/g, ''));",
-                      "    }",
-                      "}); ",
-                      "}",
-                      "",
-                      "",
-                      "",
-                      "",
                       ""
-                    ]
+                    ],
+                    "type": "text/javascript"
                   }
                 }
               ],
@@ -3061,7 +2884,7 @@
                   "bearer": [
                     {
                       "key": "token",
-                      "value": "{{m2_api_key}}",
+                      "value": "{{gen_adminToken}}",
                       "type": "string"
                     }
                   ]
@@ -3169,7 +2992,6 @@
             {
               "listen": "test",
               "script": {
-                "type": "text/javascript",
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {",
                   "    pm.response.to.have.status(200);",
@@ -3178,39 +3000,17 @@
                   "var jsonData = pm.response.json();",
                   "pm.expect(jsonData.coupon_code).to.eq('APP10');",
                   ""
-                ]
+                ],
+                "type": "text/javascript"
               }
             },
             {
               "listen": "prerequest",
               "script": {
-                "type": "text/javascript",
                 "exec": [
-                  "// Retrieve magento 2 API key",
-                  "const key = pm.environment.get(\"m2_api_key\")",
-                  "if (!key) {",
-                  "    const url = pm.environment.get(\"mage_domain\") + '/rest/default/V1/integration/admin/token'",
-                  "    const postRequest = {",
-                  "      url: url,",
-                  "      method: 'POST',",
-                  "      header: 'Content-Type:application/json',",
-                  "      body: {",
-                  "        mode: 'raw',",
-                  "        raw: JSON.stringify({",
-                  "        \t\"username\": pm.environment.get(\"admin_user\"),",
-                  "        \t\"password\": pm.environment.get(\"admin_pass\")",
-                  "        })",
-                  "      }",
-                  "    };",
-                  "   pm.sendRequest(postRequest, function (err, response) {",
-                  "    if (err) {",
-                  "        console.log(err);",
-                  "    } else {",
-                  "        pm.environment.set(\"m2_api_key\", response.text().replace(/['\"]+/g, ''));",
-                  "    }",
-                  "}); ",
-                  "}"
-                ]
+                  ""
+                ],
+                "type": "text/javascript"
               }
             }
           ],
@@ -3220,7 +3020,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{m2_api_key}}",
+                  "value": "{{gen_adminToken}}",
                   "type": "string"
                 }
               ]
@@ -3586,7 +3386,6 @@
         {
           "listen": "test",
           "script": {
-            "type": "text/javascript",
             "exec": [
               "pm.test(\"Status code is 200\", function () {",
               "    pm.response.to.have.status(200);",
@@ -3596,44 +3395,17 @@
               "if (jsonData.hasOwnProperty('items') && jsonData.items.length > 0) {",
               "    pm.environment.set(\"order_item_id\", jsonData.items[0].item_id);",
               "}"
-            ]
+            ],
+            "type": "text/javascript"
           }
         },
         {
           "listen": "prerequest",
           "script": {
-            "type": "text/javascript",
             "exec": [
-              "// Retrieve magento 2 API key",
-              "const key = pm.environment.get(\"m2_api_key\")",
-              "if (!key) {",
-              "    const url = pm.environment.get(\"mage_domain\") + '/rest/default/V1/integration/admin/token'",
-              "    const postRequest = {",
-              "      url: url,",
-              "      method: 'POST',",
-              "      header: 'Content-Type:application/json',",
-              "      body: {",
-              "        mode: 'raw',",
-              "        raw: JSON.stringify({",
-              "        \t\"username\": pm.environment.get(\"admin_user\"),",
-              "        \t\"password\": pm.environment.get(\"admin_pass\")",
-              "        })",
-              "      }",
-              "    };",
-              "   pm.sendRequest(postRequest, function (err, response) {",
-              "    if (err) {",
-              "        console.log(err);",
-              "    } else {",
-              "        pm.environment.set(\"m2_api_key\", response.text().replace(/['\"]+/g, ''));",
-              "    }",
-              "}); ",
-              "}",
-              "",
-              "",
-              "",
-              "",
               ""
-            ]
+            ],
+            "type": "text/javascript"
           }
         }
       ],
@@ -3643,7 +3415,7 @@
           "bearer": [
             {
               "key": "token",
-              "value": "{{m2_api_key}}",
+              "value": "{{gen_adminToken}}",
               "type": "string"
             }
           ]

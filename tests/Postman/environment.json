@@ -1,5 +1,5 @@
 {
-  "id": "848bb287-1b14-4c89-b21c-a6f3a6044f7b",
+  "id": "7b952bd6-9501-4191-8c20-8e7b2df3c185",
   "name": "Mage 2 env",
   "values": [
     {
@@ -34,7 +34,7 @@
     },
     {
       "key": "mock_url",
-      "value": "https://b38f8e8a-e1d9-4893-88c8-99533c071eb8.mock.pstmn.io",
+      "value": "https://eoscstmcvyyyg6w.m.pipedream.net",
       "type": "text",
       "enabled": true
     },
@@ -52,6 +52,6 @@
     }
   ],
   "_postman_variable_scope": "environment",
-  "_postman_exported_at": "2022-11-20T21:15:51.254Z",
-  "_postman_exported_using": "Postman/10.2.2"
+  "_postman_exported_at": "2022-11-22T19:25:57.345Z",
+  "_postman_exported_using": "Postman/10.1.2"
 }
