@@ -35,11 +35,9 @@ jobs:
       - name: Create GitHub release
         id: create_release
         uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          name: Shopgate Cart Integration Magento 2 Base ${{ github.ref }}
+          tag_name: ${{ steps.set-tag.outputs.TAG_NAME }}
+          name: Shopgate Cart Integration Magento 2 Base ${{ steps.set-tag.outputs.TAG_NAME }}
           draft: true
           prerelease: true
           fail_on_unmatched_files: true
