@@ -84,7 +84,11 @@ class UtilityTest extends \PHPUnit\Framework\TestCase
                 [
                     'expected' => '3',
                     'param'    => 'xyz'
-                ]
+                ],
+                [
+                    'expected' => '3',
+                    'param'    => 'd'
+                ],
             ];
     }
 
@@ -129,6 +133,10 @@ class UtilityTest extends \PHPUnit\Framework\TestCase
                 [
                     'expected' => 'f',
                     'param'    => '2'
+                ],
+                [
+                    'expected' => 'd',
+                    'param'    => '3'
                 ],
                 [
                     'expected' => '',

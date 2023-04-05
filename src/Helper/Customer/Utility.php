@@ -112,14 +112,14 @@ class Utility
      */
     protected function getShopgateGender($magentoGender): string
     {
-        $gender = '';
-        if ($magentoGender === self::MAGENTO_GENDER_MALE) {
-            $gender = ShopgateCustomer::MALE;
-        } elseif ($magentoGender === self::MAGENTO_GENDER_FEMALE) {
-            $gender = ShopgateCustomer::FEMALE;
+        switch ($magentoGender) {
+            case self::MAGENTO_GENDER_MALE:
+                return ShopgateCustomer::MALE;
+            case self::MAGENTO_GENDER_FEMALE:
+                return ShopgateCustomer::FEMALE;
+            default:
+                return ShopgateCustomer::DIVERSE;
         }
-
-        return $gender;
     }
 
     /**
