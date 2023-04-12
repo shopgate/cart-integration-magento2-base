@@ -4,6 +4,9 @@
             <general>
                 <active>0</active>
             </general>
+            <customer_configuration>
+                <gender_map></gender_map>
+            </customer_configuration>
         </shopgate_base>
         <carriers>
             <shopgate>

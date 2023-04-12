@@ -31,6 +31,8 @@ use Magento\Framework\Api\CustomAttributesDataInterface;
 use Magento\Framework\Api\SimpleDataObjectConverter;
 use Magento\Tax\Model\ClassModel;
 use Magento\Tax\Model\ResourceModel\TaxClass\Collection as TaxClassCollection;
+use Shopgate\Base\Block\Adminhtml\Form\Field\GenderMap;
+use Shopgate\Base\Helper\Gender;
 use Shopgate\Base\Helper\Regions;
 use ShopgateAddress;
 use ShopgateCustomer;
@@ -53,23 +55,28 @@ class Utility
     protected $countryFactory;
     /** @var Regions */
     private $regions;
+    /** @var Gender */
+    private $genderHelper;
 
     /**
      * @param GroupCollection    $customerGroupCollection
      * @param TaxClassCollection $taxCollection
      * @param CountryFactory     $countryFactory
      * @param Regions            $regions
+     * @param Gender             $genderHelper
      */
     public function __construct(
         GroupCollection $customerGroupCollection,
         TaxClassCollection $taxCollection,
         CountryFactory $countryFactory,
-        Regions $regions
+        Regions $regions,
+        Gender $genderHelper
     ) {
         $this->customerGroupCollection = $customerGroupCollection;
         $this->taxCollection           = $taxCollection;
         $this->countryFactory          = $countryFactory;
         $this->regions                 = $regions;
+        $this->genderHelper            = $genderHelper;
     }
 
     /**
@@ -112,14 +119,15 @@ class Utility
      */
     protected function getShopgateGender($magentoGender): string
     {
-        switch ($magentoGender) {
-            case self::MAGENTO_GENDER_MALE:
-                return ShopgateCustomer::MALE;
-            case self::MAGENTO_GENDER_FEMALE:
-                return ShopgateCustomer::FEMALE;
-            default:
-                return ShopgateCustomer::DIVERSE;
+        $mapping = $this->genderHelper->getMapping();
+
+        foreach ($mapping as $map) {
+            if ($map[GenderMap::INPUT_ID_GENDER_MAGENTO] === $magentoGender) {
+                return $map[GenderMap::INPUT_ID_GENDER_SHOPGATE];
+            }
         }
+
+        return '';
     }
 
     /**
@@ -129,14 +137,15 @@ class Utility
      */
     public function getMagentoGender($shopgateGender)
     {
-        switch ($shopgateGender) {
-            case ShopgateCustomer::MALE:
-                return self::MAGENTO_GENDER_MALE;
-            case ShopgateCustomer::FEMALE:
-                return self::MAGENTO_GENDER_FEMALE;
-            default:
-                return self::MAGENTO_GENDER_NO_SPECIFIED;
+        $mapping = $this->genderHelper->getMapping();
+
+        foreach ($mapping as $map) {
+            if ($map[GenderMap::INPUT_ID_GENDER_SHOPGATE] === $shopgateGender) {
+                return $map[GenderMap::INPUT_ID_GENDER_MAGENTO];
+            }
         }
+
+        return '';
     }
 
     /**
