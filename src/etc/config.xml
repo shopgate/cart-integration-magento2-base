@@ -5,7 +5,7 @@
                 <active>0</active>
             </general>
             <customer_configuration>
-                <gender_map></gender_map>
+                <gender_map><![CDATA[{"_1681371665131_131":{"gender_shopgate":"m","gender_magento":"1"},"_1681371668646_646":{"gender_shopgate":"f","gender_magento":"2"},"_1681371671565_565":{"gender_shopgate":"d","gender_magento":"3"}}]]></gender_map>
             </customer_configuration>
         </shopgate_base>
         <carriers>

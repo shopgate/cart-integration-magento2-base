@@ -22,7 +22,7 @@
 
 declare(strict_types=1);
 
-namespace Shopgate\Base\Model\Source\PrefixMap;
+namespace Shopgate\Base\Model\Source\GenderMap;
 
 use Magento\Config\Model\Config\Backend\Serialized\ArraySerialized as MageArraySerialized;
 use Magento\Framework\App\Cache\TypeListInterface;
