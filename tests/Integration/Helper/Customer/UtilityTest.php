@@ -137,10 +137,6 @@ class UtilityTest extends \PHPUnit\Framework\TestCase
                 [
                     'expected' => 'd',
                     'param'    => '3'
-                ],
-                [
-                    'expected' => '',
-                    'param'    => '3'
                 ]
             ];
     }
