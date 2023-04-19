@@ -7,8 +7,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 ## [Unreleased]
 ### Added
 - support for enhanced gender options from Shopgate
+
 ### Updated
 - uses Shopgate Cart Integration SDK 2.9.91
+
+### Fixed
+- error when browsing to the Shopgate configuration page and using german language
 
 ## [2.9.32] - 2022-11-24
 ### Fixed
