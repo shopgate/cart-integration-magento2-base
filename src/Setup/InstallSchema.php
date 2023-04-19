@@ -53,16 +53,16 @@ class InstallSchema implements InstallSchemaInterface
                 'Entity ID'
             )->addColumn(
                 'order_id',
-                 Table::TYPE_INTEGER,
-                 null,
-                 ['unsigned' => true, 'nullable' => false, 'default' => '0'],
-                 'Order Id'
+                Table::TYPE_INTEGER,
+                null,
+                ['unsigned' => true, 'nullable' => false, 'default' => '0'],
+                'Order Id'
             )->addColumn(
                 'store_id',
-                 Table::TYPE_SMALLINT,
-                 null,
-                 ['unsigned' => true],
-                 'Store Id'
+                Table::TYPE_SMALLINT,
+                null,
+                ['unsigned' => true],
+                'Store Id'
             )->addColumn(
                 'shopgate_order_number',
                 Table::TYPE_TEXT,
@@ -106,10 +106,10 @@ class InstallSchema implements InstallSchemaInterface
                 Table::TYPE_TEXT
             )->addIndex(
                 $installer->getIdxName('shopgate_order', ['order_id']),
-                    ['order_id']
+                ['order_id']
             )->addIndex(
                 $installer->getIdxName('shopgate_order', ['store_id']),
-                    ['store_id']
+                ['store_id']
             )->addForeignKey(
                 $installer->getFkName('shopgate_order', 'order_id', 'sales_order', 'entity_id'),
                 'order_id',
