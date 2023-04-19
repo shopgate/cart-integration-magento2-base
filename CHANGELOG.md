@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- error when browsing to the Shopgate configuration page and using german language
 
 ## [2.9.32] - 2022-11-24
 ### Fixed
