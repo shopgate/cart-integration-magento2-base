@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- support for enhanced gender options from Shopgate
+
+### Updated
+- uses Shopgate Cart Integration SDK 2.9.91
+
 ### Fixed
 - error when browsing to the Shopgate configuration page and using german language
 

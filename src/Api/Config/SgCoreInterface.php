@@ -38,6 +38,7 @@ interface SgCoreInterface
     const PATH_REDIRECT_TYPE          = self::PATH_REDIRECT . '/type';
     const PATH_CMS_MAP                = self::PATH_REDIRECT . '/cms_map';
     const PATH_PREFIX_MAP             = self::PATH_CUSTOMER_CONFIGURATION . '/prefix_map';
+    const PATH_GENDER_MAP             = self::PATH_CUSTOMER_CONFIGURATION . '/gender_map';
     const PATH_HTUSER                 = self::SECTION_ADVANCED . '/staging/htuser';
     const PATH_HTPASS                 = self::SECTION_ADVANCED . '/staging/htpass';
     const PATH_SERVER_TYPE            = self::SECTION_ADVANCED . '/staging/server';
