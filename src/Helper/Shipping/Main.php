@@ -21,39 +21,41 @@
 
 namespace Shopgate\Base\Helper\Shipping;
 
-use Magento\Directory\Model\ResourceModel\Country;
+use Magento\Directory\Model\ResourceModel\Country\CollectionFactory;
+use Magento\Shipping\Model\Carrier\AbstractCarrierInterface;
 use Magento\Shipping\Model\Config;
-use Magento\Store\Model\StoreManagerInterface;
 
 class Main
 {
     /**
-     * @param StoreManagerInterface $storeManager
-     * @param Country\Collection    $countryCollection
-     * @param Config                $carrierConfig
+     * @var Config
      */
+    private $carrierConfig;
+    /**
+     * @var CollectionFactory
+     */
+    private $countryCollectionFactory;
+
     public function __construct(
-        StoreManagerInterface $storeManager,
-        Country\Collection $countryCollection,
+        CollectionFactory $countryCollectionFactory,
         Config $carrierConfig
     ) {
-        $this->storeManager      = $storeManager;
-        $this->countryCollection = $countryCollection;
-        $this->carrierConfig     = $carrierConfig;
+        $this->carrierConfig = $carrierConfig;
+        $this->countryCollectionFactory = $countryCollectionFactory;
     }
 
     /**
-     * Retrieves magento's allowed shipping countries
+     * Retrieves Magento allowed shipping countries
      *
      * @param null|string|int $storeId - store ID of which to get the ship countries
      *
-     * @return mixed
+     * @return array
      */
     public function getMageShippingCountries($storeId = null)
     {
-        return $this
-            ->countryCollection
-            ->loadByStore($this->storeManager->getStore($storeId))
+        $countryCollection = $this->countryCollectionFactory->create();
+        return $countryCollection
+            ->loadByStore($storeId)
             ->getColumnValues('country_id');
     }
 
@@ -63,10 +65,10 @@ class Main
      *
      * @param null|string|int $storeId - store ID of which to get the carriers
      *
-     * @return mixed
+     * @return AbstractCarrierInterface[]
      */
     public function getActiveCarriers($storeId = null)
     {
-        return $this->carrierConfig->getActiveCarriers($this->storeManager->getStore($storeId));
+        return $this->carrierConfig->getActiveCarriers($storeId);
     }
 }
