@@ -2,3 +2,5 @@
 vendor
 release/shopgate_*
 .idea
+tests/node_modules
+tests/package-lock.json
