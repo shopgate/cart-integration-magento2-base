@@ -67,6 +67,10 @@ class Encoder
      */
     public function decode($string)
     {
+        if (!$string) {
+            return [];
+        }
+
         if ($this->isSerialized($string)) {
             return $this->unserialize($string);
         }
@@ -86,9 +90,9 @@ class Encoder
      *
      * @return boolean
      */
-    private function isSerialized($value)
+    private function isSerialized(string $value): bool
     {
-        return (boolean) preg_match('/^((s|i|d|b|a|O|C):|N;)/', $value);
+        return preg_match('/^((s|i|d|b|a|O|C):|N;)/', $value);
     }
 
     /**
