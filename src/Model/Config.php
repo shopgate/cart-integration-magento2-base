@@ -26,6 +26,7 @@ use Exception;
 use Magento\Config\Model\ResourceModel\Config as ConfigResource;
 use Magento\Framework\Api\SimpleDataObjectConverter;
 use Magento\Framework\App\CacheInterface;
+use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Exception\FileSystemException;
@@ -392,8 +393,8 @@ class Config extends ShopgateConfig
                 $this->saveField(
                     $this->configMapping[$property],
                     $property,
-                    $config->getScope(),
-                    $config->getScopeId()
+                    $config->getScope() ?? ScopeConfigInterface::SCOPE_TYPE_DEFAULT,
+                    $config->getScopeId() ?? 0
                 );
             }
         }
@@ -407,14 +408,19 @@ class Config extends ShopgateConfig
      *
      * @param string $path
      * @param string $property
-     * @param string $scope
-     * @param int    $scopeId
-     * @param mixed  $value
+     * @param ?string $scope
+     * @param ?int $scopeId
+     * @param mixed $value
      *
      * @throws Exception
      */
-    protected function saveField($path, $property, $scope, $scopeId, $value = null)
-    {
+    protected function saveField(
+        string $path,
+        string $property,
+        string $scope = ScopeConfigInterface::SCOPE_TYPE_DEFAULT,
+        int $scopeId = 0,
+        $value = null
+    ) {
         if ($value === null) {
             if (isset($this->configMapping[$property])) {
                 $value = $this->getPropertyValue($property);
