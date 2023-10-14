@@ -13,6 +13,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ### Fixed
 - error when browsing to the Shopgate configuration page and using german language
+- issue with `set_settings` without a scope set
+- issue with `get_settings` & country data not loading
 
 ## [2.9.32] - 2022-11-24
 ### Fixed
