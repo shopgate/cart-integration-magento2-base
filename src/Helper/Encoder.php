@@ -92,7 +92,7 @@ class Encoder
      */
     private function isSerialized(string $value): bool
     {
-        return preg_match('/^((s|i|d|b|a|O|C):|N;)/', $value);
+        return (boolean) preg_match('/^((s|i|d|b|a|O|C):|N;)/', $value);
     }
 
     /**
