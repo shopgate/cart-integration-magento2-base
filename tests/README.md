@@ -1,3 +1,24 @@
+### Unit tests
+
+* Go to `[m2 root]/vendor/shopgate/cart-integration-magento2-base`
+* `composer run tests:unit`
+
+### Integration tests
+* Create a new empty database for the integration tests. 
+* Grant all privileges to the user that will be used for running the tests.
+
+#### MySQL setup
+```mysql
+CREATE DATABASE magento2_tests;
+CREATE USER 'magento2tests'@'localhost' IDENTIFIED BY 'magento2tests';
+GRANT ALL PRIVILEGES ON magento2_tests.* TO 'magento2tests'@'localhost' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
+
+* Copy the dev/tests/integration/etc/install-config-mysql.php.dist file to dev/tests/integration/etc/install-config-mysql.php.
+* Update the database settings in install-config-mysql.php with the credentials of the user created in step 2.
+* Adjust the PHPUnit configuration file, dev/tests/integration/phpunit.xml, according to your requirements.
+
 ### Postman
 
 To set up the environment before running the postman tests you will need to configure the Base extension.

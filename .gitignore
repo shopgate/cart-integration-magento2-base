@@ -2,5 +2,6 @@
 vendor
 release/shopgate_*
 .idea
+.phpunit.result.cache
 tests/node_modules
 tests/package-lock.json
