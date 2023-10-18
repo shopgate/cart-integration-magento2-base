@@ -22,6 +22,7 @@
 
 namespace Shopgate\Base\Helper;
 
+use InvalidArgumentException;
 use Magento\Framework\Serialize\SerializerInterface;
 
 class Encoder
@@ -45,13 +46,18 @@ class Encoder
      * @param string|int|float|bool|array|null $data
      *
      * @return string
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
-    public function encode($data)
+    public function encode($data): string
     {
-        $result = json_encode($data);
+        $result = $this->serializer->serialize($data);
+
+        if (!$result) {
+            $result = json_encode($data);
+        }
+
         if (false === $result) {
-            throw new \InvalidArgumentException('Unable to serialize value.');
+            throw new InvalidArgumentException('Unable to serialize value.');
         }
 
         return $result;
@@ -63,7 +69,7 @@ class Encoder
      * @param string $string
      *
      * @return string|int|float|bool|array|null
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function decode($string)
     {
@@ -77,7 +83,7 @@ class Encoder
 
         $result = json_decode($string, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new \InvalidArgumentException('Unable to unserialize value.');
+            throw new InvalidArgumentException('Unable to unserialize value.');
         }
 
         return $result;
@@ -92,7 +98,7 @@ class Encoder
      */
     private function isSerialized(string $value): bool
     {
-        return (boolean) preg_match('/^((s|i|d|b|a|O|C):|N;)/', $value);
+        return (boolean)preg_match('/^((s|i|d|b|a|O|C):|N;)/', $value);
     }
 
     /**
@@ -101,17 +107,17 @@ class Encoder
      * @param string $string
      *
      * @return array
-     * @throws \InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     private function unserialize($string)
     {
         if (false === $string || null === $string || '' === $string) {
-            throw new \InvalidArgumentException('Unable to unserialize value.');
+            throw new InvalidArgumentException('Unable to unserialize value.');
         }
         set_error_handler(
             function () {
                 restore_error_handler();
-                throw new \InvalidArgumentException('Unable to unserialize value, string is corrupted.');
+                throw new InvalidArgumentException('Unable to unserialize value, string is corrupted.');
             },
             E_NOTICE
         );

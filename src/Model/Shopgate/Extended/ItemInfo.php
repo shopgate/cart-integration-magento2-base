@@ -19,10 +19,14 @@
  * @copyright Shopgate Inc
  * @license   http://www.apache.org/licenses/LICENSE-2.0 Apache License, Version 2.0
  */
+declare(strict_types=1);
 
 namespace Shopgate\Base\Model\Shopgate\Extended;
 
+use JsonSerializable;
 use Magento\Framework\DataObject;
+
+use function json_decode;
 
 /**
  * @method string getProductId()
@@ -37,18 +41,20 @@ use Magento\Framework\DataObject;
  * @method string getParentSku()
  * @method ItemInfo setParentSku(string $sku)
  */
-class ItemInfo extends DataObject
+class ItemInfo extends DataObject implements JsonSerializable
 {
     /**
-     * @param string | array | null $data
+     * Translates SG info data into Mage object
      *
-     * @return $this
+     * @param string|array|null $data
+     *
+     * @return ItemInfo
      */
-    public function loadInfo($data)
+    public function loadInfo($data): self
     {
         if ($this->isJson($data)) {
-            $data = \json_decode($data, true);
-        } elseif (is_null($data)) {
+            $data = json_decode($data, true);
+        } elseif (null === $data) {
             $data = [];
         }
 
@@ -58,20 +64,34 @@ class ItemInfo extends DataObject
     }
 
     /**
+     * Checks if value is proper JSON
+     *
      * @param mixed $value
      *
      * @return bool
      */
-    private function isJson($value)
+    private function isJson($value): bool
     {
         return !empty($value) && is_string($value) && strpos($value, '{') === 0;
     }
 
     /**
+     * Checks quantity
+     *
      * @return int
      */
-    public function getStackQuantity()
+    public function getStackQuantity(): int
     {
         return (int) $this->getData('stack_quantity');
+    }
+
+    /**
+     * Helps encode json data when saving to DB
+     *
+     * @return array
+     */
+    public function jsonSerialize(): array
+    {
+        return $this->getData();
     }
 }
