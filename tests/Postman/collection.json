@@ -2040,11 +2040,8 @@
                     "exec": [
                       "pm.test(\"Status code is 200\", function () {",
                       "    pm.response.to.have.status(200);",
+                      "    pm.environment.set(\"gen_shipment_id\", pm.response.text().replace(/['\"]+/g, ''));   ",
                       "});",
-                      "",
-                      "if (pm.response.status === 200) {",
-                      "  pm.environment.set(\"shipment_id\", response.text().replace(/['\"]+/g, ''));   ",
-                      "}",
                       ""
                     ],
                     "type": "text/javascript"
@@ -2054,7 +2051,7 @@
                   "listen": "prerequest",
                   "script": {
                     "exec": [
-                      ""
+                      "pm.environment.unset(\"gen_shipment_id\");"
                     ],
                     "type": "text/javascript"
                   }
@@ -2176,6 +2173,7 @@
                       "var jsonData = pm.response.json();",
                       "pm.test(\"Shipment is present\", function () {",
                       "    pm.expect(jsonData.reported_shipping_collections.length).to.eql(1);",
+                      "    pm.expect(jsonData.reported_shipping_collections).to.contain(pm.environment.get('gen_shipment_id'));",
                       "});",
                       "",
                       "pm.test(\"Is not sent to shopgate as the order is not fulfilled\", function () {",
@@ -2266,11 +2264,8 @@
                     "exec": [
                       "pm.test(\"Status code is 200\", function () {",
                       "    pm.response.to.have.status(200);",
+                      "    pm.environment.set(\"gen_shipment_id\", pm.response.text().replace(/['\"]+/g, '')); ",
                       "});",
-                      "",
-                      "if (pm.response.status === 200) {",
-                      "  pm.environment.set(\"shipment_id\", response.text().replace(/['\"]+/g, ''));   ",
-                      "}",
                       ""
                     ],
                     "type": "text/javascript"
@@ -2280,7 +2275,7 @@
                   "listen": "prerequest",
                   "script": {
                     "exec": [
-                      ""
+                      "pm.environment.unset(\"gen_shipment_id\");"
                     ],
                     "type": "text/javascript"
                   }
@@ -2402,6 +2397,7 @@
                       "var jsonData = pm.response.json();",
                       "pm.test(\"2 shipments are present\", function () {",
                       "    pm.expect(jsonData.reported_shipping_collections.length).to.eql(2);",
+                      "    pm.expect(jsonData.reported_shipping_collections).to.contain(pm.environment.get('gen_shipment_id'));",
                       "});",
                       "",
                       "pm.test(\"Is sent to shopgate as the order is fulfilled\", function () {",
@@ -2602,7 +2598,11 @@
                       "pm.test(\"Status code is 200\", function () {",
                       "    pm.response.to.have.status(200);",
                       "});",
-                      ""
+                      "",
+                      "pm.test(\"Make sure order was cancelled\", function () {",
+                      "    var jsonData = pm.response.json();",
+                      "    pm.expect(jsonData, 'Order not cancelled for some reason').to.eql(true);",
+                      "});"
                     ],
                     "type": "text/javascript"
                   }
@@ -3258,68 +3258,6 @@
           "raw": "{{domain}}",
           "host": [
             "{{domain}}"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "get SG order",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Status code is 200\", function () {",
-              "    pm.response.to.have.status(200);",
-              "});",
-              "",
-              "var jsonData = pm.response.json();",
-              "if (jsonData.hasOwnProperty('items') && jsonData.items.length > 0) {",
-              "    pm.environment.set(\"order_item_id\", jsonData.items[0].item_id);",
-              "}"
-            ],
-            "type": "text/javascript"
-          }
-        },
-        {
-          "listen": "prerequest",
-          "script": {
-            "exec": [
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{gen_adminToken}}",
-              "type": "string"
-            }
-          ]
-        },
-        "method": "GET",
-        "header": [
-          {
-            "key": "Content-Type",
-            "value": "application/json"
-          }
-        ],
-        "url": {
-          "raw": "{{m2_rest_default}}/V1/shopgate/order/{{shopgate_order_id}}",
-          "host": [
-            "{{m2_rest_default}}"
-          ],
-          "path": [
-            "V1",
-            "shopgate",
-            "order",
-            "{{shopgate_order_id}}"
           ]
         }
       },

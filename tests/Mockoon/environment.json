@@ -1,6 +1,6 @@
 {
   "uuid": "8c7cfae6-e438-42c9-92f7-053fdfa6f1a4",
-  "lastMigration": 27,
+  "lastMigration": 28,
   "name": "SG Merchant API",
   "endpointPrefix": "",
   "latency": 0,
@@ -28,7 +28,8 @@
           "fallbackTo404": false,
           "default": true,
           "databucketID": "",
-          "bodyType": "INLINE"
+          "bodyType": "INLINE",
+          "crudKey": "id"
         },
         {
           "uuid": "742d4e49-7d09-4b33-8de9-1e8a8b4a3c48",
@@ -53,7 +54,8 @@
           "fallbackTo404": false,
           "default": false,
           "databucketID": "",
-          "bodyType": "FILE"
+          "bodyType": "FILE",
+          "crudKey": "id"
         },
         {
           "uuid": "da490d86-9023-43fc-a7e0-aace85a02a54",
@@ -85,7 +87,8 @@
           "fallbackTo404": false,
           "default": false,
           "databucketID": "",
-          "bodyType": "INLINE"
+          "bodyType": "INLINE",
+          "crudKey": "id"
         },
         {
           "uuid": "41fda6d1-8970-4b38-ab51-57d69ada41ea",
@@ -117,7 +120,8 @@
           "fallbackTo404": false,
           "default": false,
           "databucketID": "",
-          "bodyType": "INLINE"
+          "bodyType": "INLINE",
+          "crudKey": "id"
         },
         {
           "uuid": "e2d82829-aaae-4cb1-89e1-d40632a4bff8",
@@ -149,7 +153,34 @@
           "fallbackTo404": false,
           "default": false,
           "databucketID": "",
-          "bodyType": "INLINE"
+          "bodyType": "INLINE",
+          "crudKey": "id"
+        },
+        {
+          "uuid": "579c44e7-fa68-4dae-8c8b-7d0bbb03a932",
+          "body": "{\"data\":[]}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "Shipping completed",
+          "headers": [],
+          "filePath": "",
+          "sendFileAsBody": false,
+          "rules": [
+            {
+              "target": "body",
+              "modifier": "action",
+              "value": "set_order_shipping_completed",
+              "operator": "equals",
+              "invert": false
+            }
+          ],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": false,
+          "databucketID": "",
+          "bodyType": "INLINE",
+          "crudKey": "id"
         }
       ],
       "enabled": true,
