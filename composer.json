@@ -21,6 +21,10 @@
       "name": "Rainer Skistims"
     }
   ],
+  "scripts": {
+    "tests:unit": "../../vendor/bin/phpunit -c phpunit_unit.xml",
+    "tests:integration": "../../vendor/bin/phpunit -c phpunit_integration.xml"
+  },
   "require": {
     "php": ">=7.1",
     "shopgate/cart-integration-sdk": "2.9.91",
