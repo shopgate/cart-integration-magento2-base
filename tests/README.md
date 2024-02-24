@@ -50,4 +50,15 @@ bin/n98-magerun2 admin:user:create --admin-user=admin --admin-password=magento12
 * Configure the environment to match yours.
 * Run collection
 
+### Disabling Inventory modules
 
+There are a few merchants out there who do not need to full extent of the `Magento_Inventory_*` abilities, thus a way 
+to disable them, and test our code, is necessary. Until we have our tests automated, it's necessary to write the 
+procedure down. It is as follows:
+
+```shell
+bin/magento module:disable $(php -f bin/magento module:status | grep "^Magento_Inventory")
+bin/magento setup:upgrade
+rm -rf var/di generated/*
+bin/magento setup:di:compile
+```

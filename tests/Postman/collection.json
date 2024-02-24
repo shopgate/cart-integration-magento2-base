@@ -1,6 +1,6 @@
 {
   "info": {
-    "_postman_id": "8d3ddb8c-c20b-4f73-aad6-4bf4af8d2ae2",
+    "_postman_id": "ea4d9578-2b45-49a0-87b0-707a63be7e8c",
     "name": "Mage2",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "5289226"
@@ -626,208 +626,567 @@
       ]
     },
     {
-      "name": "get_items",
+      "name": "catalog",
       "item": [
         {
-          "name": "Configurable Item export",
-          "event": [
+          "name": "items",
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Not an error\", function () {",
-                  "    pm.response.to.not.have.jsonBody('error');",
-                  "});",
-                  "",
-                  "pm.test(\"Configurable product has children\", function () {",
-                  "    var jsonObject = xml2Json(responseBody);",
-                  "    pm.expect(jsonObject.items.item.children).to.have.property('item');",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "*/*"
-              },
-              {
-                "key": "X-Shopgate-Auth-User",
-                "value": "{{sgHeaderAuthUser}}"
-              },
-              {
-                "key": "X-Shopgate-Auth-Token",
-                "value": "{{sgHeaderAuthToken}}"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
+              "name": "bundled",
+              "item": [
                 {
-                  "key": "shop_number",
-                  "value": "{{shop_number}}",
-                  "type": "text"
+                  "name": "M2A: change qty of bundled option",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\r",
+                          "    pm.response.to.have.status(200);\r",
+                          "});\r",
+                          "\r",
+                          "pm.test(\"Check qty changed\", function () {\r",
+                          "    var jsonData = pm.response.json();\r",
+                          "    pm.expect(jsonData.extension_attributes.stock_item.qty).to.eql(95);\r",
+                          "});"
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{gen_adminToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"product\": {\n    \"extension_attributes\": {\n      \"stock_item\": {\n        \"qty\": 95\n      }\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{m2_rest_default}}/V1/products/:sku",
+                      "host": [
+                        "{{m2_rest_default}}"
+                      ],
+                      "path": [
+                        "V1",
+                        "products",
+                        ":sku"
+                      ],
+                      "variable": [
+                        {
+                          "key": "sku",
+                          "value": "24-WG081-blue",
+                          "description": "Sprite Stasis Ball 55 cm"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
                 },
                 {
-                  "key": "action",
-                  "value": "{{framework_action_get_items}}",
-                  "type": "text"
+                  "name": "Bundled Item export",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Not an error\", function () {",
+                          "    pm.response.to.not.have.jsonBody('error');",
+                          "});",
+                          "",
+                          "pm.test(\"Bundle product has qty set\", function () {",
+                          "    var jsonObject = xml2Json(responseBody);",
+                          "    pm.expect(jsonObject.items).to.not.be.undefined;",
+                          "    const item = jsonObject.items.item;",
+                          "    pm.expect(item.$.uid).to.equal(String(pm.environment.get('gen_bundle_prod1_id')));",
+                          "    pm.expect(item.stock.stock_quantity).to.eql('95');",
+                          "});"
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "*/*"
+                      },
+                      {
+                        "key": "X-Shopgate-Auth-User",
+                        "value": "{{sgHeaderAuthUser}}"
+                      },
+                      {
+                        "key": "X-Shopgate-Auth-Token",
+                        "value": "{{sgHeaderAuthToken}}"
+                      }
+                    ],
+                    "body": {
+                      "mode": "formdata",
+                      "formdata": [
+                        {
+                          "key": "shop_number",
+                          "value": "{{shop_number}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "action",
+                          "value": "{{framework_action_get_items}}",
+                          "type": "text"
+                        },
+                        {
+                          "key": "uids[]",
+                          "value": "{{gen_bundle_prod1_id}}",
+                          "description": "bundled prod",
+                          "type": "text"
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{domain}}",
+                      "host": [
+                        "{{domain}}"
+                      ]
+                    }
+                  },
+                  "response": []
                 },
                 {
-                  "key": "uids[]",
-                  "value": "{{gen_config_prod1_id}}",
-                  "description": "Configurable product",
-                  "type": "text"
+                  "name": "M2A: revert qty change",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Status code is 200\", function () {\r",
+                          "    pm.response.to.have.status(200);\r",
+                          "});\r",
+                          "\r",
+                          "pm.test(\"Check qty changed\", function () {\r",
+                          "    var jsonData = pm.response.json();\r",
+                          "    pm.expect(jsonData.extension_attributes.stock_item.qty).to.eql(100);\r",
+                          "});"
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{gen_adminToken}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"product\": {\n    \"extension_attributes\": {\n      \"stock_item\": {\n        \"qty\": 100\n      }\n    }\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{m2_rest_default}}/V1/products/:sku",
+                      "host": [
+                        "{{m2_rest_default}}"
+                      ],
+                      "path": [
+                        "V1",
+                        "products",
+                        ":sku"
+                      ],
+                      "variable": [
+                        {
+                          "key": "sku",
+                          "value": "24-WG081-blue",
+                          "description": "Sprite Stasis Ball 55 cm"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
                 }
               ]
             },
-            "url": {
-              "raw": "{{domain}}",
-              "host": [
-                "{{domain}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Grouped Item export",
-          "event": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Not an error\", function () {",
-                  "    pm.response.to.not.have.jsonBody('error');",
-                  "});",
-                  "",
-                  "pm.test(\"Grouped product has children\", function () {",
-                  "    var jsonObject = xml2Json(responseBody);",
-                  "    pm.expect(jsonObject.items.item).to.have.property('children');",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "*/*"
-              },
-              {
-                "key": "X-Shopgate-Auth-User",
-                "value": "{{sgHeaderAuthUser}}"
-              },
-              {
-                "key": "X-Shopgate-Auth-Token",
-                "value": "{{sgHeaderAuthToken}}"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
+              "name": "Configurable Item export",
+              "event": [
                 {
-                  "key": "shop_number",
-                  "value": "{{shop_number}}",
-                  "type": "text"
-                },
-                {
-                  "key": "action",
-                  "value": "{{framework_action_get_items}}",
-                  "type": "text"
-                },
-                {
-                  "key": "uids[]",
-                  "value": "{{gen_group_prod1_id}}",
-                  "description": "Grouped product",
-                  "type": "text"
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Not an error\", function () {",
+                      "    pm.response.to.not.have.jsonBody('error');",
+                      "});",
+                      "",
+                      "pm.test(\"Configurable product has children\", function () {",
+                      "    var jsonObject = xml2Json(responseBody);",
+                      "    pm.expect(jsonObject.items.item.children).to.have.property('item');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
                 }
-              ]
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "X-Shopgate-Auth-User",
+                    "value": "{{sgHeaderAuthUser}}"
+                  },
+                  {
+                    "key": "X-Shopgate-Auth-Token",
+                    "value": "{{sgHeaderAuthToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "shop_number",
+                      "value": "{{shop_number}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "action",
+                      "value": "{{framework_action_get_items}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "uids[]",
+                      "value": "{{gen_config_prod1_id}}",
+                      "description": "Configurable product",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{domain}}",
+                  "host": [
+                    "{{domain}}"
+                  ]
+                }
+              },
+              "response": []
             },
-            "url": {
-              "raw": "{{domain}}",
-              "host": [
-                "{{domain}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Simple Item export",
-          "event": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Not an error\", function () {",
-                  "    pm.response.to.not.have.jsonBody('error');",
-                  "});",
-                  "",
-                  "pm.test(\"Simple product does not have children\", function () {",
-                  "    var jsonObject = xml2Json(responseBody);",
-                  "    pm.expect(jsonObject.items.item.children).to.not.have.property('item');",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "*/*"
-              },
-              {
-                "key": "X-Shopgate-Auth-User",
-                "value": "{{sgHeaderAuthUser}}"
-              },
-              {
-                "key": "X-Shopgate-Auth-Token",
-                "value": "{{sgHeaderAuthToken}}"
-              }
-            ],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
+              "name": "Grouped Item export",
+              "event": [
                 {
-                  "key": "shop_number",
-                  "value": "{{shop_number}}",
-                  "type": "text"
-                },
-                {
-                  "key": "action",
-                  "value": "{{framework_action_get_items}}",
-                  "type": "text"
-                },
-                {
-                  "key": "uids[]",
-                  "value": "{{gen_simple_prod1_id}}",
-                  "description": "Simple product",
-                  "type": "text"
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Not an error\", function () {",
+                      "    pm.response.to.not.have.jsonBody('error');",
+                      "});",
+                      "",
+                      "pm.test(\"Grouped product has children\", function () {",
+                      "    var jsonObject = xml2Json(responseBody);",
+                      "    pm.expect(jsonObject.items.item).to.have.property('children');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
                 }
-              ]
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "X-Shopgate-Auth-User",
+                    "value": "{{sgHeaderAuthUser}}"
+                  },
+                  {
+                    "key": "X-Shopgate-Auth-Token",
+                    "value": "{{sgHeaderAuthToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "shop_number",
+                      "value": "{{shop_number}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "action",
+                      "value": "{{framework_action_get_items}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "uids[]",
+                      "value": "{{gen_group_prod1_id}}",
+                      "description": "Grouped product",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{domain}}",
+                  "host": [
+                    "{{domain}}"
+                  ]
+                }
+              },
+              "response": []
             },
-            "url": {
-              "raw": "{{domain}}",
-              "host": [
-                "{{domain}}"
-              ]
+            {
+              "name": "Simple Item export",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Not an error\", function () {",
+                      "    pm.response.to.not.have.jsonBody('error');",
+                      "});",
+                      "",
+                      "pm.test(\"Simple product does not have children\", function () {",
+                      "    var jsonObject = xml2Json(responseBody);",
+                      "    pm.expect(jsonObject.items.item.children).to.not.have.property('item');",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "X-Shopgate-Auth-User",
+                    "value": "{{sgHeaderAuthUser}}"
+                  },
+                  {
+                    "key": "X-Shopgate-Auth-Token",
+                    "value": "{{sgHeaderAuthToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "shop_number",
+                      "value": "{{shop_number}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "action",
+                      "value": "{{framework_action_get_items}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "uids[]",
+                      "value": "{{gen_simple_prod1_id}}",
+                      "description": "Simple product",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{domain}}",
+                  "host": [
+                    "{{domain}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "first 5 export",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Not an error\", function () {",
+                      "    pm.response.to.not.have.jsonBody('error');",
+                      "});",
+                      "",
+                      "pm.test(\"Has 5 items\", function () {",
+                      "    var jsonObject = xml2Json(responseBody);",
+                      "    pm.expect(Object.keys(jsonObject.items.item).length).to.eq(5);",
+                      "});",
+                      "",
+                      "pm.test(\"Last item is with UID 5\", function () {",
+                      "    body = cheerio(responseBody);",
+                      "    uid5 = body.find(\"item[uid='5']\").html();",
+                      "    pm.expect(uid5).to.not.eq(null);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "X-Shopgate-Auth-User",
+                    "value": "{{sgHeaderAuthUser}}"
+                  },
+                  {
+                    "key": "X-Shopgate-Auth-Token",
+                    "value": "{{sgHeaderAuthToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "shop_number",
+                      "value": "{{shop_number}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "action",
+                      "value": "{{framework_action_get_items}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5",
+                      "description": "\n",
+                      "type": "text"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{domain}}",
+                  "host": [
+                    "{{domain}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "item: 5th item is not skipped",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "type": "text/javascript",
+                    "exec": [
+                      "pm.test(\"Not an error\", function () {",
+                      "    pm.response.to.not.have.jsonBody('error');",
+                      "});",
+                      "",
+                      "pm.test(\"Has 5 items\", function () {",
+                      "    var jsonObject = xml2Json(responseBody);",
+                      "    pm.expect(Object.keys(jsonObject.items.item).length).to.eq(5);",
+                      "});",
+                      "",
+                      "pm.test(\"Last item is with UID 5\", function () {",
+                      "    body = cheerio(responseBody);",
+                      "    uid5 = body.find(\"item[uid='5']\").html();",
+                      "    pm.expect(uid5).to.not.eq(null);",
+                      "});"
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "X-Shopgate-Auth-User",
+                    "value": "{{sgHeaderAuthUser}}"
+                  },
+                  {
+                    "key": "X-Shopgate-Auth-Token",
+                    "value": "{{sgHeaderAuthToken}}"
+                  }
+                ],
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "key": "shop_number",
+                      "value": "{{shop_number}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "action",
+                      "value": "{{framework_action_get_items}}",
+                      "type": "text"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "5",
+                      "description": "\n",
+                      "type": "text"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{domain}}",
+                  "host": [
+                    "{{domain}}"
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
-          "name": "first 5 export",
+          "name": "getCategories",
           "event": [
             {
               "listen": "test",
@@ -838,15 +1197,9 @@
                   "    pm.response.to.not.have.jsonBody('error');",
                   "});",
                   "",
-                  "pm.test(\"Has 5 items\", function () {",
+                  "pm.test(\"have categories\", function () {",
                   "    var jsonObject = xml2Json(responseBody);",
-                  "    pm.expect(Object.keys(jsonObject.items.item).length).to.eq(5);",
-                  "});",
-                  "",
-                  "pm.test(\"Last item is with UID 5\", function () {",
-                  "    body = cheerio(responseBody);",
-                  "    uid5 = body.find(\"item[uid='5']\").html();",
-                  "    pm.expect(uid5).to.not.eq(null);",
+                  "    pm.expect(jsonObject.categories.category).to.have.property('name');",
                   "});"
                 ]
               }
@@ -878,18 +1231,17 @@
                 },
                 {
                   "key": "action",
-                  "value": "{{framework_action_get_items}}",
+                  "value": "{{framework_action_get_categories}}",
                   "type": "text"
                 },
                 {
                   "key": "limit",
-                  "value": "5",
-                  "description": "\n",
+                  "value": "1",
                   "type": "text"
                 },
                 {
                   "key": "offset",
-                  "value": "0",
+                  "value": "1",
                   "type": "text"
                 }
               ]
@@ -904,7 +1256,7 @@
           "response": []
         },
         {
-          "name": "item: 5th item is not skipped",
+          "name": "getReviews",
           "event": [
             {
               "listen": "test",
@@ -915,15 +1267,9 @@
                   "    pm.response.to.not.have.jsonBody('error');",
                   "});",
                   "",
-                  "pm.test(\"Has 5 items\", function () {",
+                  "pm.test(\"have reviews\", function () {",
                   "    var jsonObject = xml2Json(responseBody);",
-                  "    pm.expect(Object.keys(jsonObject.items.item).length).to.eq(5);",
-                  "});",
-                  "",
-                  "pm.test(\"Last item is with UID 5\", function () {",
-                  "    body = cheerio(responseBody);",
-                  "    uid5 = body.find(\"item[uid='5']\").html();",
-                  "    pm.expect(uid5).to.not.eq(null);",
+                  "    pm.expect(jsonObject.reviews.review).to.have.property('item_uid');",
                   "});"
                 ]
               }
@@ -955,18 +1301,17 @@
                 },
                 {
                   "key": "action",
-                  "value": "{{framework_action_get_items}}",
+                  "value": "{{framework_action_get_reviews}}",
                   "type": "text"
                 },
                 {
                   "key": "limit",
-                  "value": "5",
-                  "description": "\n",
+                  "value": "1",
                   "type": "text"
                 },
                 {
                   "key": "offset",
-                  "value": "0",
+                  "value": "1",
                   "type": "text"
                 }
               ]
@@ -3054,76 +3399,6 @@
       "response": []
     },
     {
-      "name": "getReviews",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Not an error\", function () {",
-              "    pm.response.to.not.have.jsonBody('error');",
-              "});",
-              "",
-              "pm.test(\"have reviews\", function () {",
-              "    var jsonObject = xml2Json(responseBody);",
-              "    pm.expect(jsonObject.reviews.review).to.have.property('item_uid');",
-              "});"
-            ]
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Accept",
-            "value": "*/*"
-          },
-          {
-            "key": "X-Shopgate-Auth-User",
-            "value": "{{sgHeaderAuthUser}}"
-          },
-          {
-            "key": "X-Shopgate-Auth-Token",
-            "value": "{{sgHeaderAuthToken}}"
-          }
-        ],
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "key": "shop_number",
-              "value": "{{shop_number}}",
-              "type": "text"
-            },
-            {
-              "key": "action",
-              "value": "{{framework_action_get_reviews}}",
-              "type": "text"
-            },
-            {
-              "key": "limit",
-              "value": "1",
-              "type": "text"
-            },
-            {
-              "key": "offset",
-              "value": "1",
-              "type": "text"
-            }
-          ]
-        },
-        "url": {
-          "raw": "{{domain}}",
-          "host": [
-            "{{domain}}"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
       "name": "get_customer",
       "event": [
         {
@@ -3180,76 +3455,6 @@
             {
               "key": "pass",
               "value": "roni_cost3@example.com",
-              "type": "text"
-            }
-          ]
-        },
-        "url": {
-          "raw": "{{domain}}",
-          "host": [
-            "{{domain}}"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "getCategories",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "type": "text/javascript",
-            "exec": [
-              "pm.test(\"Not an error\", function () {",
-              "    pm.response.to.not.have.jsonBody('error');",
-              "});",
-              "",
-              "pm.test(\"have categories\", function () {",
-              "    var jsonObject = xml2Json(responseBody);",
-              "    pm.expect(jsonObject.categories.category).to.have.property('name');",
-              "});"
-            ]
-          }
-        }
-      ],
-      "request": {
-        "method": "POST",
-        "header": [
-          {
-            "key": "Accept",
-            "value": "*/*"
-          },
-          {
-            "key": "X-Shopgate-Auth-User",
-            "value": "{{sgHeaderAuthUser}}"
-          },
-          {
-            "key": "X-Shopgate-Auth-Token",
-            "value": "{{sgHeaderAuthToken}}"
-          }
-        ],
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            {
-              "key": "shop_number",
-              "value": "{{shop_number}}",
-              "type": "text"
-            },
-            {
-              "key": "action",
-              "value": "{{framework_action_get_categories}}",
-              "type": "text"
-            },
-            {
-              "key": "limit",
-              "value": "1",
-              "type": "text"
-            },
-            {
-              "key": "offset",
-              "value": "1",
               "type": "text"
             }
           ]

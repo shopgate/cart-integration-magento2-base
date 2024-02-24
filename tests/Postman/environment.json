@@ -4,7 +4,7 @@
   "values": [
     {
       "key": "mage_domain",
-      "value": "http://example.shopgate.com",
+      "value": "http://magento2.test",
       "type": "text",
       "enabled": true
     },
@@ -39,12 +39,6 @@
       "enabled": true
     },
     {
-      "key": "mock_url",
-      "value": "https://eoscstmcvyyyg6w.m.pipedream.net",
-      "type": "text",
-      "enabled": true
-    },
-    {
       "key": "admin_user",
       "value": "admin",
       "type": "text",
@@ -52,7 +46,7 @@
     },
     {
       "key": "admin_pass",
-      "value": "magento123",
+      "value": "admin123",
       "type": "text",
       "enabled": true
     }
