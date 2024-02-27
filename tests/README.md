@@ -32,16 +32,16 @@ bin/magento config:set shopgate_base/general/api_key 111111111111111111;
 bin/magento config:set oauth/access_token_lifetime/admin ""
 bin/magento config:set oauth/access_token_lifetime/customer ""
 ```
-Note that you can get the `mock_url` from the environment file of the Postman test suite.
 
-* One of the tests also requires the .sql file to be imported, you can do it like this:
+* One of the tests also requires the .sql file to be imported, 
+you can do it like this (replace user/password/database with yours):
 ```shell
-n98-magerun2 db:import dev/modules/cart-integration-magento2-base/tests/Postman/addTestCartRule.sql
+mysql -u magento2 -p magento2 < dev/modules/cart-integration-magento2-base/tests/Postman/addTestCartRule.sql
 ```
 
 Create admin:
 ```shell
-n98-magerun2 admin:user:create --admin-user=admin --admin-password=magento123 --admin-email=test@example.com --admin-firstname=Admin --admin-lastname=Test
+bin/magento admin:user:create --admin-user=admin --admin-password=magento123 --admin-email=test@example.com --admin-firstname=Admin --admin-lastname=Test
 ```
 
 * Import collection, environment & global files into postman. 
