@@ -5,11 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+Reminder: `develop` currently contains changes to tests & CI - there won't be a release for this. Feel free to remove
+this comment once there's production code changes that need to be documented.
+
 ## [2.9.33] - 2023-11-08
 ### Added
 - support for enhanced gender options from Shopgate
 
-### Updated
+### Changed
 - uses Shopgate Cart Integration SDK 2.9.91
 
 ### Fixed
