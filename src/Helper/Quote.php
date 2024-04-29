@@ -41,7 +41,6 @@ use Shopgate\Base\Model\Shopgate\Extended;
 use Shopgate\Base\Model\Utility\Registry;
 use Shopgate\Base\Model\Utility\SgLoggerInterface;
 use ShopgateLibraryException;
-use Laminas\Serializer\Serializer;
 
 /**
  * This class must not return anything except itself as it only
@@ -72,6 +71,8 @@ class Quote
     protected $quoteRepository;
     /** @var Type */
     protected $typeHelper;
+    /** @var Encoder  */
+    protected $encoder;
 
     /**
      * @param MageQuote             $quote
@@ -85,6 +86,7 @@ class Quote
      * @param Coupon                $quoteCoupon
      * @param QuoteRepository       $quoteRepository
      * @param Type                  $typeHelper
+     * @param Encoder               $encoder
      */
     public function __construct(
         MageQuote $quote,
@@ -97,7 +99,8 @@ class Quote
         StoreManagerInterface $storeManager,
         Coupon $quoteCoupon,
         QuoteRepository $quoteRepository,
-        Type $typeHelper
+        Type $typeHelper,
+        Encoder $encoder
     ) {
         $this->quote             = $quote;
         $this->sgBase            = $cart;
@@ -110,6 +113,7 @@ class Quote
         $this->quoteCouponHelper = $quoteCoupon;
         $this->quoteRepository   = $quoteRepository;
         $this->typeHelper        = $typeHelper;
+        $this->encoder           = $encoder;
     }
 
     /**
@@ -187,10 +191,10 @@ class Quote
                     }
                 }
                 $quoteItem->setTaxPercent($item->getTaxPercent());
-
-                $additionalDataObject = new DataObject();
-                $additionalDataObject->setShopgateItemNumber($item->getOrderItemId());
-                $quoteItem->setAdditionalData(Serializer::serialize($additionalDataObject));
+                $additionalData = [
+                    'shopgate_item_number' => $item->getOrderItemId(),
+                ];
+                $quoteItem->setAdditionalData($this->encoder->encode($additionalData));
 
                 if (!$item->isSimple()) {
                     $productWeight = $product->getTypeInstance()->getWeight($product);
