@@ -5,8 +5,6 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
-Reminder: `develop` currently contains changes to tests & CI - there won't be a release for this. Feel free to remove
-this comment once there's production code changes that need to be documented.
 ### Removed
 - usage of deprecated Laminas serializer 
 
