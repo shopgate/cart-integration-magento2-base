@@ -6,12 +6,15 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## [Unreleased]
 ### Removed
-- Support for Magento 2 below version 2.4.4
+- support for Magento 2 below version 2.4.4
 - PHP Support below Version 8.1
+
+### Changed
+- uses Shopgate Cart Integration SDK 2.11.0
 
 ## [2.9.34] - 2024-05-10
 ### Removed
-- usage of deprecated Laminas serializer 
+- usage of deprecated Laminas serializer
 
 ## [2.9.33] - 2023-11-08
 ### Added
