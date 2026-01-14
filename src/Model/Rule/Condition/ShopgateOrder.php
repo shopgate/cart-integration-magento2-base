@@ -133,7 +133,7 @@ class ShopgateOrder extends AbstractCondition
      *
      * @return bool
      */
-    public function validate(\Magento\Framework\Model\AbstractModel $model)
+    public function validate(\Magento\Framework\Model\AbstractModel $model): bool
     {
         $isShopgateOrder = $model->hasData(self::CLIENT_ATTRIBUTE)
             ? in_array($model->getData(self::CLIENT_ATTRIBUTE), self::APP_CLIENTS)
